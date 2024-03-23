@@ -1,10 +1,10 @@
-package applicationWeb;
+package myAppSpringBoot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class GestionNotesSpringApplicationTests {
+class ProjectGenieLogicielSpringBootApplicationTests {
 
 	@Test
 	void contextLoads() {
