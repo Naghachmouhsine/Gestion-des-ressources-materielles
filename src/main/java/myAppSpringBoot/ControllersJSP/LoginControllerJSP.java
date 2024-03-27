@@ -29,6 +29,26 @@ public class LoginControllerJSP {
           // http://localhost:4040/interface-enseignant
     }
     
+    @RequestMapping("/interface-chefDepartement")
+    public String showPagePrincipaleChefDepartement() {
+        return "ChefDepartement/InterfacePrincipaleChefDepartement";
+    }
+
+    @RequestMapping("/interface-responsable")
+    public String showPagePrincipaleResponsable() {
+        return "Responsable/InterfacePrincipaleResponsable";
+    }
+
+    @RequestMapping("/interface-fournisseur")
+    public String showPagePrincipaleFournisseur() {
+        return "Fournisseur/InterfacePrincipaleFournisseur";
+    }
+
+    @RequestMapping("/interface-technicien")
+    public String showPagePrincipaleTechnicien() {
+        return "Technicien/InterfacePrincipaleTechnicien";
+    }
+    
    // Endpoint pour vérifier les informations d'identification de l'utilisateur
     @PostMapping("/loginForm") // ce chemin existe dans la formulaire action = "/loginForm"
     public String VerifierLoginPassword(@RequestParam("emailForm") String email, 
@@ -37,11 +57,26 @@ public class LoginControllerJSP {
     	// Récupérer l'utilisateur par e-mail
         UserModel existingUser = userController.getUserByEmail(email);
         if (existingUser != null && existingUser.getPassword().equals(password)) {
-       	 return "redirect:/interface-enseignant"; // http://localhost:4040/interface-enseignant
-       } else {
-           model.addAttribute("errorMessage", "Erreur d'authentification...! Veuillez réessayer.");
-            return "Login/LoginInterface";
-       }
+            // Vérifier le rôle de l'utilisateur
+            String role = existingUser.getRoles();
+            switch (role) {
+                case "ChefDepartement":
+                    return "redirect:/interface-chefDepartement";
+                case "Responsable":
+                    return "redirect:/interface-responsable";
+                case "Enseignant":
+                    return "redirect:/interface-enseignant";
+                case "Fournisseur":
+                    return "redirect:/interface-fournisseur";
+                case "Technicien":
+                    return "redirect:/interface-technicien";
+                default:
+                    return "Login/LoginInterface";
+              }
+	       } else {
+	           model.addAttribute("errorMessage", "Erreur d'authentification...! Veuillez réessayer.");
+	            return "Login/LoginInterface";
+	       }
    }
         
 
