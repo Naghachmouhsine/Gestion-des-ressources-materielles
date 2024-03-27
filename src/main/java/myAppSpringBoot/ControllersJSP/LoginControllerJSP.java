@@ -24,7 +24,7 @@ public class LoginControllerJSP {
     
     @RequestMapping("/interface-enseignant")
     public String showPagePrincipaleEnseignant() {
-        return "Ensiengant/InterfacePrincipaleEnseignant";
+        return "Enseignant/InterfacePrincipaleEnseignant";
       // Le nom du fichier JSP (InterfacePrincipaleEnseignant.jsp) existe dans le dossier "Enseignant"
           // http://localhost:4040/interface-enseignant
     }
