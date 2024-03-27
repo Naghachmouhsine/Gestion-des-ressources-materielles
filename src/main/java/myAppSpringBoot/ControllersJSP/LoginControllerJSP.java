@@ -22,11 +22,11 @@ public class LoginControllerJSP {
           // http://localhost:4040/login
     }
     
-    @RequestMapping("/interface-ensiengant")
-    public String showPagePrincipaleEnsiengant() {
-        return "Ensiengant/InterfacePrincipaleEnsiengant";
-      // Le nom du fichier JSP (InterfacePrincipaleEnsiengant.jsp) existe dans le dossier "Ensiengant"
-          // http://localhost:4040/interface-ensiengant
+    @RequestMapping("/interface-enseignant")
+    public String showPagePrincipaleEnseignant() {
+        return "Ensiengant/InterfacePrincipaleEnseignant";
+      // Le nom du fichier JSP (InterfacePrincipaleEnseignant.jsp) existe dans le dossier "Enseignant"
+          // http://localhost:4040/interface-enseignant
     }
     
    // Endpoint pour vérifier les informations d'identification de l'utilisateur
@@ -37,7 +37,7 @@ public class LoginControllerJSP {
     	// Récupérer l'utilisateur par e-mail
         UserModel existingUser = userController.getUserByEmail(email);
         if (existingUser != null && existingUser.getPassword().equals(password)) {
-       	 return "redirect:/interface-ensiengant"; // http://localhost:4040/interface-ensiengant
+       	 return "redirect:/interface-enseignant"; // http://localhost:4040/interface-enseignant
        } else {
            model.addAttribute("errorMessage", "Erreur d'authentification...! Veuillez réessayer.");
             return "Login/LoginInterface";
