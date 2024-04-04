@@ -1,5 +1,7 @@
 package myAppSpringBoot.ControllersJSP;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,9 @@ public class LoginControllerJSP {
 	
 	@Autowired
 	private UserController userController;
+	
+	@Autowired
+    private HttpSession httpSession; // Injection de l'objet HttpSession
 
     @RequestMapping("/login")
     public String showLoginPage() {
@@ -41,7 +46,7 @@ public class LoginControllerJSP {
 
     @RequestMapping("/interface-fournisseur")
     public String showPagePrincipaleFournisseur() {
-        return "Fournisseur/InterfacePrincipaleFournisseur";
+        return "FournisseurModel/InterfacePrincipaleFournisseur";
     }
 
     @RequestMapping("/interface-technicien")
@@ -57,6 +62,9 @@ public class LoginControllerJSP {
     	// Récupérer l'utilisateur par e-mail
         UserModel existingUser = userController.getUserByEmail(email);
         if (existingUser != null && existingUser.getPassword().equals(password)) {
+        	// Stocker l'utilisateur dans la session
+            httpSession.setAttribute("currentUser", existingUser);
+        	
             // Vérifier le rôle de l'utilisateur
             String role = existingUser.getRoles();
             switch (role) {
@@ -66,7 +74,7 @@ public class LoginControllerJSP {
                     return "redirect:/interface-responsable";
                 case "Enseignant":
                     return "redirect:/interface-enseignant";
-                case "Fournisseur":
+                case "FournisseurModel":
                     return "redirect:/interface-fournisseur";
                 case "Technicien":
                     return "redirect:/interface-technicien";

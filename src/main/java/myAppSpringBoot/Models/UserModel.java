@@ -2,11 +2,14 @@ package myAppSpringBoot.Models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import java.sql.Date;
 
 @Entity
 @Table(name = "Users")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class UserModel {
 	
 	@Id
@@ -18,8 +21,6 @@ public class UserModel {
     // private String login;
     private String password;
     private String roles;
-    
-    // Bonjour sanae khaoula
     
     
 	public String getCin() {

@@ -20,17 +20,18 @@
 body {
   min-height: 100vh;
   overflow-x: hidden;
+  
 }
 
-.container {
+.containerCSS {
   position: relative;
   width: 100%;
 }
 
 /* =============== Navigation ================ */
-.navigation {
+.navigationCSS {
   position: fixed;
-  width: 220px;
+  width: 200px;
   height: 100%;
   /* background: var(--blue); */
   background: #808080;
@@ -38,18 +39,18 @@ body {
   transition: 0.5s;
   overflow: hidden;
 }
-.navigation.active {
-  width: 80px;
+.navigationCSS.active {
+  width: 105px; /* avec bootstrap sinon ==> width: 80px;*/
 }
 
-.navigation ul {
+.navigationCSS ul {
   position: absolute;
   top: 0;
-  left: 0;
-  width: 100%;
+   left: -30px; /* avec bootstrap sinon ==> left: 0;*/
+  width: 115%; /* avec bootstrap sinon ==> width: 100%;*/
 }
 
-.navigation ul li {
+.navigationCSS ul li {
   position: relative;
   width: 100%;
   list-style: none;
@@ -57,17 +58,17 @@ body {
   border-bottom-left-radius: 30px;
 }
 
-.navigation ul li:hover,
-.navigation ul li.hovered {
+.navigationCSS ul li:hover,
+.navigationCSS ul li.hovered {
   background-color: var(--white);
 }
 
-.navigation ul li:nth-child(1) {
+.navigationCSS ul li:nth-child(1) {
   margin-bottom: 15px;
   pointer-events: none;
 }
 
-.navigation ul li div {
+.navigationCSS ul li div {
   position: relative;
   display: block;
   width: 100%;
@@ -75,12 +76,12 @@ body {
   text-decoration: none;
   color: var(--white);
 }
-.navigation ul li:hover div,
-.navigation ul li.hovered div {
+.navigationCSS ul li:hover div,
+.navigationCSS ul li.hovered div {
   color: var(--blue);
 }
 
-.navigation ul li div .icon {
+.navigationCSS ul li div .icon {
   position: relative;
   display: block;
   min-width: 60px;
@@ -88,11 +89,11 @@ body {
   line-height: 75px;
   text-align: center;
 }
-.navigation ul li div .icon ion-icon {
+.navigationCSS ul li div .icon ion-icon {
   font-size: 1.75rem;
 }
 
-.navigation ul li div .title {
+.navigationCSS ul li div .title {
   position: relative;
   display: block;
   padding: 0 10px;
@@ -103,8 +104,8 @@ body {
 }
 
 /* --------- curve outside ---------- */
-.navigation ul li:hover div::before,
-.navigation ul li.hovered div::before {
+.navigationCSS ul li:hover div::before,
+.navigationCSS ul li.hovered div::before {
   content: "";
   position: absolute;
   right: 0;
@@ -116,8 +117,8 @@ body {
   box-shadow: 35px 35px 0 10px var(--white);
   pointer-events: none;
 }
-.navigation ul li:hover div::after,
-.navigation ul li.hovered div::after {
+.navigationCSS ul li:hover div::after,
+.navigationCSS ul li.hovered div::after {
   content: "";
   position: absolute;
   right: 0;
@@ -131,20 +132,20 @@ body {
 }
 
 /* ===================== Main ===================== */
-.main {
+.mainCSS {
   position: absolute;
-  width: calc(100% - 220px);
-  left: 220px;
+  width: calc(100% - 200px);
+  left: 200px;
   min-height: 100vh;
   background: var(--white);
   transition: 0.5s;
 }
-.main.active {
+.mainCSS.active {
   width: calc(100% - 80px);
   left: 80px;
 }
 
-.topbar {
+.topbarCSS {
   width: 100%;
   height: 60px;
   display: flex;
@@ -153,7 +154,7 @@ body {
   padding: 0 10px;
 }
 
-.toggle {
+.toggleCSS {
   position: relative;
   width: 60px;
   height: 60px;
@@ -164,18 +165,19 @@ body {
   cursor: pointer;
 }
 
-.search {
+.searchCSS {
   position: relative;
   width: 400px;
   margin: 0 10px;
+  
 }
 
-.search label {
+.searchCSS label {
   position: relative;
   width: 100%;
 }
 
-.search label input {
+.searchCSS label input {
   width: 100%;
   height: 40px;
   border-radius: 40px;
@@ -186,14 +188,14 @@ body {
   border: 1px solid var(--black2);
 }
 
-.search label ion-icon {
+.searchCSS label ion-icon {
   position: absolute;
-  top: 0;
+  top: 12px; /* avec bootstrap sinon ==> top: 0;*/
   left: 10px;
   font-size: 1.2rem;
 }
 
-.user {
+.userCSS {
   position: relative;
   width: 40px;
   height: 40px;
@@ -202,7 +204,7 @@ body {
   cursor: pointer;
 }
 
-.user img {
+.userCSS img {
   position: absolute;
   top: 0;
   left: 0;
@@ -408,18 +410,18 @@ body {
 
 /* ====================== Responsive Design ========================== */
 @media (max-width: 991px) {
-  .navigation {
+  .navigationCSS {
     left: -300px;
   }
-  .navigation.active {
+  .navigationCSS.active {
     width: 300px;
     left: 0;
   }
-  .main {
+  .mainCSS {
     width: 100%;
     left: 0;
   }
-  .main.active {
+  .mainCSS.active {
     left: 300px;
   }
   .cardBox {
@@ -446,25 +448,25 @@ body {
   .cardHeader h2 {
     font-size: 20px;
   }
-  .user {
+  .userCSS {
     min-width: 40px;
   }
-  .user ion-icon {
+  .userCSS ion-icon {
     font-size: 240px !important;
 }
-  .navigation {
+  .navigationCSS {
     width: 100%;
     left: -100%;
     z-index: 1000;
   }
-  .navigation.active {
+  .navigationCSS.active {
     width: 100%;
     left: 0;
   }
-  .toggle {
+  .toggleCSS {
     z-index: 10001;
   }
-  .main.active .toggle {
+  .mainCSS.active .toggleCSS {
     color: #fff;
     position: fixed;
     right: 0;
