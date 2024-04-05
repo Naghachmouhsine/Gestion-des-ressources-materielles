@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +11,8 @@
     
     <!-- ======= Bootstrap ====== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+   <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
@@ -42,19 +46,53 @@
 
 <!-- ========================= le contenu ==================== -->
 <br />		
-     <div class="container">
-        <div>
-            <p>CIN: ${sessionScope.currentUser.cin}</p>
-            <p>Nom: ${sessionScope.currentUser.nom}</p>
-            <p>Prénom: ${sessionScope.currentUser.prenom}</p>
-            <p>Date de naissance: ${sessionScope.currentUser.date_naissance}</p>
-            <p>Email: ${sessionScope.currentUser.email}</p>
-            <p>Rôles: ${sessionScope.currentUser.roles}</p>
-        </div>
-     </div>
+<div class='container'>
+    <table class='table table-striped table-bordered'>
+          <thead >
+            <th>Num Inventaire</th>
+            <th>Etat Reception</th>
+            <th>Etat Affectation</th>
+            <th>Personnel</th>
+            <th>Role</th>
+            <th style="width:13%">Action</th>
+          </thead>
+         
+         <tbody> 
+            <c:forEach items="${myListRessources}" var="ressource">
+	           <tr>
+	       	     <td>${ressource.numero_inventaire}</td>
+	             <td>${ressource.etat_recep}</td> 
+	             <td>${ressource.etat_affect}</td>   
+	             <td>${ressource.besoin.personnelAdministration.nom} ${ressource.besoin.personnelAdministration.prenom}</td>  
+	             <td>${ressource.besoin.personnelAdministration.roles}</td> 
+	             <td> 
+                   <a style="color: red; cursor: pointer; margin-left: 40px; font-size: 22px;"
+                      onclick="return confirm('Voulez-vous vraiment signaler une panne pour cette ressource ?')"
+                      title="Signaler Panne"> <i class="fas fa-exclamation-triangle"></i>
+                   </a>
+                </td>
+	            </tr>  
+             </c:forEach>
+          </tbody>
+        </table> 
+            
+              <div class="form-group row">
+                  <div class="col-sm-5 offset-sm-10" >
+                    <div onClick="Retour();">
+                      <button style="width:30%; font-size:110%; background-color:#B0C4DE;" class="btn btn-info">Retour</button>
+                    </div>                          
+                  </div>
+              </div>
+                        
+      </div>
+
 <!-- ========================= Fin Contenu ==================== -->          
         </div>
 <!-- ========================= Fin Main ==================== -->
     
 </body>
 </html>
+
+
+<%-- <p>CIN: ${sessionScope.currentUser.cin}</p> --%>
+

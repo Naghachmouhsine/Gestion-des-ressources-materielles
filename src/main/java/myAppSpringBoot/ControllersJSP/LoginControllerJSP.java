@@ -1,5 +1,7 @@
 package myAppSpringBoot.ControllersJSP;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import myAppSpringBoot.Controllers.RessourceController;
 import myAppSpringBoot.Controllers.UserController;
+import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
 
 @Controller
@@ -17,6 +21,8 @@ public class LoginControllerJSP {
 	
 	@Autowired
 	private UserController userController;
+	@Autowired
+	private RessourceController ressourceController;
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
@@ -28,7 +34,10 @@ public class LoginControllerJSP {
     }
     
     @RequestMapping("/interface-enseignant")
-    public String showPagePrincipaleEnseignant() {
+    public String showPagePrincipaleEnseignant(Model model) {
+    	List<RessourceModel> ressources = ressourceController.getAllRessources();
+        model.addAttribute("myListRessources", ressources);
+        
         return "Enseignant/InterfacePrincipaleEnseignant";
       // Le nom du fichier JSP (InterfacePrincipaleEnseignant.jsp) existe dans le dossier "Enseignant"
           // http://localhost:4040/interface-enseignant
@@ -46,7 +55,7 @@ public class LoginControllerJSP {
 
     @RequestMapping("/interface-fournisseur")
     public String showPagePrincipaleFournisseur() {
-        return "FournisseurModel/InterfacePrincipaleFournisseur";
+        return "Fournisseur/InterfacePrincipaleFournisseur";
     }
 
     @RequestMapping("/interface-technicien")
