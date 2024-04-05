@@ -23,7 +23,7 @@
                 </li>
 
                 <li>
-                    <div>
+                    <div id="besoinsButton">
                         <span class="icon">
                             <ion-icon name="list-outline"></ion-icon>
                         </span>
@@ -32,7 +32,7 @@
                 </li>
 
                 <li>
-                    <div>
+                    <div id="ressourcesButton">
                         <span class="icon">
                             <ion-icon name="folder-open-outline"></ion-icon>
                         </span>
@@ -50,11 +50,11 @@
                 </li>
 
                 <li>
-                    <div>
+                    <div id="profilButton">
                         <span class="icon">
                             <ion-icon name="person-circle-outline"></ion-icon>
                         </span>
-                        <span class="title">Profile</span>
+                        <span class="title">Profil</span>
                     </div>
                 </li>
 

@@ -20,6 +20,41 @@ document.addEventListener("DOMContentLoaded", function() {
         navigation.classList.toggle("active");
         main.classList.toggle("active");
     };
+//------------------------------------------------------------------------------------------
+    let ressourcesButton = document.getElementById("ressourcesButton");
+    let besoinsButton = document.getElementById("besoinsButton");
+    let profilButton = document.getElementById("profilButton");
+    
+    let ressourcesContent = document.getElementById("ressourcesContent");
+    let besoinsContent = document.getElementById("besoinsContent");
+    let profilContent = document.getElementById("profilContent");
+    
+	ressourcesButton.addEventListener("click", function() {
+		    // Afficher le contenu ressources
+	        ressourcesContent.style.display = "block";
+	        
+	        // Masquer le contenu des besoins et du profil si nécessaire
+	        besoinsContent.style.display = "none";
+	        profilContent.style.display = "none";
+	});
+	
+	besoinsButton.addEventListener("click", function() {
+		   // Afficher le contenu des besoins
+	        besoinsContent.style.display = "block";
+	        
+	        // Masquer le contenu des ressources et du profil si nécessaire
+	        ressourcesContent.style.display = "none";
+	        profilContent.style.display = "none";
+	});
+	
+	profilButton.addEventListener("click", function() {
+		// Afficher le contenu du profil
+        profilContent.style.display = "block";
+
+        // Masquer le contenu des ressources et des besoins si nécessaire
+        ressourcesContent.style.display = "none";
+        besoinsContent.style.display = "none";
+});
 });
 
 /*
@@ -27,3 +62,12 @@ le problème réside dans le fait que le fichier JavaScript "main.js" ne peut pa
 la solution ==> document.addEventListener("DOMContentLoaded", function() { ......... });
 ==> Avec ces changements, le fichier JavaScript devrait maintenant pouvoir accéder aux classes définies dans deux fichiers JSP differents...!
 */
+
+
+
+
+
+
+
+
+
