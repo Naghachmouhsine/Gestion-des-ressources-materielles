@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import myAppSpringBoot.Controllers.BesoinController;
 import myAppSpringBoot.Controllers.RessourceController;
 import myAppSpringBoot.Controllers.UserController;
+import myAppSpringBoot.Models.BesoinModel;
 import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
 
@@ -23,6 +25,8 @@ public class LoginControllerJSP {
 	private UserController userController;
 	@Autowired
 	private RessourceController ressourceController;
+	@Autowired
+	private BesoinController besoinController;
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
@@ -37,6 +41,9 @@ public class LoginControllerJSP {
     public String showPagePrincipaleEnseignant(Model model) {
     	List<RessourceModel> ressources = ressourceController.getAllRessources();
         model.addAttribute("myListRessources", ressources);
+        
+        List<BesoinModel> besoins = besoinController.getAllBesoins();
+        model.addAttribute("myListBesoins", besoins);
         
         return "Enseignant/InterfacePrincipaleEnseignant";
       // Le nom du fichier JSP (InterfacePrincipaleEnseignant.jsp) existe dans le dossier "Enseignant"
