@@ -3,9 +3,9 @@ package myAppSpringBoot.Repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import myAppSpringBoot.Models.BesoinModel;
+import myAppSpringBoot.Models.ImprimanteModel;
 
 @Repository
-public interface BesoinRepository extends JpaRepository<BesoinModel, Integer> {
+public interface ImprimanteRepository extends JpaRepository<ImprimanteModel, Integer> {
 
 }

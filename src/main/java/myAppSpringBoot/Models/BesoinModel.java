@@ -1,6 +1,8 @@
 package myAppSpringBoot.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 public class BesoinModel {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Utiliser GenerationType.IDENTITY pour auto-incrémenter
+	// @GeneratedValue(strategy = GenerationType.AUTO) // Utiliser GenerationType.AUTO pour laisser Hibernate choisir la meilleure stratégie
 	private int id_bes;
 	private String type;
 	
