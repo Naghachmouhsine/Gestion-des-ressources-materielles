@@ -51,7 +51,11 @@ public class LoginControllerJSP {
     }
     
     @RequestMapping("/interface-chefDepartement")
-    public String showPagePrincipaleChefDepartement() {
+    public String showPagePrincipaleChefDepartement(Model model, HttpSession httpSession) {
+        // Récupérer l'utilisateur de la session
+        UserModel currentUser = (UserModel) httpSession.getAttribute("currentUser");
+        // Ajouter l'utilisateur au modèle
+        model.addAttribute("currentUser", currentUser);
         return "ChefDepartement/InterfacePrincipaleChefDepartement";
     }
 
