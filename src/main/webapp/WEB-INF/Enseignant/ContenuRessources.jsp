@@ -37,3 +37,17 @@
                   </div>
               </div>                      
        </div>
+       
+       
+
+
+<!-- ----------------------------------------------------------------------------------------------
+<%-- Vérifier si l'utilisateur connecté est un enseignant et si son CIN correspond au CIN du personnel associé à la ressource --%>
+  <c:if test="${sessionScope.Enseignant != null && sessionScope.Enseignant.cin == ressource.besoin.personnelAdministration.cin}">
+      <tr>
+          <td></td>
+      </tr>
+  </c:if>
+ -->
+
+      

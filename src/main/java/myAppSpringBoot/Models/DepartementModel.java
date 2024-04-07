@@ -1,6 +1,8 @@
 package myAppSpringBoot.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -9,6 +11,7 @@ import javax.persistence.Table;
 public class DepartementModel {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // pour auto-incrémenter
 	private int id_depart;
 	private String nom_depart;
 

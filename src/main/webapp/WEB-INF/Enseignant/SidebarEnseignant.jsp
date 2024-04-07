@@ -68,7 +68,7 @@
                 </li>
 
                 <li>
-                    <div>
+                    <div id="signOutButton">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -83,6 +83,41 @@
 <!-- ====== ionicons ======= -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Assurez-vous d'inclure la bibliothèque SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>  
+document.getElementById('signOutButton').addEventListener('click', function() {
+    // Afficher la boîte de dialogue de confirmation avec SweetAlert
+    Swal.fire({
+        title: 'Confirmation',
+        text: 'Voulez-vous vraiment vous déconnecter ?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Oui',
+        cancelButtonText: 'Non'
+    }).then((result) => {
+        // Si l'utilisateur clique sur "Oui", effectuer la déconnexion
+        if (result.isConfirmed) {
+            fetch('/logout', {
+                method: 'POST' // Vous pouvez utiliser GET ou POST selon votre configuration
+            })
+            .then(response => {
+                // Rediriger l'utilisateur vers la page de connexion après la déconnexion
+                window.location.replace('/login');
+               //window.location.href = '/login';
+            })
+            .catch(error => {
+                console.error('Erreur lors de la déconnexion :', error);
+            });
+        }
+    });
+});
+</script>
+
 
 </body>
 </html>

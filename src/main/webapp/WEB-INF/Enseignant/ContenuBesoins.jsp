@@ -1,30 +1,35 @@
 
-   <div class='container'>
+<%@ include file="EnvoyerBesoin.jsp" %>
+
+<!-- ------------------------------------------------------------------------------ -->
+<div class='container'>
    
    <!-- Bouton pour envoyer un besoin -->
-    <button id="envoyerBesoinButton" class="btn btn-primary mb-3">Envoyer un besoin</button>
+  <button id="envoyerBesoinButton" class="btn btn-primary mb-3" >Envoyer un besoin</button>
+  
+<%--   <p>CIN: ${sessionScope.Enseignant.cin}</p>  --%>
    
-   
-      <table class='table table-striped table-bordered'>
-          <thead >
-            <th>Appel d'offre</th>
-            <th>Type</th>
-            <th>Personnel</th>
-            <th>Role</th>
-            <th>Caractéristiques</th>
-            <th style="width:8%">Actions</th>
-          </thead>
-         
-         <tbody> 
-            <c:forEach items="${myListBesoins}" var="besoin">
-	           <tr>
-	       	     <td>${besoin.appelOffre.nom}</td>
-	             <td>${besoin.type}</td> 
-	             <td>${besoin.personnelAdministration.nom} ${besoin.personnelAdministration.prenom}</td>  
-	             <td>${besoin.personnelAdministration.roles}</td> 
-	             <td>
-                      <%-- Vérifier le type du besoin et afficher les caractéristiques appropriées --%>
-                       <c:choose>
+<table class='table table-striped table-bordered'>
+    <thead>
+        <th>Appel d'offre</th>
+        <th>Type</th>
+        <th>Personnel</th>
+        <th>Role</th>
+        <th>Caractéristiques</th>
+        <th style="width:8%">Actions</th>
+    </thead>
+    <tbody> 
+        <c:forEach items="${myListBesoins}" var="besoin">
+            <%-- Vérifier si l'utilisateur connecté est un enseignant et si son CIN correspond au CIN du personnel associé au besoin --%>
+            <c:if test="${sessionScope.Enseignant != null && sessionScope.Enseignant.cin == besoin.personnelAdministration.cin}">
+                <tr>
+                    <td>${besoin.appelOffre.nom}</td>
+                    <td>${besoin.type}</td> 
+                    <td>${besoin.personnelAdministration.nom} ${besoin.personnelAdministration.prenom}</td>  
+                    <td>${besoin.personnelAdministration.roles}</td> 
+                    <td>
+                        <%-- Vérifier le type du besoin et afficher les caractéristiques appropriées --%>
+                        <c:choose>
                             <c:when test="${besoin.type eq 'ordinateur'}">
                                 <%-- Besoin est un ordinateur --%>
                                 CPU: ${besoin.cpu} GHz, Disque Dur: ${besoin.disque_dur} Go, Ecran: ${besoin.ecran} pouces, RAM: ${besoin.ram} Go
@@ -35,11 +40,23 @@
                             </c:when>
                         </c:choose>
                     </td>
-	             <td> </td>
-	            </tr>  
-             </c:forEach>
-          </tbody>
-        </table> 
+                    <td> 
+                        <div style="color: green; cursor: pointer; margin-left: 7px; font-size: 22px; display: inline-block;"
+                             onclick="return confirm('Voulez-vous vraiment modifier ce besoin ?')"
+                             title="Edit"> <i class="fas fa-edit"></i> 
+                        </div>
+                        <div style="color: red; cursor: pointer; margin-left: 8px; font-size: 22px; display: inline-block;"
+                             onclick="return confirm('Voulez-vous vraiment supprimer ce besoin ?')"
+                             title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </div>
+                    </td>
+                </tr>  
+            </c:if>
+        </c:forEach>
+    </tbody>
+</table>
+
             
               <div class="form-group row">
                   <div class="col-sm-5 offset-sm-10" >
@@ -49,3 +66,11 @@
                   </div>
               </div>                      
        </div>
+       
+<script>
+    document.getElementById("envoyerBesoinButton").addEventListener("click", function() {
+        $('#envoyerBesoinModal').modal('show');
+    });
+</script>
+
+       
