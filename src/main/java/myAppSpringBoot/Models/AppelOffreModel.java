@@ -17,10 +17,10 @@ public class AppelOffreModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // pour auto-incrémenter
-	private int id_app_off;
-	private String nom;
-	private Date date_debut;
-	private Date date_fin;
+	protected int id_app_off;
+	protected String nom;
+	protected Date date_debut;
+	protected Date date_fin;
 	
 	public AppelOffreModel(){
 
