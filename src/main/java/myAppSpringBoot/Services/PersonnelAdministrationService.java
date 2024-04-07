@@ -18,4 +18,9 @@ public class PersonnelAdministrationService implements PersonnelAdministrationSe
     public List<PersonnelAdministrationModel> getAllPersonnel() {
         return personnelAdministrationRepository.findAll();
     }
+	
+	@Override
+	public PersonnelAdministrationModel getIdDeparByCin(String cin) {
+		return personnelAdministrationRepository.findIdDeparByCin(cin);
+	}
 }

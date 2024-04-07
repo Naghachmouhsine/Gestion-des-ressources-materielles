@@ -8,4 +8,5 @@ import myAppSpringBoot.Models.PersonnelAdministrationModel;
 @Repository
 public interface PersonnelAdministrationRepository extends JpaRepository<PersonnelAdministrationModel, String> {
 
+	PersonnelAdministrationModel findIdDeparByCin(String cin);
 }

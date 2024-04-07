@@ -8,4 +8,5 @@ public interface PersonnelAdministrationServiceInterface {
 	
 	public List<PersonnelAdministrationModel> getAllPersonnel();
 
+	public PersonnelAdministrationModel getIdDeparByCin(String cin);
 }

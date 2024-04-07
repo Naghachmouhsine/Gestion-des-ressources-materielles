@@ -68,4 +68,5 @@ public class UserService implements UserServiceInterface {
     public UserModel getUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+    
 }
