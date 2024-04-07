@@ -1,5 +1,6 @@
 package myAppSpringBoot.ControllersJSP;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -11,10 +12,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import myAppSpringBoot.Controllers.AppelOffreController;
 import myAppSpringBoot.Controllers.BesoinController;
+import myAppSpringBoot.Controllers.PersonnelAdministrationController;
 import myAppSpringBoot.Controllers.RessourceController;
 import myAppSpringBoot.Controllers.UserController;
+import myAppSpringBoot.Models.AppelOffreModel;
 import myAppSpringBoot.Models.BesoinModel;
+import myAppSpringBoot.Models.PersonnelAdministrationModel;
 import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
 
@@ -27,6 +32,10 @@ public class LoginControllerJSP {
 	private RessourceController ressourceController;
 	@Autowired
 	private BesoinController besoinController;
+	@Autowired
+	private AppelOffreController appelOffreController;
+	@Autowired
+	private PersonnelAdministrationController personnelAdministrationController;
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
@@ -39,11 +48,33 @@ public class LoginControllerJSP {
     
     @RequestMapping("/interface-enseignant")
     public String showPagePrincipaleEnseignant(Model model) {
-    	List<RessourceModel> ressources = ressourceController.getAllRessources();
-        model.addAttribute("myListRessources", ressources);
-        
         List<BesoinModel> besoins = besoinController.getAllBesoins();
         model.addAttribute("myListBesoins", besoins);
+        
+        List<AppelOffreModel> appelOffres = appelOffreController.getAllAppelOffres();
+        model.addAttribute("myListAppelOffres", appelOffres);
+        
+        List<PersonnelAdministrationModel> personnels = personnelAdministrationController.getAllPersonnel();
+        model.addAttribute("myListPersonnels", personnels);
+        
+     // Récupérer l'utilisateur actuellement connecté à partir de la session
+        UserModel currentUserEns = (UserModel) httpSession.getAttribute("Enseignant");
+        if (currentUserEns == null) {
+            // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+            return "redirect:/login";
+        }
+     // Récupérer le CIN de l'utilisateur connecté
+        String cinUtilisateur = currentUserEns.getCin();
+    	List<RessourceModel> allRessources  = ressourceController.getAllRessources();
+    	// Filtrer les ressources en fonction du CIN de l'utilisateur
+        List<RessourceModel> userRessources = new ArrayList<>();
+        for (RessourceModel ressource : allRessources) {
+            // Vous devrez ajuster cette logique en fonction de la structure de votre modèle d'utilisateur et de ressource
+            if (ressource.getBesoin().getPersonnelAdministration().getCin().equals(cinUtilisateur)) {
+                userRessources.add(ressource);
+            }
+        } 	
+    	model.addAttribute("myListRessources", userRessources);
         
         return "Enseignant/InterfacePrincipaleEnseignant";
       // Le nom du fichier JSP (InterfacePrincipaleEnseignant.jsp) existe dans le dossier "Enseignant"
@@ -51,11 +82,7 @@ public class LoginControllerJSP {
     }
     
     @RequestMapping("/interface-chefDepartement")
-    public String showPagePrincipaleChefDepartement(Model model, HttpSession httpSession) {
-        // Récupérer l'utilisateur de la session
-        UserModel currentUser = (UserModel) httpSession.getAttribute("currentUser");
-        // Ajouter l'utilisateur au modèle
-        model.addAttribute("currentUser", currentUser);
+    public String showPagePrincipaleChefDepartement() {
         return "ChefDepartement/InterfacePrincipaleChefDepartement";
     }
 
@@ -83,20 +110,25 @@ public class LoginControllerJSP {
         UserModel existingUser = userController.getUserByEmail(email);
         if (existingUser != null && existingUser.getPassword().equals(password)) {
         	// Stocker l'utilisateur dans la session
-            httpSession.setAttribute("currentUser", existingUser);
+            // httpSession.setAttribute("currentUser", existingUser);
         	
             // Vérifier le rôle de l'utilisateur
             String role = existingUser.getRoles();
             switch (role) {
                 case "ChefDepartement":
+                	httpSession.setAttribute("ChefDepartement", existingUser);
                     return "redirect:/interface-chefDepartement";
                 case "Responsable":
+                	httpSession.setAttribute("Responsable", existingUser);
                     return "redirect:/interface-responsable";
                 case "Enseignant":
+                	httpSession.setAttribute("Enseignant", existingUser);
                     return "redirect:/interface-enseignant";
                 case "FournisseurModel":
+                	httpSession.setAttribute("ChefDepartement", existingUser);
                     return "redirect:/interface-fournisseur";
                 case "Technicien":
+                	httpSession.setAttribute("Technicien", existingUser);
                     return "redirect:/interface-technicien";
                 default:
                     return "Login/LoginInterface";
@@ -107,11 +139,5 @@ public class LoginControllerJSP {
 	       }
    }
         
-
-
-    
-    
-    
-    
     
 }
