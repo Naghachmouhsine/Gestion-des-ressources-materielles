@@ -101,7 +101,6 @@
   </div>
 </div>
 
-
 <script>
 $(document).ready(function() {
     $('#typeForm').change(function() {

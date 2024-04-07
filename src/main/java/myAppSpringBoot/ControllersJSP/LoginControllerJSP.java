@@ -19,9 +19,11 @@ import myAppSpringBoot.Controllers.RessourceController;
 import myAppSpringBoot.Controllers.UserController;
 import myAppSpringBoot.Models.AppelOffreModel;
 import myAppSpringBoot.Models.BesoinModel;
+import myAppSpringBoot.Models.PanneModel;
 import myAppSpringBoot.Models.PersonnelAdministrationModel;
 import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
+import myAppSpringBoot.Repositories.PanneRepository;
 
 @Controller
 public class LoginControllerJSP {
@@ -36,6 +38,8 @@ public class LoginControllerJSP {
 	private AppelOffreController appelOffreController;
 	@Autowired
 	private PersonnelAdministrationController personnelAdministrationController;
+	@Autowired
+	private PanneRepository panneRepository;
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
@@ -57,13 +61,19 @@ public class LoginControllerJSP {
         List<PersonnelAdministrationModel> personnels = personnelAdministrationController.getAllPersonnel();
         model.addAttribute("myListPersonnels", personnels);
         
+        List<UserModel> users = userController.getAllUsers();
+        model.addAttribute("myListUsers", users);
+        
+        List<PanneModel> listePannes = panneRepository.findAll();
+        model.addAttribute("listePannes", listePannes);
+        
      // Récupérer l'utilisateur actuellement connecté à partir de la session
         UserModel currentUserEns = (UserModel) httpSession.getAttribute("Enseignant");
         if (currentUserEns == null) {
             // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
             return "redirect:/login";
         }
-     // Récupérer le CIN de l'utilisateur connecté
+       // Récupérer le CIN de l'utilisateur connecté
         String cinUtilisateur = currentUserEns.getCin();
     	List<RessourceModel> allRessources  = ressourceController.getAllRessources();
     	// Filtrer les ressources en fonction du CIN de l'utilisateur
