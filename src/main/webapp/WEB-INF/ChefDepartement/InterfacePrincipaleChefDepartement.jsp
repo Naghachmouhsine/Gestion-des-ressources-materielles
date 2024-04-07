@@ -18,7 +18,6 @@
     <script src="/static/js/main.js"></script>
 </head>
 <body>
-<<<<<<< HEAD
     <!-- Inclure la barre de navigation -->
     <jsp:include page="SideBarChefDepartement.jsp" />
     
@@ -29,6 +28,5 @@
     <p>Nom d'utilisateur : ${ChefDepartement.nom}</p>
     <p>Email : ${ChefDepartement.email}</p>
     <!-- Ajoutez ici le contenu de la page principale du chef de département -->
->>>>>>> 6412ba8a87b9ae24ef76f6aaea2d09c002a391ac
 </body>
 </html>
