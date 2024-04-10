@@ -1,5 +1,6 @@
 package myAppSpringBoot.Models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,7 +14,9 @@ public class FournisseurModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // pour auto-incrémenter
 	private int id_four;
-	private String nom_societe;
+	@Column(name = "nom_societe") // Spécifier le nom de la colonne dans la base de données
+    private String nomSociete;
+	private String motDePasse;
 	private String gerant;
 	private String adresse;
 	private String lieu;
@@ -24,6 +27,14 @@ public class FournisseurModel {
 
 	}
 
+	public String getMotDePasse() {
+		return motDePasse;
+	}
+
+	public void setMotDePasse(String motDePasse) {
+		this.motDePasse = motDePasse;
+	}
+
 	public int getId_four() {
 		return id_four;
 	}
@@ -32,12 +43,12 @@ public class FournisseurModel {
 		this.id_four = id_four;
 	}
 
-	public String getNom_societe() {
-		return nom_societe;
+	public String getNomSociete() {
+		return nomSociete;
 	}
 
-	public void setNom_societe(String nom_societe) {
-		this.nom_societe = nom_societe;
+	public void setNomSociete(String nomSociete) {
+		this.nomSociete = nomSociete;
 	}
 
 	public String getGerant() {
