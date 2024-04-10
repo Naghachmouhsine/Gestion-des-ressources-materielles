@@ -114,12 +114,14 @@
 <body>
 <div class="wrapper">
     <c:forEach items="${myListNotifications}" var="notification" varStatus="loop">
+      <c:if test="${notification.user_dest.cin == sessionScope.Enseignant.cin}"> <!-- Cette condition affiche uniquement les notifications destinées à l'enseignant actuellement authentifié -->
         <div class="toast ${notification.etat==1 ? 'success' : 'info'} ${notification.etat==0 ? 'unread' : ''}" style="display: grid;" onclick="markAsRead(this)" data-notification-id="${notification.id_notif}">
             <div class="container-1">
                 <i class="fas fa-${notification.etat==1 ? 'check-square' : 'info-circle'}"></i>
             </div>
             <div class="container-2">
-                <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom} (${notification.user_sour.roles})</p>
+                <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom}</p>
+                <%-- <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom} (${notification.user_sour.roles})</p> --%>
                 <p>${notification.message}</p>
             </div>
             <button>&times;</button>
@@ -128,7 +130,9 @@
         <c:if test="${loop.index % 2 == 1 && !loop.last}">
             <div style="width: 100%; margin-bottom: 20px;"></div>
         </c:if>
-    </c:forEach>
+	   </c:if>
+	</c:forEach>
+
     
      <!-- ajouter de l'espace après vos notifications -->
     <div style="width: 100%; margin-bottom: 20px;"></div>

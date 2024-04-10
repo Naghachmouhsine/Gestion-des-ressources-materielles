@@ -10,6 +10,9 @@
     
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    
+    <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
 
@@ -32,15 +35,16 @@
                     </c:if>
                 </div>
                 
-                <form action="/loginForm" method="post" style="margin-top: 15%;">
+                <form id="loginForm" action="/loginForm" method="post" style="margin-top: 15%;" onsubmit="return validateForm()">
                     <label class="label-label" for="email"> <h6> Email :</h6> </label>
                     <input type="email" name="emailForm" id="emailForm" class="input-login" placeholder="Entrez votre email..." value="" />
                     
                     <label class="label-label" for="password"> <h6>Password :</h6> </label>
-                    <input type="password" name="passwordForm" id="pwd1" class="input-login" placeholder="Entrez votre mot de passe..." value="" onchange="setpassval(this.value);" />
+                    <input type="password" name="passwordForm" id="passwordForm" class="input-login" placeholder="Entrez votre mot de passe..." value="" />
                     
                     <button type="submit" id="sub-butt" class="btn btn" style="margin-right: -32%; background: #008B8B"> Vérifier </button>
                     <button onclick="RetourPageUser();" type="button" id="sub-butt" class="btn btn-danger" style="background: #DC143C"> Retour </button>
+                </form> <br/>
                 </form> <br/>
                                 
                 <div class="text-center mt-3">
@@ -67,6 +71,21 @@
             if (window.confirm("Voulez-vous vraiment modifier le mot de passe ?")) {
                 var currentPath = location.pathname;
             }
+        }
+        
+        function validateForm() {
+            var email = document.getElementById('emailForm').value;
+            var password = document.getElementById('passwordForm').value;
+            
+            if (email.trim() === '' || password.trim() === '') {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Veuillez remplir tous les champs!',
+                });
+                return false; // empêche la soumission du formulaire
+            }
+            return true; // permet la soumission du formulaire
         }
     </script>
   

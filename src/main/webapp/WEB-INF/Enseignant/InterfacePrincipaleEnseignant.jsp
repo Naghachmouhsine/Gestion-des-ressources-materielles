@@ -61,7 +61,7 @@
 	<%@ include file="ContenuProfil.jsp" %>
 </div>
 
-<!-- 3- Contenu des messages (Le contenu par défaut lorsque l'application est lancée) --------------------------------------------- -->  
+<!-- 3- Contenu des messages (Le contenu par défaut lorsque l'application est lancée 'car ne contient pas : style="display: none;"') --------------------------------------------- -->  
 <div id="messagesContent">
     <%@ include file="ContenuMessage.jsp" %>
 </div>
