@@ -19,10 +19,12 @@ import myAppSpringBoot.Controllers.RessourceController;
 import myAppSpringBoot.Controllers.UserController;
 import myAppSpringBoot.Models.AppelOffreModel;
 import myAppSpringBoot.Models.BesoinModel;
+import myAppSpringBoot.Models.NotificationModel;
 import myAppSpringBoot.Models.PanneModel;
 import myAppSpringBoot.Models.PersonnelAdministrationModel;
 import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
+import myAppSpringBoot.Repositories.NotificationRepository;
 import myAppSpringBoot.Repositories.PanneRepository;
 
 @Controller
@@ -40,6 +42,8 @@ public class LoginControllerJSP {
 	private PersonnelAdministrationController personnelAdministrationController;
 	@Autowired
 	private PanneRepository panneRepository;
+	@Autowired
+	private NotificationRepository notificationRepository;
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
@@ -66,6 +70,9 @@ public class LoginControllerJSP {
         
         List<PanneModel> listePannes = panneRepository.findAll();
         model.addAttribute("listePannes", listePannes);
+        
+        List<NotificationModel> myListNotifications = notificationRepository.findAll();
+        model.addAttribute("myListNotifications", myListNotifications);
         
      // Récupérer l'utilisateur actuellement connecté à partir de la session
         UserModel currentUserEns = (UserModel) httpSession.getAttribute("Enseignant");

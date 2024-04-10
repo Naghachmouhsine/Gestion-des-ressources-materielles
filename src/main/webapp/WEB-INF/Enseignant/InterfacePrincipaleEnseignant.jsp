@@ -56,10 +56,16 @@
 	<%@ include file="ContenuBesoins.jsp" %>
 </div>
 
-<!-- 3- Contenu du Profil (Le contenu par défaut lorsque l'application est lancée) --------------------------------------------- -->   
-<div id="profilContent">
+<!-- 3- Contenu du Profil --------------------------------------------- -->   
+<div id="profilContent" style="display: none;">
 	<%@ include file="ContenuProfil.jsp" %>
 </div>
+
+<!-- 3- Contenu des messages (Le contenu par défaut lorsque l'application est lancée) --------------------------------------------- -->  
+<div id="messagesContent">
+    <%@ include file="ContenuMessage.jsp" %>
+</div>
+
 <!-- ========================= Fin Contenu ==================== -->          
         </div>
 <!-- ========================= Fin Main ==================== -->
