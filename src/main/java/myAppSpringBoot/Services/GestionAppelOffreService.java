@@ -30,6 +30,11 @@ public class GestionAppelOffreService {
 	public List<AppelOffreModel> getAllAppelOffre() {
 		return appelOffreRepository.findAll();	
 	}
+	//Chercher appelOffreByid "S"
+	//public Optional<AppelOffreModel> getAppelOffreById(int idAppelOffre) {
+		//return appelOffreRepository.findById(idAppelOffre);	
+	//}
+	//
 	public Optional<BesoinModel> getBesoinById(int id) {
 		return besoins.findById(id);
 	}

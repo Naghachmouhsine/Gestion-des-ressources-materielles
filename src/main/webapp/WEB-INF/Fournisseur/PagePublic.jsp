@@ -22,7 +22,7 @@
    <!-- ========================= Navbar ==================== -->
   <nav class="navbar navbar-expand-lg navbar-dark mb-4" style="background-color: rgb(25, 75, 132) !important;">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Fst Apples D'offres</a>
+        <a class="navbar-brand" href="/PagePublique">Fst Apples D'offres</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>

@@ -30,6 +30,16 @@ public class DetailsPropositionModel {
 
 	}
 
+	
+	public DetailsPropositionModel(String marque, float prix, BesoinModel besoin, PropositionModel proposition) {
+		super();
+		this.marque = marque;
+		this.prix = prix;
+		this.besoin = besoin;
+		this.proposition = proposition;
+	}
+
+
 	public int getId_det_prop() {
 		return id_det_prop;
 	}

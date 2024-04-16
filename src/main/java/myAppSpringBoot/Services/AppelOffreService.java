@@ -18,5 +18,8 @@ public class AppelOffreService implements AppelOffreServiceInterface {
     public List<AppelOffreModel> getAllAppelOffres() {
         return appelOffreRepository.findAll();
     }
+	
+
+	
 
 }

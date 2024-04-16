@@ -44,6 +44,17 @@ public class PropositionModel {
 		this.fournisseur = fournisseur;
 	}
 
+	
+	public PropositionModel(Date date_livraison, float total, AppelOffreModel appelOffre ,FournisseurModel fournisseur) {
+		super();
+		this.date_livraison = date_livraison;
+		this.total = total;
+		this.appelOffre = appelOffre;
+		this.fournisseur=fournisseur;
+	}
+
+
+
 	public int getId_prop() {
 		return id_prop;
 	}
