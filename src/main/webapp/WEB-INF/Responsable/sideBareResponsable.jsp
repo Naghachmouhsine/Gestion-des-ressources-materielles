@@ -24,16 +24,16 @@
                         <span class="icon">
                             <ion-icon name="list-outline"></ion-icon>
                         </span>
-                        <span class="title"><a href="/gestionAppelOffre">Gestion des appels d'offres</a></span>
+                        <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/gestionAppelOffre">les appels d'offres</a></span>
                     </div>
                 </li>
 
                 <li>
                     <div>
                         <span class="icon">
-                            <ion-icon name="folder-open-outline"></ion-icon>
+                             <ion-icon name="list-outline"></ion-icon>
                         </span>
-                        <span class="title">Ressources</span>
+                       <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/propositions">Proposition</a></span>
                     </div>
                 </li>
 

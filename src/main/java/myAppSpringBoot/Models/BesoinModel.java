@@ -64,6 +64,12 @@ public class BesoinModel {
 	public void setPersonnelAdministration(PersonnelAdministrationModel personnelAdministration) {
 		this.personnelAdministration = personnelAdministration;
 	}
+
+	@Override
+	public String toString() {
+		return "BesoinModel [id_bes=" + id_bes + ", type=" + type + ", appelOffre=" + appelOffre
+				+ ", personnelAdministration=" + personnelAdministration + "]";
+	}
 	
 
 }//end BesoinModel

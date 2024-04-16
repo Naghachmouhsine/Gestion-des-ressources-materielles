@@ -35,9 +35,9 @@ public class GestionAppelsOffres {
 		model.addAttribute("listBesoins",besoinController.getAllBesoins());
 		return "Responsable/gestionAppelOffre";		
 	}
-	@PostMapping("/ajouterAppelOffre")
-	public void ajouterAppelOffre(@RequestParam("titre") String titre,
-								  @RequestParam("descriptione") String des,
+
+	@PostMapping(value = "/ajouterAppelOffre", consumes = "application/x-www-form-urlencoded")
+	public String ajouterAppelOffre(@RequestParam("titre") String titre,
 								  @RequestParam("dateDebut") String dateDebuStr,
 								  @RequestParam("dateFin") String dateFinStr,
 								  @RequestParam("id") int id
@@ -47,5 +47,6 @@ public class GestionAppelsOffres {
 	 System.out.println("jsp : "+appelOffreModel.toString1());
 	 appelOffresController.addAppelOffre(appelOffreModel);
 	 appelOffresController.setAppelOffreToBesoins(appelOffreModel);
+	 return "redirect:/gestionAppelOffre";
 	}
 }

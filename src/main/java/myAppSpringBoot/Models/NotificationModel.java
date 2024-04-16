@@ -28,18 +28,23 @@ public class NotificationModel {
     @ManyToOne
     @JoinColumn(name = "cin_dest", referencedColumnName = "cin")
     private UserModel user_dest;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_fourN",referencedColumnName = "id_four")
+    private FournisseurModel fournisseur;
 
 	public NotificationModel(){
 
 	}
 
-	public NotificationModel(Date date_notif, String message, int etat, UserModel user_sour, UserModel user_dest) {
+	public NotificationModel(Date date_notif, String message, int etat, UserModel user_sour, UserModel user_dest,FournisseurModel  fournisseurModel) {
 		super();
 		this.date_notif = date_notif;
 		this.message = message;
 		this.etat = etat;
 		this.user_sour = user_sour;
 		this.user_dest = user_dest;
+		this.fournisseur=fournisseurModel;
 	}
 	
 	public int getId_notif() {
@@ -88,6 +93,14 @@ public class NotificationModel {
 
 	public void setUser_dest(UserModel user_dest) {
 		this.user_dest = user_dest;
+	}
+
+	public FournisseurModel getFournisseur() {
+		return fournisseur;
+	}
+
+	public void setFournisseur(FournisseurModel fournisseur) {
+		this.fournisseur = fournisseur;
 	}
 
 	

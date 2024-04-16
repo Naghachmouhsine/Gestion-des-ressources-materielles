@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,18 @@ public class GestionAppelOffresController {
     			   appelOffreModelRespo.getListBesoins().add(besoinModel);
     	   listAppelsOffres.add(appelOffreModelRespo);
 	    }
+     
+       //  trier par date de début dans l'ordre décroissant
+       Comparator<AppelOffreModelRespo> comparator = new Comparator<AppelOffreModelRespo>() {
+           @Override
+           public int compare(AppelOffreModelRespo a1, AppelOffreModelRespo a2) {
+               // Comparaison des dates de début dans l'ordre décroissant
+               return a2.getDate_debut().compareTo(a1.getDate_debut());
+           }
+       };
+
+       // Trier la liste en utilisant le comparateur
+       Collections.sort(listAppelsOffres, comparator);
 	   return listAppelsOffres;
    }
    @GetMapping("/a")

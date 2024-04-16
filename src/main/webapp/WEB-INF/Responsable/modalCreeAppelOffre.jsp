@@ -8,28 +8,24 @@
       </div>
       <div class="modal-body">
         <!-- Formulaire pour ajouter un appel d'offre -->
-        <form action="/ajouterAppelOffre" method="POST">
+        <form action="/ajouterAppelOffre" method="POST" >
         <input type="text" class="form-control" value="${lastIdAppelOffre+1}" name="id"  hidden>
           <div class="mb-3">
             <label for="titre" class="form-label">Titre </label>
             <input type="text" class="form-control" name="titre" >
           </div>
           <div class="mb-3">
-            <label for="titre" class="form-label">descriptione</label>
-            
-            <textarea class="form-control" name="descriptione"></textarea>
-          </div>
-          <div class="mb-3">
             <label for="titre" class="form-label">date debut</label>
-            <input type="date" class="form-control" id="titre" placeholder="Titre" name="dateDebut">
+            <input type="date" class="form-control" id="dateDebut" placeholder="Titre" name="dateDebut">
           </div>
           <div class="mb-3">
             <label for="titre" class="form-label">date laivraison</label>
-            <input type="date" class="form-control" id="titre" placeholder="Titre" name="dateFin">
+            <input type="date" class="form-control" id="dateFin" placeholder="Titre" name="dateFin">
+            <div id="dateFinError" style="color: red;"></div>
           </div>
           <!-- Ajoutez d'autres champs de formulaire selon vos bs -->
           <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-primary">Ajouter Appel d'Offre</button>
+          <button type="submit" class="btn btn-primary" id="submit">Ajouter Appel d'Offre</button>
           </div>
         </form>
         

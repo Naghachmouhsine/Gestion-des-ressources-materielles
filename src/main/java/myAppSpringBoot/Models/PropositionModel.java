@@ -16,10 +16,10 @@ public class PropositionModel {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // pour auto-incrémenter
-	private int id_prop;
-	private Date date_livraison;
-	private float total;
-	private String etat;
+	protected int id_prop;
+	protected Date date_livraison;
+	protected float total;
+	protected String etat;
 	
 	@ManyToOne
     @JoinColumn(name = "id_app_off", referencedColumnName = "id_app_off")
@@ -31,6 +31,17 @@ public class PropositionModel {
 
 	public PropositionModel(){
 
+	}
+
+	public PropositionModel(int id_prop, Date date_livraison, float total, String etat, AppelOffreModel appelOffre,
+			FournisseurModel fournisseur) {
+		super();
+		this.id_prop = id_prop;
+		this.date_livraison = date_livraison;
+		this.total = total;
+		this.etat = etat;
+		this.appelOffre = appelOffre;
+		this.fournisseur = fournisseur;
 	}
 
 	public int getId_prop() {

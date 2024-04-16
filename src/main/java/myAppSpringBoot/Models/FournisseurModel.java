@@ -1,9 +1,13 @@
 package myAppSpringBoot.Models;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,6 +23,18 @@ public class FournisseurModel {
 	private String lieu;
 	private String site_internet;
 	private int etat;
+	
+	
+//    @OneToMany(mappedBy = "fournisseur")
+//    private List<NotificationModel> notifications;
+
+//	public List<NotificationModel> getNotifications() {
+//		return notifications;
+//	}
+//
+//	public void setNotifications(List<NotificationModel> notifications) {
+//		this.notifications = notifications;
+//	}
 
 	public FournisseurModel(){
 
