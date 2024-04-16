@@ -41,7 +41,7 @@
                 </li>
 
                 <li>
-                    <div>
+                    <div id="messagesButton">
                         <span class="icon">
                             <ion-icon name="chatbubble-outline"></ion-icon>
                         </span>

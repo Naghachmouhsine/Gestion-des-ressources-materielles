@@ -24,10 +24,12 @@ document.addEventListener("DOMContentLoaded", function() {
     let ressourcesButton = document.getElementById("ressourcesButton");
     let besoinsButton = document.getElementById("besoinsButton");
     let profilButton = document.getElementById("profilButton");
+    let messagesButton = document.getElementById("messagesButton");
     
     let ressourcesContent = document.getElementById("ressourcesContent");
     let besoinsContent = document.getElementById("besoinsContent");
     let profilContent = document.getElementById("profilContent");
+    let messagesContent = document.getElementById("messagesContent");
     
 	ressourcesButton.addEventListener("click", function() {
 		    // Afficher le contenu ressources
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	        // Masquer le contenu des besoins et du profil si nécessaire
 	        besoinsContent.style.display = "none";
 	        profilContent.style.display = "none";
+	        messagesContent.style.display = "none";
 	});
 	
 	besoinsButton.addEventListener("click", function() {
@@ -45,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	        // Masquer le contenu des ressources et du profil si nécessaire
 	        ressourcesContent.style.display = "none";
 	        profilContent.style.display = "none";
+	        messagesContent.style.display = "none";
 	});
 	
 	profilButton.addEventListener("click", function() {
@@ -53,8 +57,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // Masquer le contenu des ressources et des besoins si nécessaire
         ressourcesContent.style.display = "none";
-        besoinsContent.style.display = "none";
-});
+        besoinsContent.style.display = "none"
+        messagesContent.style.display = "none";
+    });
+    
+    messagesButton.addEventListener("click", function() {
+		// Afficher le contenu des notifications
+        messagesContent.style.display = "block";
+
+        // Masquer les autres contenu
+        ressourcesContent.style.display = "none";
+        besoinsContent.style.display = "none"
+        profilContent.style.display = "none";
+	    
+	 });
+
 // -----------------------------------------------------------------------------
 /*// Get the modal
 var modal = document.getElementById("envoyerBesoinModal");
