@@ -13,6 +13,8 @@
     
     <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
+      <!-- SweetAlert -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </head>
 <body>
     <!-- ========================= Navbar ==================== -->
@@ -31,7 +33,7 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/notifications">
                             | <i class="fas fa-bell mx-2"> </i>  Notifications
                         </a>
                     </li>
@@ -94,7 +96,7 @@
                 </table>
               </div>
              
-              <div  class="col-md-8">
+              <div  class="col-md-10">
                <div>
                 Date de livraison: <input type="date" id="dateLivraison" name="dateLivraison" class="form-control" required>
                 

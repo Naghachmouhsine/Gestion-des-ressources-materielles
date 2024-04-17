@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,11 +27,12 @@ public class FournisseurLoginControllerJSP {
 	
     @RequestMapping("/loginFournisseur")
     public String showLoginPage() {
-        return "Fournisseur/LoginFournisseur";   // Le nom du fichier JSP (LoginInterface.jsp)
-          // http://localhost:4040/login
+        return "Fournisseur/LoginFournisseur";  
+      
     }
     
-    @PostMapping("/loginFournisseur")
+
+    @PostMapping("/loginFournisseurP")
     public String login(@RequestParam("nomSociete") String nomSociete,
     		            @RequestParam("motDePasse") String motDePasse,
     		            HttpSession session,
@@ -41,7 +43,14 @@ public class FournisseurLoginControllerJSP {
         	   //MotDePasse et nomSociete correcte
         		httpSession.setAttribute("Fournisseur", fournisseur);
         		 String idAppel = (String) session.getAttribute("idAppel");
-        		 return "redirect:/proposition/" + idAppel;
+        		 if(idAppel != null) {
+        			 System.out.println(" ICI  idAppel "+idAppel);
+        			 return "redirect:/proposition/" + idAppel;
+        		 }else {
+        			 System.out.println("idAppel does not exist in session");
+        			 return "redirect:/PagePublique"; 
+        		 }
+        		 
         } else {
             // Si les informations d'identification sont incorrectes, affichez un message d'erreur
             redirectAttributes.addFlashAttribute("error", "Nom d'utilisateur ou mot de passe incorrect");

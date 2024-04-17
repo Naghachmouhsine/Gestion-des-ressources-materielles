@@ -13,11 +13,14 @@ import myAppSpringBoot.Models.AppelOffreModel;
 import myAppSpringBoot.Models.AppelOffreModelRespo;
 import myAppSpringBoot.Models.BesoinModel;
 import myAppSpringBoot.Models.DetailsPropositionModel;
+import myAppSpringBoot.Models.NotificationModel;
 import myAppSpringBoot.Models.PropositionModel;
 import myAppSpringBoot.Repositories.BesoinRepository;
 import myAppSpringBoot.Repositories.DetailsPropositionRepository;
+import myAppSpringBoot.Repositories.FournisseurNotifsRepository;
 import myAppSpringBoot.Repositories.PropositionRepository;
 import myAppSpringBoot.Services.BesoinService;
+import myAppSpringBoot.Services.FournisseurNotifsService;
 import myAppSpringBoot.Services.GestionAppelOffreService;
 
 @RestController
@@ -34,6 +37,8 @@ public class PagePublicController {
 	   
 	   @Autowired
 	   private DetailsPropositionRepository detailsPropositionRepository;
+	   @Autowired
+	   private FournisseurNotifsService fournisseurNotifsService;
 	   
 	   
 	   @GetMapping("/Pag")
@@ -104,4 +109,19 @@ public class PagePublicController {
 			return detailPropositionModel;
 		}
 		   
+	    //recuperer notifs 
+		public ArrayList<NotificationModel> getAllNotifsFournisseur(int id_fournisseur){
+			
+			  //récuperer tout les besoins 
+			   ArrayList<NotificationModel> listNotifs=new ArrayList<>();
+		       List<NotificationModel> listAllNotifs=fournisseurNotifsService.getAllNotifsFournisseur();
+		       for (NotificationModel notificationModel : listAllNotifs) {
+		    	   if(notificationModel.getFournisseur().getId_four() == id_fournisseur) {
+		    		   System.out.println("Notifs"+notificationModel.getMessage() +" : "+notificationModel.getFournisseur().getId_four());
+		    		   listNotifs.add(notificationModel);
+		    	   }
+		       }
+			return listNotifs;
+			
+		}
 }

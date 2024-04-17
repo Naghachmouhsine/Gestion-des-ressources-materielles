@@ -35,18 +35,59 @@
                         </a>
                     </li>
                      <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="/notifications">
                             | <i class="fas fa-bell mx-2"> </i>  Notifications
                         </a>
                     </li>
-                   
+                  
                 </c:if>
+                <c:if test="${empty sessionScope['Fournisseur']}">
+                   <li class="nav-item">
+                     <a class="nav-link" href="/loginFournisseur">Connexion</a>
+                    </li>
+               </c:if>
+               
             </ul>
         </div>
     </div>
 </nav>
   
     <!-- ========================= Fin Navbar ==================== -->
+  <c:choose>
+    <c:when test="${param.etat != null && param.etat eq 'Succes'}">
+        <!-- Inclure SweetAlert2 JS -->
+         <!-- SweetAlert -->
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+        
+        <!-- Afficher SweetAlert2 -->
+        <script>
+            Swal.fire({
+                title: 'Succès!',
+                text: 'Proposition ajoutée avec succès!',
+                icon: 'success',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/PagePublique';
+                }
+            });
+        </script>
+    </c:when>
+    <c:otherwise>
+        <!-- Inclure SweetAlert2 JS -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/sweetalert2.min.js"></script>
+        
+        <!-- Afficher SweetAlert2 pour l'erreur -->
+        <script>
+            Swal.fire({
+                title: 'Erreur!',
+                text: 'La proposition n\'a pas été correctement ajoutée.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    </c:otherwise>
+</c:choose>
     <!-- ========================= Main ==================== -->
     <div class="container">
         <div style="background-color: #fff;">
@@ -119,5 +160,7 @@
     
     <!-- ======= Bootstrap JS ====== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- La fin de class="main-login"  -->
+  
 </body>
 </html>

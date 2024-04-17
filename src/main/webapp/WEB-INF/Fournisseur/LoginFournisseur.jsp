@@ -27,7 +27,7 @@
                   
                 </div>
                 
-                <form action="/loginFournisseur" method="post" style="margin-top: 15%;">
+                <form action="/loginFournisseurP" method="post" style="margin-top: 15%;">
                     <label class="label-label" for="nomSociete"> <h6> Nom Societe :</h6> </label>
                     <input type="text" name="nomSociete" id="nomSociete" class="input-login" placeholder="Entrez le nom de votre societé..." value="" />
                     
@@ -57,6 +57,9 @@
         
        
     </script>
+   
+    
+    <!-- La fin de class="main-login"  -->
   
 </body>
 </html>

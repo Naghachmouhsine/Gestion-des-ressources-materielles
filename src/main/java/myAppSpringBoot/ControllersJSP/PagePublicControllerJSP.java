@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import myAppSpringBoot.Controllers.PagePublicController;
 import myAppSpringBoot.Models.AppelOffreModel;
@@ -22,6 +23,7 @@ import myAppSpringBoot.Models.AppelOffreModelRespo;
 import myAppSpringBoot.Models.BesoinModel;
 import myAppSpringBoot.Models.DetailsPropositionModel;
 import myAppSpringBoot.Models.FournisseurModel;
+import myAppSpringBoot.Models.NotificationModel;
 import myAppSpringBoot.Models.PropositionModel;
 import myAppSpringBoot.Repositories.AppelOffreRepository;
 
@@ -69,7 +71,7 @@ public class PagePublicControllerJSP {
 	  @PostMapping("/AjouterProposition")
 	  public String AjouterProposition(@RequestParam("dateLivraison") Date dateLivraison,
                                        @RequestParam("total") float total,
-                                       @RequestParam Map<String, String> formData,HttpSession session) {
+                                       @RequestParam Map<String, String> formData,HttpSession session , RedirectAttributes redirectAttributes) {
 		 //recuperer id AppelOffre
 		  String idAppelOffreS = (String) session.getAttribute("idAppel");
 		  int idAppelOffre = Integer.parseInt(idAppelOffreS);
@@ -82,12 +84,9 @@ public class PagePublicControllerJSP {
 		    //creer model proposition
 		  	PropositionModel propositionModel=new PropositionModel(dateLivraison,total,appelOffre,fournisseur);
 	
-		  //	propositionModel.setDate_livraison(dateLivraison);
-		//  	propositionModel.setAppelOffre(appelOffre);
-		//  	propositionModel.setTotal(total);
 		  	//enregistrer le model proposition et recuperer idproposition
 		  	PropositionModel proposition =pagePublicController.saveProposition(propositionModel);
-		  
+		    DetailsPropositionModel DetailsProposition = null ;
 		  	//Enregister dans detailsProposition
 		  	//List<DetailsPropositionModel> detailsPropositionList = new ArrayList<>();
 		  	for (String key : formData.keySet()) {
@@ -108,13 +107,33 @@ public class PagePublicControllerJSP {
 		  	        DetailsPropositionModel detailPropositionModel =new DetailsPropositionModel(marque,prix,besoin,proposition);
 		  	    	//Ajouter a la liste 
 		  	       // detailsPropositionList.add(detailPropositionModel);
-		  	        DetailsPropositionModel DetailsProposition =pagePublicController.saveDetailsProposition(detailPropositionModel);
+		  	        DetailsProposition =pagePublicController.saveDetailsProposition(detailPropositionModel);
 		  	    }
 		  	}
 		  	
-		  
-		return "Fournisseur/PagePublic";
+
+		  	if (DetailsProposition != null && proposition != null) {
+		  	  redirectAttributes.addAttribute("etat", "Succes");
+		  	}else {
+		  	  redirectAttributes.addAttribute("etat", "Erreur");
+		  	}
+		    return "redirect:/PagePublique";
+			
 		  
 	  }
-	 
+	  
+	  //recuperer notifs 
+	  
+	  @GetMapping("/notifications")
+	  public String afficherNotifs(HttpSession session,Model model) {
+		  FournisseurModel fournisseur = (FournisseurModel) session.getAttribute("Fournisseur");
+		  int idFour =fournisseur.getId_four();
+		 //la liste des notifs
+		  ArrayList <NotificationModel> listNotifs=pagePublicController.getAllNotifsFournisseur(idFour);
+		  model.addAttribute("listNotifs", listNotifs);
+		
+	     return "Fournisseur/Notifications";
+	  
+	  
+	  }
 }
