@@ -49,7 +49,7 @@ $(document).ready(function() {
 	    $.each(data, function(index, proposition) {
 	        var row = $('<tr>');
 	        row.append($("<td>").text(proposition.appelOffre.nom));
-	        row.append($('<td>').text(proposition.fournisseur.nom_societe));
+	        row.append($('<td>').text(proposition.fournisseur.nomSociete));
 	        row.append($('<td>').text(proposition.date_livraison));
 	        row.append($('<td>').text(proposition.total));
 			row.append(
@@ -57,7 +57,7 @@ $(document).ready(function() {
 					    $('<a>').attr({
 					        'href': '#',
 					        'data-bs-toggle': 'modal',
-					        'data-bs-target': '#' + proposition.id_prop,
+					        'data-bs-target': '#d' + proposition.id_prop,
 					        'style': 'color: #000; cursor: pointer;'
 					    }).text('Plus de détails')
 								)
@@ -154,6 +154,7 @@ function accepterRefuserProposition(){
    
 }
 function envoiAuServeur(data){
+	var succes=true
 	 $.each(data,function(index,pr){
 		      if($("#"+pr.id_prop+"_four").val()!=undefined){
 				$.ajax({
@@ -162,22 +163,92 @@ function envoiAuServeur(data){
 				      //idPro,@RequestParam int idFour,@RequestParam boolean etat
 				      data: {idPro : $("#"+pr.id_prop).val(),				      		 
 				      		idFour : $("#"+pr.id_prop+"_four").val(),
-				      		etat : $("#accepter_"+pr.id_prop).is(":checked"),
-				      		num : "aucun"+pr.id_prop	      		
+				      		etat : $("#accepter_"+pr.id_prop).is(":checked")      		
 				      		 },
 				      success: function(data) {
 				        // Mettre à jour le tableau des propositions avec les nouvelles données
+				        console.log(data);
 				        
 				      },
 				      error: function(xhr, status, error) {
+						succes=false;
 				        console.error(error);
+						 Swal.fire({
+						      icon: 'error',
+						      title: 'Erreur !',
+						      text: 'Une erreur est survenue lors de la modification.',
+						      confirmButtonText: 'Fermer'
+						    });
+							       
 				      }
 				    });   				  
 			  }
 			});
+			console.log(succes)
+			if(succes){
+			    Swal.fire({
+			      icon: 'success',
+			      title: 'Succès !',
+			      text: 'Votre modification a été effectuée avec succès.',
+			      confirmButtonText: 'Fermer'
+			    });
+			}else{
+			    Swal.fire({
+			      icon: 'error',
+			      title: 'Erreur !',
+			      text: 'Une erreur est survenue lors de la modification.',
+			      confirmButtonText: 'Fermer'
+			    });
+			}
 }
 
-
+function modiferEtatFournisseur(nomFournisseur,idProp,idFour){
+		var etatOui=$("#oui_"+idProp).is(":checked");
+	    var etatNon=$("#non_"+idProp).is(":checked");
+	    if(etatOui)
+		  $("#fourn").text("Êtes-vous sûr d'ajouter "+nomFournisseur+" au list noire?");
+		if(etatNon)
+			$("#fourn").text("Êtes-vous sûr de retirer "+nomFournisseur+" au list noire?");
+	
+    // Ajuster le z-index du modal 2 pour le placer au-dessus du modal 1
+    	$("#d"+idProp).modal("hide");
+        $("#confirmationFour").modal("show"); 
+	  $("#modifEtat").click(function() {
+			   		$.ajax({
+				      url:"/modiferEtatFournisseur", // Remplacez 'votre-url-de-l-api' par l'URL de votre API pour récupérer les données des propositions
+				      type: 'POST',
+				     
+				      data: {				      		 
+				      		id_four :idFour,
+				      		etat :etatOui    		
+				      		 },
+				      success: function(data) {
+						  
+					    Swal.fire({
+					      icon: 'success',
+					      title: 'Succès !',
+					      text: 'Votre modification a été effectuée avec succès.',
+					      confirmButtonText: 'Fermer'
+					    });	
+					    $("#d"+idProp).modal("show");
+				        console.log(data);
+				        
+				      },
+				      error: function(xhr, status, error) {
+						succes=false;
+				        console.error(error);
+						 Swal.fire({
+						      icon: 'error',
+						      title: 'Erreur !',
+						      text: 'Une erreur est survenue lors de la modification.',
+						      confirmButtonText: 'Fermer'
+						    });
+							       
+				      }
+				    }); 
+	  });
+        
+}
 
 
 

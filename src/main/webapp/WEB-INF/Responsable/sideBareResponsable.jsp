@@ -16,7 +16,7 @@
                         <span class="icon">
                             <ion-icon name="person-circle-outline"></ion-icon>
                         </span>
-                        <span class="title">Profile</span>
+                        <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/interface-responsable">Profile</a></span>
                     </div>
                 </li>
                 <li>

@@ -29,7 +29,9 @@ public class GestionAppelsOffres {
 	@GetMapping("/gestionAppelOffre")
 	public String toPageGestionAppelOffre(Model model) {	
 		ArrayList<AppelOffreModelRespo> list=appelOffresController.getAllAppelOffres();
-		int lastIdAppelOffre=list.get(list.size()-1).getId_app_off();
+		 int lastIdAppelOffre=0;
+		if(list.size()>0)
+			lastIdAppelOffre=list.get(list.size()-1).getId_app_off();
 		model.addAttribute("lastIdAppelOffre",lastIdAppelOffre);
 		model.addAttribute("listAppelOffres",list);
 		model.addAttribute("listBesoins",besoinController.getAllBesoins());

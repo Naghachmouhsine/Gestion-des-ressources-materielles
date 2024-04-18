@@ -24,6 +24,9 @@ public class GestionPropositionControllerJSP {
 	public String toPageGestionProposition(Model model) {
 		List<PropositionModelRespo> listProposition=controller.getAllProposition();	
 		model.addAttribute("listProposition",listProposition);
+		for (PropositionModelRespo propositionModelRespo : listProposition) {
+			System.out.println("vv : "+propositionModelRespo.getTotal());
+		}
 		model.addAttribute("listAppel",appelOffresController.getAllAppelOffres());
 		return "Responsable/gestionProposition" ;	
 	}

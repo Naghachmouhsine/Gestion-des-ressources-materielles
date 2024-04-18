@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gestion des appels d'offres</title>
-    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- ======= Bootstrap ====== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="/static/css/style.css">
@@ -60,7 +60,7 @@
 <br />		
      <div class="container ">
      <div class="mb-3">
-    <label for="selectAppelOffre" class="form-label">Sélectionner un appel d'offre :</label>
+    <label for="selectAppelOffre" class="form-label">Sï¿½lectionner un appel d'offre :</label>
     <select class="form-select" id="selectAppelOffre">
           <option value="all">All</option>
        <c:forEach items="${listAppel}" var="a">
@@ -84,14 +84,14 @@
         <c:forEach items="${listProposition}" var="pr">
            
 				<c:choose>
-					<c:when test='${pr.etat eq "refuse" or pr.etat eq ""  }'>
+					<c:when test='${pr.etat eq "refuse" or pr.etat eq "" or pr.etat eq  NULL  }'>
 					 <tr>
                 <td>${pr.appelOffre.nom}</td>
-                <td>${pr.fournisseur.nom_societe}</td>
+                <td>${pr.fournisseur.nomSociete}</td>
                 <td>${pr.date_livraison}</td>
                 <td>${pr.total}</td>		
                 
-                <td><a data-bs-toggle="modal" data-bs-target="#${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de détails</a></td>	                              
+                <td><a data-bs-toggle="modal" data-bs-target="#d${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de détails</a></td>	                              
 							<td>
 							    <div class="form-check form-check-inline">
 							        <input id="${pr.id_prop}" value="${pr.id_prop}" hidden="hidden">
@@ -111,11 +111,11 @@
 	                 <c:when test='${pr.etat eq "accepter" }'>	
 	                  <tr>
                 <td>${pr.appelOffre.nom}</td>
-                <td>${pr.fournisseur.nom_societe}</td>
+                <td>${pr.fournisseur.nomSociete}</td>
                 <td>${pr.date_livraison}</td>
                 <td>${pr.total}</td>	
                 
-                <td><a data-bs-toggle="modal" data-bs-target="#${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de détails</a></td>
+                <td><a data-bs-toggle="modal" data-bs-target="#d${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de dï¿½tails</a></td>
 	                    <td>	                            
 							    <div class="form-check form-check-inline">
 									<input id="${pr.id_prop}" value="${pr.id_prop}" hidden="hidden">
@@ -137,58 +137,104 @@
         </c:forEach>
     </tbody>
 </table>
-			<div class="d-flex justify-content-center m-5" > <button id="btnValide" class="btn btn-primary ml-3" onclick="accepterRefuserProposition()">Valider</button></div>
+			<div class="d-flex justify-content-center m-5" > <button id="btnValide" class="btn btn-primary ml-3"  data-bs-toggle="modal" data-bs-target="#confirmationModal">Valider</button></div>
 
      </div>
-    <div id="vide" style="display: none;">Aucune proposition correspond à cet appel d'offre</div>
+    <div id="vide" style="display: none;">Aucune proposition correspond ï¿½ cet appel d'offre</div>
      
-<!-- ========================= Fin Contenu ==================== -->          
+   
+     
+   
+<!-- ========================= Fin Contenu ==================== -->     
+
+
+<!-- modal de confirmation modification  -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirmation de modification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" >
+        Vous étes-vous sur de vouloir modifier ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" onclick="accepterRefuserProposition()"  data-bs-dismiss="modal" >Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      
+      
+  <!-- modal de confirmation modification etat fournisseur   -->
+       <div class="modal fade" id="confirmationFour" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmationModalLabel">Confirmation de modification</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="fourn" >
+        Vous étes-vous sur de vouloir modifier ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="modifEtat"  data-bs-dismiss="modal" >Confirmer</button>
+      </div>
+    </div>
+  </div>
+</div>
+      
+<!-- fin modal confirmation -->     
         <c:forEach items="${listProposition}" var="pr">
-<div class="modal fade" id="${pr.id_prop}" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
+<div class="modal fade" id="d${pr.id_prop}" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailsModalLabel">Détails de la Proposition</h5>
+        <h5 class="modal-title" id="detailsModalLabel">Dï¿½tails de la Proposition</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Informations du fournisseur -->
         <h6>Informations du Fournisseur:</h6>
         <ul>
-          <li><strong>Nom de la Société:</strong> ${pr.fournisseur.nom_societe}</li>
-          <li><strong>Gérant:</strong> ${pr.fournisseur.gerant}</li>
+          <li><strong>Nom de la Societe:</strong> ${pr.fournisseur.nomSociete}</li>
+          <li><strong>Gï¿½rant:</strong> ${pr.fournisseur.gerant}</li>
           <li><strong>Adresse:</strong> ${pr.fournisseur.adresse}</li>
           <li><strong>Lieu:</strong> ${pr.fournisseur.lieu}</li>
           <li><strong>Site Internet:</strong> <a href="${pr.fournisseur.site_internet}" target="_blank">${pr.fournisseur.site_internet}</a></li>
         </ul>
            <div class="d-flex justify-content-center">
-              list noire 
+             <p class="mx-5"> list noire </p>
               	   <c:choose>
 	                 <c:when test="${pr.fournisseur.etat eq 0}">			                              
 	              		<div class="form-check form-check-inline ml-5">
-					        <input class="form-check-input" type="radio" name="listNoire_${pr.id_prop}" id="oui_${pr.id_prop}" >
-					        <label class="form-check-label" for="oui_${pr.id_prop}">Oui</label>
+					        <input class="form-check-input"   onclick="modiferEtatFournisseur('${pr.fournisseur.nomSociete}','${pr.id_prop}','${pr.fournisseur.id_four}')"  type="radio" name="listNoire_${pr.id_prop}" id="oui_${pr.id_prop}" >
+					        <label class="form-check-label"  for="oui_${pr.id_prop}">Oui</label>
 					    </div>		
 	              		<div class="form-check form-check-inline">
-					        <input class="form-check-input" type="radio" name="listNoire_${pr.id_prop}" id="non_${pr.id_prop}" checked="checked">
-					        <label class="form-check-label" for="non_${pr.id_prop}">Non</label>
+					        <input class="form-check-input" onclick="modiferEtatFournisseur('${pr.fournisseur.nomSociete}','${pr.id_prop}','${pr.fournisseur.id_four}')" type="radio" name="listNoire_${pr.id_prop}" id="non_${pr.id_prop}" checked="checked">
+					        <label class="form-check-label"for="non_${pr.id_prop}">Non</label>
 					    </div> 	                 
 				    </c:when>
 	                 <c:when test="${pr.fournisseur.etat eq 1}">			                            
 	              		<div class="form-check form-check-inline ml-5">
-					        <input class="form-check-input" type="radio" name="listNoire_${pr.id_prop}" id="oui_${pr.id_prop}" checked="checked">
+					        <input class="form-check-input" onclick="modiferEtatFournisseur('${pr.fournisseur.nomSociete}','${pr.id_prop}','${pr.fournisseur.id_four}')" type="radio" name="listNoire_${pr.id_prop}" id="oui_${pr.id_prop}" checked="checked">
 					        <label class="form-check-label" for="oui_${pr.id_prop}">Oui</label>
 					    </div>		
 	              		<div class="form-check form-check-inline">
-					        <input class="form-check-input" type="radio" name="listNoire_${pr.id_prop}" id="non_${pr.id_prop}" >
+					        <input class="form-check-input" onclick="modiferEtatFournisseur('${pr.fournisseur.nomSociete}','${pr.id_prop}','${pr.fournisseur.id_four}')" type="radio" name="listNoire_${pr.id_prop}" id="non_${pr.id_prop}" >
 					        <label class="form-check-label" for="non_${pr.id_prop}">Non</label>
 					    </div> 	                 
 					 </c:when>
 	                </c:choose>          
            </div>
-        <hr> <!-- Ligne de séparation -->
-        
-        <!-- Tableau des détails de la proposition -->
+        <hr> <!-- Ligne de sï¿½paration -->
+ 
+        <!-- Tableau des dï¿½tails de la proposition -->
         <h6>Détails de la Proposition:</h6>
         <table class="table table-striped">
           <thead>

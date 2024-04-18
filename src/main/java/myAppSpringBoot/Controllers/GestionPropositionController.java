@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,8 +22,11 @@ import myAppSpringBoot.Models.PropositionModel;
 import myAppSpringBoot.Models.PropositionModelRespo;
 import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
+import myAppSpringBoot.Repositories.FournisseurRepository;
 import myAppSpringBoot.Repositories.NotificationFournisseurRepository;
 import myAppSpringBoot.Services.GestionPropositionService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -32,6 +37,10 @@ public class GestionPropositionController {
 	GestionPropositionService gestionPropositionService;
 	@Autowired
 	NotificationFournisseurRepository fournisseurRepository;
+	@Autowired
+	HttpSession httpSession;
+	@Autowired
+	FournisseurRepository fournisseurRepository2;
 	@GetMapping("/getAllProposition")
 	public List<PropositionModelRespo> getAllProposition(@RequestParam Long appelOffreId) {
 		ArrayList<PropositionModelRespo> listProposition=new ArrayList<>();
@@ -67,12 +76,14 @@ public class GestionPropositionController {
 			return fournisseurRepository.findAll();
 	}
 	@PostMapping("/reponseProposition")
-	public boolean reponseProposition(@RequestParam int idPro,@RequestParam int idFour,@RequestParam boolean etat,@RequestParam String num) {
-		
+	public boolean reponseProposition(@RequestParam int idPro,@RequestParam int idFour,@RequestParam boolean etat) {
+		UserModel resposable=new UserModel();
+		resposable=(UserModel) httpSession.getAttribute("Responsable");
+		System.out.println(resposable.getCin());
 		ArrayList<BesoinModel> besoins=new ArrayList<>();
 		FournisseurModel fournisseurModel=new FournisseurModel();
 		PropositionModel propostion = null;
-		
+		System.out.println(idPro+" : "+idFour+" : "+etat);
 		for (PropositionModelRespo  pr:this.getAllProposition()) {
 			if(pr.getId_prop()==idPro) {
 				fournisseurModel=pr.getFournisseur();
@@ -82,15 +93,48 @@ public class GestionPropositionController {
 			}
 		}
 		Date dateActuel=new Date(System.currentTimeMillis());
-		NotificationModel notif=new NotificationModel(dateActuel,"",0,null,null,fournisseurModel);
+		NotificationModel notif=new NotificationModel(dateActuel,"",0,resposable,null,fournisseurModel);
+		ArrayList<RessourceModel> listRessource=new ArrayList<>();
+		for (BesoinModel besoinModel : besoins) {
+			RessourceModel model=new RessourceModel();
+			model.setBesoin(besoinModel);
+			listRessource.add(model);
+			System.out.println(besoinModel.getType()+"dddd");
+		
+		}
+		for (RessourceModel ressourceModel : listRessource) {
+			System.out.println(ressourceModel.getBesoin().getType());
+		}
          try {
-        	gestionPropositionService.notificationToFournisseur(notif,etat);
-        	gestionPropositionService.accepteRefuseProposition(propostion, etat,besoins,num);        
+        	String type="ar";//type notification 'ar' sgnifie que c'est une notification pour acceptation ou refuser proposition
+        	gestionPropositionService.notificationToFournisseur(notif,etat,type);
+        	gestionPropositionService.accepteRefuseProposition(propostion, etat,listRessource);        
         	return true;
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			return false;
 		}	
+	
 	}
+	@PostMapping("/modiferEtatFournisseur")
+	public boolean modiferEtatFournisseur(@RequestParam int id_four,@RequestParam boolean etat) {
 
+			FournisseurModel fournisseurModel=new FournisseurModel();
+			fournisseurModel=fournisseurRepository2.findById(id_four);
+			UserModel resposable=new UserModel();
+			resposable=(UserModel) httpSession.getAttribute("Responsable");
+			Date dateActuel=new Date(System.currentTimeMillis());
+			int etatFour=0;
+			if(etat)
+				etatFour=1;		
+			fournisseurModel.setEtat(etatFour);
+			fournisseurRepository2.save(fournisseurModel);
+			NotificationModel notif=new NotificationModel(dateActuel,"",0,resposable,null,fournisseurModel);
+			String type="e";//type notification 'e' sgnifie que c'est une notification pour liste noire
+			gestionPropositionService.notificationToFournisseur(notif, etat, type);
+			return true;
+
+
+	}
+	
 }

@@ -27,7 +27,7 @@ public class PanneModel {
 	public UserModel technicien;
 	
 	@ManyToOne
-    @JoinColumn(name = "num_inv", referencedColumnName = "numero_inventaire")
+    @JoinColumn(name = "id_res", referencedColumnName = "idRes")
 	public RessourceModel ressource;
 
 	public PanneModel(){

@@ -9,9 +9,13 @@
     
     <!-- ======= Bootstrap ====== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-	<link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/style.css">
+  <link rel="stylesheet" href="/static/css/styleRespo.css">
     <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="/static/js/gestionAppelOffre.js"></script>
+     <script src="/static/js/gestionProsition.js"></script>
 </head>
 
 <body>
@@ -44,12 +48,12 @@
 <br />		
      <div class="container">
         <div>
-            <p>CIN: ${sessionScope.currentUser.cin}</p>
-            <p>Nom: ${sessionScope.currentUser.nom}</p>
-            <p>Prénom: ${sessionScope.currentUser.prenom}</p>
-            <p>Date de naissance: ${sessionScope.currentUser.date_naissance}</p>
-            <p>Email: ${sessionScope.currentUser.email}</p>
-            <p>Rôles: ${sessionScope.currentUser.roles}</p>
+            <p>CIN: ${sessionScope.Responsable.cin}</p>
+            <p>Nom: ${sessionScope.Responsable.nom}</p>
+            <p>Prénom: ${sessionScope.Responsable.prenom}</p>
+            <p>Date de naissance: ${sessionScope.Responsable.date_naissance}</p>
+            <p>Email: ${sessionScope.Responsable.email}</p>
+            <p>Rôles: ${sessionScope.Responsable.roles}</p>
         </div>
      </div>
 <!-- ========================= Fin Contenu ==================== -->          

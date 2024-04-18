@@ -34,36 +34,43 @@ public class GestionPropositionService {
 	public List<DetailsPropositionModel> getDetilsProposition(){
 		return detailProposiion.findAll();
 	}
-	public void accepteRefuseProposition(PropositionModel model,boolean etat,ArrayList<BesoinModel> besoins, String num){
-		ArrayList<RessourceModel> ressources=new ArrayList<>();
-
+	public void accepteRefuseProposition(PropositionModel model,boolean etat,ArrayList<RessourceModel> listRessource){
+		System.out.println("good");
+		for (RessourceModel ressourceModel : listRessource) {
+			System.out.println(ressourceModel.getBesoin().getType());
+		//	ressourceRepository.save(ressourceModel);		
+		
+		}
 		if(etat){
 			model.setEtat("accepter");
-			for (BesoinModel b : besoins) {
-				RessourceModel r=new RessourceModel();
-				r.setNumero_inventaire(num);
-				r.setBesoin(b);		
-				//ressources.add(r);
-				ressourceRepository.save(r);
-				System.out.println("id : "+b.getId_bes());
-			}
+			for (RessourceModel ressourceModel : listRessource) {
+				System.out.println(ressourceModel.getBesoin().getType());
+				ressourceRepository.save(ressourceModel);		
 			
+			}
+			System.out.println(etat);
 		}			
+		
 		else
 			model.setEtat("refuse");
-		
-		System.out.println("etat");
-		for (BesoinModel bb : besoins) {
-			System.out.println(bb);
-		}
+		System.out.println(etat);
+		System.out.println("good2");
 		gestionPropositionRepository.save(model);		
 	}
-	public void notificationToFournisseur(NotificationModel notif, boolean etat) {
-		if(etat) //proposition est accepter
-			notif.setMessage("Votre proposition pour l'appel d'offres a été acceptée. En attente de livraison.");
-		else	//proposition est refuser	
-		  notif.setMessage("votre propositon est refuse");
-		 fournisseurRepository.save(notif);	
+	public void notificationToFournisseur(NotificationModel notif, boolean etat, String type) {
+		if(type.equals("ar")) {
+			if(etat) //proposition est accepter
+				notif.setMessage("Votre proposition pour l'appel d'offres a été acceptée. En attente de livraison.");
+			else	//proposition est refuser	
+			  notif.setMessage("votre propositon est refuse");
+		}else {
+
+			if(etat) //ajouter a liste noire
+				notif.setMessage("Nous avons de vous informer que vous avez été ajouté à notre liste noire, et par conséquent, vous n'êtes pas autorisé à soumettre des propositions pour nos appels d'offres");
+			else	//retire list noire
+			  notif.setMessage("Nous avons le plaisir de vous informer que vous avez été retiré de notre liste noire. Vous êtes à nouveau autorisé à soumettre des propositions pour nos appels d'offres.");	
+		}
+		fournisseurRepository.save(notif);	
 	}
 
 }

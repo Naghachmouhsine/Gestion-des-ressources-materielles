@@ -16,6 +16,7 @@
     <script src="/static/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
      <script src="/static/js/gestionAppelOffre.js"></script>
+     <script src="/static/js/gestionProsition.js"></script>
     
 </head>
 
@@ -72,7 +73,7 @@
                   		<td>${a.date_fin}</td>    
                   		<td>
 
-                  		    <button type="submit" class="btn btn-primary"data-bs-toggle="modal" data-bs-target="#${a.id_app_off}"> 
+                  		    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${a.id_app_off}"> 
 		                      Consulter                                    
 		                    </button>     
 		                </td>     	

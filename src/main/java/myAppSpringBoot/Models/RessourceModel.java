@@ -1,6 +1,8 @@
 package myAppSpringBoot.Models;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -11,9 +13,11 @@ import javax.persistence.Table;
 public class RessourceModel {
 
 	@Id
-	private String numero_inventaire;
-	private String etat_recep; // etatReception : État de la ressource: reçue ou non
-    private String etat_affect; // etatAffectation : État d'affectation de la ressource: non affectée, affectée à une personne, affectée à un département
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // pour auto-incrémenter
+	protected int idRes;
+	protected String numero_inventaire;
+	protected String etat_recep; // etatReception : État de la ressource: reçue ou non
+    protected String etat_affect; // etatAffectation : État d'affectation de la ressource: non affectée, affectée à une personne, affectée à un département
 
 	@OneToOne
     @JoinColumn(name = "id_bes", referencedColumnName = "id_bes")
@@ -53,6 +57,14 @@ public class RessourceModel {
 
 	public void setBesoin(BesoinModel besoin) {
 		this.besoin = besoin;
+	}
+
+	public int getIdRes() {
+		return idRes;
+	}
+
+	public void setIdRes(int idRes) {
+		this.idRes = idRes;
 	}
 
 }
