@@ -10,6 +10,41 @@
     <link rel="stylesheet" href="/static/css/CardAppelOffre.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
+    <style>
+    .page_proposition .titlePage{
+	    margin-top:20px;
+	    margin-bottom:25px
+	}
+    
+    .page_proposition table.table td, th {
+	    background: #eaf7fe;
+	}
+	
+	.page_proposition table th {
+	    background: #eaf7fe !important;
+	    padding-top: 22px !important;
+	    padding-bottom: 22px !important;
+	    /* text-align: center; */
+	}
+	
+	.page_proposition .bgBlue{
+	   background: #eaf7fe;
+	}
+	
+	.page_proposition .row_footer_proposition {
+		margin-top:15px;
+		background: #d9f2ff;
+		padding: 25px;
+		border-radius:8px;
+		box-shadow: 3px 4px 5px #cccccc4a;
+	}
+	
+	.page_proposition .btnSubmit {
+		margin-bottom:30px
+	}
+
+    
+    </style>
     
     <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
@@ -47,11 +82,14 @@
     <!-- ========================= Fin Navbar ==================== -->
     
       <!-- ========================= Main ==================== -->
-     <div class="container ">
+     <div class="container page_proposition">
         <div style="background-color: #fff;">
-         <div class="row">
-          <div class="col-md-10 mx-auto ">
+         <!-- Titre appel offre nom -->
+         <h5 class="titlePage">  ${appelOffre.nom}</h5>
+         <div class="row bgBlue">
+          <div class="col-md-10 mx-auto bgBlue">
             <form action="/AjouterProposition" method="post">
+            
                 <table class="table ">
                     <thead>
                         <tr>
@@ -81,7 +119,7 @@
                                 </td>
                                 <td>
                                     <!-- Champ de formulaire pour le prix -->
-                                    <input type="number" name="prix_${b.id_bes}" id="prix_${b.id_bes}" class="form-control prix" placeholder="Prix" required step="0.01">
+                                    <input type="number" name="prix_${b.id_bes}" id="prix_${b.id_bes}" class="form-control prix" placeholder="Prix" min="0" required >
                                     <div class="invalid-feedback">Veuillez entrer un prix valide.</div>
                                 </td>
                                 <td>
@@ -96,28 +134,49 @@
                 </table>
               </div>
              
-              <div  class="col-md-10">
-               <div>
-                Date de livraison: <input type="date" id="dateLivraison" name="dateLivraison" class="form-control" required>
-                
-            </div>
-              </div>
-             <div class="col-md-10">
+              <div class="col-md-10  mx-auto row_footer_proposition" >
+                 <div class="row">
+	           		<div class="col-md-4">
+		           		 <div>
+			                Date de livraison: 
+			                <input type="date" id="dateLivraison" name="dateLivraison" class="form-control" required>
+			            </div>
+		            </div>
+		            <div class="col-md-8">
+		           		<div class="float-md-end" style="margin-top:15px"> <!-- Utilisation de la classe float-end pour placer les éléments à droite -->
+		                   <input type="hidden" name="total" id="totalInput" value="0">
+		                   TOTAL : <b id="total">0 DH</b>
+                   		</div>
+		            </div>
+	             </div>
+	           </div>
+	           
+	           <div style="margin-top:30px"></div>
+              
+             <div class="col-md-11">
             
                <div class="float-md-end"> <!-- Utilisation de la classe float-end pour placer les éléments à droite -->
-                   <input type="hidden" name="total" id="totalInput" value="0">
+                   <!-- <input type="hidden" name="total" id="totalInput" value="0">
                    Total: <span id="total">0 DH</span>
-                   <br>
-                   <button type="submit" class="btn btn-primary mt-2">Soumettre</button>
+                   <br> -->
+                   <!-- tester si le fournisseur est bloque  -->
+                   
+                  <c:choose>
+                    <c:when test="${sessionScope['Fournisseur'].etat == 1}">
+                      <button type="button" class="btn btn-primary mt-2 btnSubmit" onclick="showSweetAlert()">Soumettre</button>
+                    </c:when>
+                 <c:otherwise>
+                     <button type="submit" class="btn btn-primary mt-2 btnSubmit">Soumettre</button>
+                 </c:otherwise>
+               </c:choose>
+                 <!--  <button type="submit" class="btn btn-primary mt-2">Soumettre</button> -->
                </div>
             </div>
             </form>
        </div> 
        </div>
     </div>
-    
-</div>
-</div>
+
 <script>
     // Sélectionnez tous les champs de prix
     const prixInputs = document.querySelectorAll('.prix');
@@ -146,6 +205,20 @@
         input.addEventListener('input', calculerTotal);
     });
 </script>
-      
+<script>
+function showSweetAlert() {
+           Swal.fire({
+               title: 'Vous êtes bloqué !',
+               text: 'Pour des raisons administratives ,vous ne pouvez pas ajouter une proposition',
+               icon: 'error',
+               confirmButtonText: 'OK'
+           }).then((result) => {
+               if (result.isConfirmed) {
+                   window.location.href = '/PagePublique';
+               }
+           });
+  
+}
+</script>      
 </body>
 </html>

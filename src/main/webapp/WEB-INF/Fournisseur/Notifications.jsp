@@ -152,9 +152,15 @@
     <!-- ========================= Fin Navbar ==================== -->
 <div class="container ">
  <div style="background-color: #fff;">
+  <c:choose>
+    <c:when test="${empty listNotifs}">
+       <div class="alert alert-danger" role="alert">
+        Aucune notification à consulter pour le moment.
+       </div>
+    </c:when>
+    <c:otherwise>
    <div class="wrapper">
      <c:forEach items="${listNotifs}" var="notification" varStatus="loop">
-       <c:if test="${notification.fournisseur.id_four == sessionScope.Fournisseur.id_four}"> <!-- Cette condition affiche uniquement les notifications destinées à l'enseignant actuellement authentifié -->
          <div class="toast ${notification.etat==1 ? 'success' : 'info'} ${notification.etat==0 ? 'unread' : ''}" style="display: grid;" onclick="markAsRead(this)" data-notification-id="${notification.id_notif}">
             <div class="container-1">
                 <i class="fas fa-${notification.etat==1 ? 'check-square' : 'info-circle'}"></i>
@@ -170,13 +176,16 @@
        <c:if test="${loop.index % 2 == 1 && !loop.last}">
             <div style="width: 100%; margin-bottom: 20px;"></div>
         </c:if>
-	   </c:if>
+	
 	 </c:forEach>
 
     
      <!-- ajouter de l'espace après vos notifications -->
     <div style="width: 100%; margin-bottom: 20px;"></div>
     </div>
+     
+    </c:otherwise>
+  </c:choose>  
  </div>
 </div>
 

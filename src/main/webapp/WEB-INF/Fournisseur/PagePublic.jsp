@@ -1,4 +1,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ page import="java.util.Calendar" %>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,6 +100,9 @@
         <div style="background-color: #fff;">
             <div class="row row_cards">
                 <c:forEach items="${listAppelsOffres}" var="appelOffre" varStatus="loop">
+                 
+                 <c:set var="now" value="<%= Calendar.getInstance().getTime() %>" />
+                 <fmt:parseDate var="dateFin" value="${appelOffre.date_fin}" pattern="yyyy-MM-dd" />
                     <div class="col-md-4 mb-4">
                         <div class="card h-100">
                             <div class="card-body">
@@ -104,7 +114,16 @@
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${appelOffre.id_app_off}">
                                     Plus de détails
                                 </button>
-                                <a href="/proposition/${appelOffre.id_app_off}" class="btn btn-primary" >Ajouter</a>
+                                 <!-- <a href="/proposition/${appelOffre.id_app_off}" class="btn btn-primary" >Ajouter</a>-->
+                                  <!-- tester si la date fin a depasse la date actuelle-->
+                                  <c:choose>
+                                     <c:when test="${now.after(dateFin)}">
+                                      <a href="/proposition/${appelOffre.id_app_off}" class="btn btn-primary" title="Délai de l'appel d'offres dépassé." style="cursor: not-allowed;" >Ajouter</a>
+                                     </c:when>
+                                    <c:otherwise>
+                                       <a href="/proposition/${appelOffre.id_app_off}"  class="btn btn-primary" >Ajouter</a>
+                                    </c:otherwise>
+                                 </c:choose>
                             </div>
                         </div>
                     </div>

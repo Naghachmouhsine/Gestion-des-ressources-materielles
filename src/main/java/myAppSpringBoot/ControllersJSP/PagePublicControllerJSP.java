@@ -51,6 +51,9 @@ public class PagePublicControllerJSP {
 			//ArrayList<AppelOffreModelRespo> listAppelsOffres=pagePublicController.;
 		  ArrayList <BesoinModel> listBesoinsAppelOffre =pagePublicController.getBesoinsAppelOffre(idAppelOffre);
 		  model.addAttribute("listBesoinsAppelOffre", listBesoinsAppelOffre);
+		  //le nom appel offre
+		  AppelOffreModel appelOffre=pagePublicController.getAppelOffre(idAppelOffre);
+		  model.addAttribute("appelOffre", appelOffre);
 		  //
 		  ArrayList<AppelOffreModelRespo> listAppelsOffres=pagePublicController.getAllAppelOffres_PP();
 		  session.setAttribute("idAppel", idAppel);
