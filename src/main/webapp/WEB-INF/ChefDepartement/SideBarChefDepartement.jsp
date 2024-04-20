@@ -38,6 +38,15 @@
                         <span class="title">Consultation </span>
                     </div>
                 </li>
+                
+                <li style="cursor: pointer;">
+                    <div id="ConsulterMessagesButton">
+                        <span class="icon">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                        </span>
+                        <span class="title">Messages</span>
+                    </div>
+                </li>
 
                 <li>
                     <div>
@@ -47,6 +56,8 @@
                         <span class="title">Sign Out</span>
                     </div>
                 </li>
+                
+                
             </ul>
         </div>
     </div>
@@ -66,10 +77,18 @@
         demanderBesoinButton.addEventListener("click", function () {
             document.getElementById("demandeBesoinsContent").style.display = "block";
             document.getElementById("consultationBesoinsContent").style.display = "none";
+            document.getElementById("consultationMessagesChefContent").style.display = "none";
         });
 
         consulterBesoinButton.addEventListener("click", function () {
             document.getElementById("consultationBesoinsContent").style.display = "block";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+            document.getElementById("consultationMessagesChefContent").style.display = "none";
+        });
+        
+        ConsulterMessagesButton.addEventListener("click", function () {
+            document.getElementById("consultationMessagesChefContent").style.display = "block";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
             document.getElementById("demandeBesoinsContent").style.display = "none";
         });
     });

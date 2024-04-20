@@ -34,12 +34,14 @@
                 </div>              
             </div>
       
-    <!-- 3- Contenu de la demande de besoins ----------------------------------- -->
     <div id="demandeBesoinsContent" style="display: none;">
     <%@ include file="ContenuDemandeBesoins.jsp" %>
     </div>
     <div id="consultationBesoinsContent" style="display: ${param.visibility == 'true' ? 'block' : 'none'};">
     <%@ include file="ContenuConsultationBesoins.jsp" %>
+    </div>
+    <div id="consultationMessagesChefContent" style="display: none;">
+    <%@ include file="ContenuMessagerieChef.jsp" %>
     </div>
 
 
