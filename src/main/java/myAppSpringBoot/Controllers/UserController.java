@@ -70,4 +70,8 @@ public class UserController {
     	// http://localhost:4040/backend/users/test@gmail.com
     }
 	
+    @GetMapping("/roles/{roles}")
+    public UserModel getUserByRoles(@PathVariable("roles") String roles) {
+    	return userService.getUserByRole(roles);
+    }
 }

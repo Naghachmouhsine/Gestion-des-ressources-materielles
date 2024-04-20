@@ -56,17 +56,27 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
-    <script>
     
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sélectionne le bouton de demande
-            var demanderBesoinButton = document.getElementById("demanderBesoinButton");
-            // Ajoute un écouteur d'événement pour le clic sur le bouton
-            demanderBesoinButton.addEventListener("click", function () {
-                // Redirige vers l'URL appropriée, par exemple "/demande"
-                window.location.href = "/demandeBesoinsChefDepartement"; // Mettez l'URL de votre contrôleur ici
-            });
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sï¿½lectionne les boutons de la sidebar
+        var demanderBesoinButton = document.getElementById("demanderBesoinButton");
+        var consulterBesoinButton = document.getElementById("consulterBesoinButton");
+
+        demanderBesoinButton.addEventListener("click", function () {
+            document.getElementById("demandeBesoinsContent").style.display = "block";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
         });
-    </script>
+
+        consulterBesoinButton.addEventListener("click", function () {
+            document.getElementById("consultationBesoinsContent").style.display = "block";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+        });
+    });
+    
+   
+</script>
+   
+    
 </body>
 </html>

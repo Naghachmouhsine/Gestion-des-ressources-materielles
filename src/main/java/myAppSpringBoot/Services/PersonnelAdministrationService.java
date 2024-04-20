@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import myAppSpringBoot.Models.DepartementModel;
 import myAppSpringBoot.Models.PersonnelAdministrationModel;
 import myAppSpringBoot.Repositories.PersonnelAdministrationRepository;
 
@@ -22,5 +23,10 @@ public class PersonnelAdministrationService implements PersonnelAdministrationSe
 	@Override
 	public PersonnelAdministrationModel getIdDeparByCin(String cin) {
 		return personnelAdministrationRepository.findIdDeparByCin(cin);
+	}
+	
+	@Override
+	public List<PersonnelAdministrationModel> findPersonnelByDepartement(DepartementModel departement){
+		return personnelAdministrationRepository.findPersonnelByDepartement(departement);
 	}
 }

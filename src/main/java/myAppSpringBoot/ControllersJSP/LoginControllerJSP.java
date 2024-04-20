@@ -100,6 +100,17 @@ public class LoginControllerJSP {
     
     @RequestMapping("/interface-chefDepartement")
     public String showPagePrincipaleChefDepartement() {
+    	
+        UserModel currentChef = (UserModel) httpSession.getAttribute("ChefDepartement");
+        UserModel responsable=userController.getUserByRoles("Responsable");
+        List<PersonnelAdministrationModel> listPersonnelsChef= personnelAdministrationController.getPersonnelsDepartmentChef(currentChef.getCin());
+        List<BesoinModel> besoins = besoinController.getAllBesoins();
+
+        httpSession.setAttribute("listPersonnels", listPersonnelsChef);
+        httpSession.setAttribute("listBesoins", besoins);
+        httpSession.setAttribute("visibility","False");
+        httpSession.setAttribute("responsable", responsable);
+        
         return "ChefDepartement/InterfacePrincipaleChefDepartement";
     }
 

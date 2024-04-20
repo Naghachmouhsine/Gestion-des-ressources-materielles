@@ -49,5 +49,13 @@ public class OrdinateurModel extends BesoinModel {
 	public void setRam(int ram) {
 		this.ram = ram;
 	}
+	
+	public OrdinateurModel(int cpu, int disque_dur, int ecran, int ram) {
+		super();
+		this.cpu = cpu;
+		this.disque_dur = disque_dur;
+		this.ecran = ecran;
+		this.ram = ram;
+	}
 
 }//end OrdinateurModel
