@@ -101,26 +101,39 @@
 <body>
 <div class="wrapper">
     <c:forEach items="${myListPannes}" var="panne" varStatus="loop">
-      <c:if test="${panne.etat_panne == 'Non réparée'}">
+        <c:if test="${panne.etat_panne == 'Non réparée'}">
+            <div class="toast info unread" style="display: grid;">
+                <div class="container-1">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="container-2">
+                    <p>Chers Techniciens,</p>
+                    <p>Nous souhaitons vous informer qu'une <b style="color:#FF0000;">panne</b> a été détectée dans une ressource de type <b style="color:#008080;">${panne.ressource.besoin.type}</b> portant le numéro d'inventaire <b style="color:#008080;">${panne.ressource.numero_inventaire}</b>.
+                        Cette ressource appartient au <b style="color:#008080;">${panne.ressource.besoin.personnelAdministration.departement.nom_depart}</b>.
+                        Nous vous prions de bien vouloir intervenir pour résoudre ce problème dans les plus brefs délais.</p>
+                </div>
+                <button>&times;</button>
+            </div>
+        </c:if>
+    </c:forEach>
+    
+    <!-- Vérifier si la liste des pannes est vide ou si aucune panne non réparée n'existe -->
+    <c:if test="${empty myListPannes || not myListPannes.stream().anyMatch(p -> p.etat_panne == 'Non réparée')}">
         <div class="toast info unread" style="display: grid;">
             <div class="container-1">
                 <i class="fas fa-info-circle"></i>
             </div>
             <div class="container-2">
-                <p>Chers Techniciens,</p>
-                <p>Nous souhaitons vous informer qu'une <b style="color:#FF0000;">panne</b> a été détectée dans une ressource de type <b style="color:#008080;">${panne.ressource.besoin.type}</b> portant le numéro d'inventaire <b style="color:#008080;">${panne.ressource.numero_inventaire}</b>.
-                   Cette ressource appartient au <b style="color:#008080;">${panne.ressource.besoin.personnelAdministration.departement.nom_depart}</b>.
-                   Nous vous prions de bien vouloir intervenir pour résoudre ce problème dans les plus brefs délais.</p>
+                <p>Aucune notification de panne disponible</p>
+                <p>Il n'y a actuellement aucune panne enregistrée.</p>
             </div>
-            <button>&times;</button>
         </div>
-	   </c:if>
-	</c:forEach>
-
+    </c:if>
     
-     <!-- ajouter de l'espace après vos notifications -->
+    <!-- ajouter de l'espace après vos notifications -->
     <div style="width: 100%; margin-bottom: 20px;"></div>
 </div>
+
 
 </body>
 

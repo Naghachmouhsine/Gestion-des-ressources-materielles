@@ -14,7 +14,7 @@
             <th>Etat Affectation</th>
             <th>Personnel</th>
             <th>Role</th>
-            <th style="width:13%">Action</th>
+            <!-- <th style="width:13%">Action</th> -->
         </thead>
         <tbody>
             <!-- Vérifier si la liste des ressources est vide -->

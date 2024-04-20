@@ -34,7 +34,7 @@
 		              </select>
 		            </div>
 		          </div><br>
-		          <div class="form-group row">
+		          <%-- <div class="form-group row">
 		            <label class="col-sm-3 col-form-label">Appel d'offre :</label>
 		            <div class="col-sm-9">
 		              <select name="appelOffreForm" class="form-control" required>
@@ -43,11 +43,11 @@
 		                </c:forEach>
 		              </select>
 		            </div>
-		          </div><br>
+		          </div><br> --%>
 					<div class="form-group row">
 					    <label class="col-sm-3 col-form-label">Personnel :</label>
 					    <div class="col-sm-9">
-					        <select name="personnelForm" class="form-control" required>
+					        <select name="personnelForm" class="form-control" required readonly style = "background-color: #f8f9fa; color: #495057;  cursor: not-allowed;">
 					            <!-- Inclure les options dynamiquement depuis la base de données -->
 					            <c:forEach items="${myListPersonnels}" var="personnel">
 					                <%-- Vérifier si l'utilisateur connecté est un enseignant et si son CIN correspond au CIN du personnel --%>
@@ -162,7 +162,7 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             contentType: "application/x-www-form-urlencoded",
-            url: "save",
+            url: "envoyerBesoin",
             data: formData,
             success: function(response) {
                 console.log(response);

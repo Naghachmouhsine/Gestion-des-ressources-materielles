@@ -34,7 +34,10 @@
            <div class="form-group row">
 		     <label class="col-sm-3 col-form-label">Technicien :</label>
 		     <div class="col-sm-9">
-		        <input name="technicien" class="form-control" required readonly style="background-color: #f8f9fa; color: #495057; cursor: not-allowed;" value="${sessionScope.Technicien.nom} ${sessionScope.Technicien.prenom} (${sessionScope.Technicien.cin})">
+		      <!-- Champ caché pour stocker l'ID du technicien -->
+		        <input type="hidden" name="cin_technicien" value="${sessionScope.Technicien.cin}">
+		        <!-- Affichage du nom complet du technicien (lecture seule) -->
+		        <input name="technicien" class="form-control" required readonly style="background-color: #f8f9fa; color: #495057; cursor: not-allowed;" value="${sessionScope.Technicien.nom} ${sessionScope.Technicien.prenom} (${sessionScope.Technicien.cin})">		     
 		     </div>
 		   </div><br>
 		    <div class="form-group row">
@@ -92,7 +95,7 @@
     // Lorsque la valeur de l'état de la panne change
     function handleStateChange(select) {
         var etat_panne = select.value;
-        if (etat_panne === 'En cours') {
+        if (etat_panne === 'En cours' || etat_panne === 'Réparée') {
             // Masquer les champs Frequence, Ordre, Constat
             $('#frequence_div').hide();
             $('#ordre_div').hide();
@@ -115,7 +118,8 @@
       // Vérifier si tous les champs requis sont remplis
       var isValid = true;
       $('#PanneForm input[required], #PanneForm select[required], #PanneForm textarea[required]').each(function() {
-        if ($.trim($(this).val()) == '') {
+    	// Vérifier si le champ est visible et non vide
+          if ($(this).is(":visible") && $.trim($(this).val()) == '') {
           isValid = false;
           return false; // Sortir de la boucle si un champ requis est vide
         }
