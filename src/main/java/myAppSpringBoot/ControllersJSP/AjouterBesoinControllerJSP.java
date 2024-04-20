@@ -25,25 +25,25 @@ public class AjouterBesoinControllerJSP {
     @Autowired
     private ImprimanteRepository imprimanteRepository;
     
-	@PostMapping(value = "/save", consumes = "application/x-www-form-urlencoded")
+	@PostMapping(value = "/envoyerBesoin", consumes = "application/x-www-form-urlencoded")
     public String traiterRequete(@RequestParam Map<String, String> formData) {     
 		String typeBesoin = formData.get("typeForm"); // name="typeForm"
-		int idAppOff = Integer.parseInt(formData.get("appelOffreForm"));
+		/* int idAppOff = Integer.parseInt(formData.get("appelOffreForm")); */
 		String cinPers = formData.get("personnelForm");
 		// System.out.println("typeBesoin ===> "+ typeBesoin);
 		
 		// BesoinModel besoin = new BesoinModel();
-		AppelOffreModel appelOffre = new AppelOffreModel();
+		// AppelOffreModel appelOffre = new AppelOffreModel();
 		PersonnelAdministrationModel personnelAdministration = new PersonnelAdministrationModel(); 
 		
-	    appelOffre.setId_app_off(idAppOff);
+	    //appelOffre.setId_app_off(idAppOff);
 	    personnelAdministration.setCin(cinPers);
 		
 	    // Enregistrer les caractéristiques spécifiques dans la table appropriée (Ordinateur ou Imprimante)
 	    if (typeBesoin.equals("ordinateur")) {
 	        OrdinateurModel ordinateur = new OrdinateurModel();
 	        ordinateur.setType(typeBesoin);
-	        ordinateur.setAppelOffre(appelOffre);
+	       // ordinateur.setAppelOffre(appelOffre);
 	        ordinateur.setPersonnelAdministration(personnelAdministration);
 		    
 	        ordinateur.setCpu(Integer.parseInt(formData.get("cpu")));
@@ -56,7 +56,7 @@ public class AjouterBesoinControllerJSP {
 	    } else if (typeBesoin.equals("imprimante")) {
 	        ImprimanteModel imprimante = new ImprimanteModel();
 	        imprimante.setType(typeBesoin);
-	        imprimante.setAppelOffre(appelOffre);
+	       // imprimante.setAppelOffre(appelOffre);
 	        imprimante.setPersonnelAdministration(personnelAdministration);
 	        
 	        imprimante.setResolution(Integer.parseInt(formData.get("resolution")));

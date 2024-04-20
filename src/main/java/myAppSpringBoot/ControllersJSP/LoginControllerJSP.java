@@ -115,6 +115,13 @@ public class LoginControllerJSP {
 
     @RequestMapping("/interface-technicien")
     public String showPagePrincipaleTechnicien(Model model) {
+    	// Récupérer l'utilisateur actuellement connecté à partir de la session
+        UserModel technicien = (UserModel) httpSession.getAttribute("Technicien");
+        if (technicien == null) {
+            // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+            return "redirect:/login";
+        }
+    	
     	List<PanneModel> listePannes = panneRepository.findAll();
         model.addAttribute("myListPannes", listePannes);
         
