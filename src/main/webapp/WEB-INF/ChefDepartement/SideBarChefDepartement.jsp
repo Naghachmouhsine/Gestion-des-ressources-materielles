@@ -21,25 +21,43 @@
                     </div>
                 </li>
                 
-                <li>
+                <li style="cursor: pointer;">
                     <div id="demanderBesoinButton">
                         <span class="icon">
-                            <ion-icon name="add-circle-outline"></ion-icon>
+                             <ion-icon name="create-outline"></ion-icon> 
                         </span>
-                        <span class="title">Demande </span>
+                        <span class="title">Demande</span>
                     </div>
                 </li>
 
-                <li>
+                <li style="cursor: pointer;">
                     <div id="consulterBesoinButton">
                         <span class="icon">
                             <ion-icon name="list-outline"></ion-icon>
                         </span>
-                        <span class="title">Consultation </span>
+                        <span class="title">Consultation</span>
+                    </div>
+                </li>
+                
+                <li style="cursor: pointer;">
+                    <div id="ajouterBesoinDepartementButton">
+                        <span class="icon">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </span>
+                        <span class="title">Ajout</span>
+                    </div>
+                </li>
+                
+                <li style="cursor: pointer;">
+                    <div id="ConsulterMessagesButton">
+                        <span class="icon">
+                            <ion-icon name="chatbubble-outline"></ion-icon>
+                        </span>
+                        <span class="title">Messages</span>
                     </div>
                 </li>
 
-                <li>
+                <li style="cursor: pointer;">
                     <div>
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -47,6 +65,8 @@
                         <span class="title">Sign Out</span>
                     </div>
                 </li>
+                
+                
             </ul>
         </div>
     </div>
@@ -56,17 +76,48 @@
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
-    <script>
     
-        document.addEventListener("DOMContentLoaded", function () {
-            // Sélectionne le bouton de demande
-            var demanderBesoinButton = document.getElementById("demanderBesoinButton");
-            // Ajoute un écouteur d'événement pour le clic sur le bouton
-            demanderBesoinButton.addEventListener("click", function () {
-                // Redirige vers l'URL appropriée, par exemple "/demande"
-                window.location.href = "/demandeBesoinsChefDepartement"; // Mettez l'URL de votre contrôleur ici
-            });
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Sï¿½lectionne les boutons de la sidebar
+        var demanderBesoinButton = document.getElementById("demanderBesoinButton");
+        var consulterBesoinButton = document.getElementById("consulterBesoinButton");
+
+        demanderBesoinButton.addEventListener("click", function () {
+            document.getElementById("demandeBesoinsContent").style.display = "block";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
+            document.getElementById("consultationMessagesChefContent").style.display = "none";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+
         });
-    </script>
+
+        consulterBesoinButton.addEventListener("click", function () {
+            document.getElementById("consultationBesoinsContent").style.display = "block";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+            document.getElementById("consultationMessagesChefContent").style.display = "none";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+
+        });
+        
+        ConsulterMessagesButton.addEventListener("click", function () {
+            document.getElementById("consultationMessagesChefContent").style.display = "block";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+        });
+        
+        
+        ajouterBesoinDepartementButton.addEventListener("click",function(){
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "block";
+        	document.getElementById("consultationMessagesChefContent").style.display = "none";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+        });
+    });
+    
+   
+</script>
+   
+    
 </body>
 </html>

@@ -1,14 +1,15 @@
+<!-- Importer la librairie JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page principale d'eniengant</title>
+    <title>Page principale d'ensiengant</title>
     
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <!-- ======= Bootstrap ====== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
    <!-- Add Font Awesome for icons -->
@@ -20,13 +21,54 @@
 <body>
     <!-- Inclure la barre de navigation -->
     <jsp:include page="SideBarChefDepartement.jsp" />
+    <div class="mainCSS">
+            <div class="topbarCSS">
+                <div class="toggleCSS">
+                    <ion-icon name="menu-outline"></ion-icon>
+                </div>
+
+                
+
+                <div class="userCSS">
+                    <ion-icon name="person-circle-outline" size="large"></ion-icon>
+                </div>              
+            </div>
+      
+    <div id="demandeBesoinsContent" style="display: none;">
+    <%@ include file="ContenuDemandeBesoins.jsp" %>
+    </div>
+    <div id="consultationBesoinsContent" style="display: ${param.visibility == 'true' ? 'block' : 'none'};">
+    <%@ include file="ContenuConsultationBesoins.jsp" %>
+    </div>
+    <div id="consultationMessagesChefContent" style="display: none;">
+    <%@ include file="ContenuMessagerieChef.jsp" %>
+    </div>
     
-  
-=======
-    <h1>Bonjour Chef de Département</h1>
-    <!-- Affichage des informations de l'utilisateur -->
-    <p>Nom d'utilisateur : ${ChefDepartement.nom}</p>
-    <p>Email : ${ChefDepartement.email}</p>
-    <!-- Ajoutez ici le contenu de la page principale du chef de département -->
+    <div id="ajouterBesoinDepartementContent" style="display: none;">
+    <%@ include file="ConsulterBesoinDepartement.jsp" %>
+    </div>
+
+
+
+
+    
+    <script>
+    // Afficher l'alerte Swal lorsque la page se charge
+    document.addEventListener("DOMContentLoaded", function () {
+        // Vï¿½rifier s'il y a un message de succï¿½s dans les attributs flash
+        var successMessage = "<c:out value='${successMessage}'/>";
+        if (successMessage) {
+            // Afficher l'alerte Swal
+            Swal.fire({
+                icon: 'success',
+                title: successMessage,
+                showConfirmButton: false,
+                timer: 1500
+                
+            });
+        }
+    });
+    </script>
+    
 </body>
 </html>
