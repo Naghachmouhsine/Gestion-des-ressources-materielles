@@ -23,38 +23,20 @@
                 </li>
 
                 <li style="cursor: pointer;">
-                    <div id="besoinsButton">
+                    <div id="pannesButton">
                         <span class="icon">
-                            <ion-icon name="list-outline"></ion-icon>
+                            <ion-icon name="bug-outline"></ion-icon>
                         </span>
-                        <span class="title">Besoins</span>
+                        <span class="title">Pannes</span>
                     </div>
                 </li>
 
                 <li style="cursor: pointer;">
-                    <div id="ressourcesButton">
+                    <div id="signalementsButton">
                         <span class="icon">
-                            <ion-icon name="folder-open-outline"></ion-icon>
+                            <ion-icon name="warning-outline"></ion-icon>
                         </span>
-                        <span class="title">Ressources</span>
-                    </div>
-                </li>
-
-                <li style="cursor: pointer;">
-                    <div id="messagesButton">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
-                        </span>
-                        <span class="title">Messages</span>
-                    </div>
-                </li>
-
-                <li style="cursor: pointer;">
-                    <div id="profilButton">
-                        <span class="icon">
-                            <ion-icon name="person-circle-outline"></ion-icon>
-                        </span>
-                        <span class="title">Profil</span>
+                        <span class="title">Signalements</span>
                     </div>
                 </li>
 
@@ -72,7 +54,7 @@
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Sign Out</span>
+                        <span class="title">Déconnexion</span>
                     </div>
                 </li>
             </ul>

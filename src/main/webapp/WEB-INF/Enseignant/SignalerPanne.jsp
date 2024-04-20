@@ -26,57 +26,15 @@
         <!-- Contenu du formulaire pour signaler une panne -->
         <form id="PanneForm">
           <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Numéro Inventaire :</label>
+            <label class="col-sm-3 col-form-label">ID Ressource :</label>
             <div class="col-sm-9">
               <input type="text" name="ressource" class="form-control" placeholder="Numéro Inventaire" required readonly style = "background-color: #f8f9fa; color: #495057;  cursor: not-allowed;">
-            </div>
-          </div><br>
-           <div class="form-group row">
-		     <label class="col-sm-3 col-form-label">Technicien :</label>
-		     <div class="col-sm-9">
-		        <select name="technicien" class="form-control" required>
-		            <option value="" disabled selected>Choisir un technicien</option>
-		            <c:forEach items="${myListUsers}" var="userTechnicien">
-		               <%-- Vérifier si l'utilisateur a le rôle de technicien --%>
-		                <c:if test="${userTechnicien.roles eq 'Technicien'}">
-		                    <option value="${userTechnicien.cin}">${userTechnicien.nom} ${userTechnicien.prenom} (${userTechnicien.cin})</option>
-		                </c:if>
-		            </c:forEach>
-		        </select>
-		     </div>
-		   </div><br>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Fréquence :</label>
-            <div class="col-sm-9">
-              <select name="frequence" class="form-control" required>
-                <option value="" disabled selected>Choisir la fréquence</option>
-                <option value="Rare">Rare</option>
-                <option value="Fréquente">Fréquente</option>
-                <option value="Permanente">Permanente</option>
-              </select>
-            </div>
-          </div><br>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Ordre :</label>
-            <div class="col-sm-9">
-              <select name="ordre" class="form-control" required>
-                <option value="" disabled selected>Choisir l'ordre</option>
-                <option value="Défaut du Système">Défaut du Système</option>
-                <option value="Défaut du Logiciel Utilitaire">Défaut du Logiciel Utilitaire</option>
-                <option value="Défaut du Matériel">Défaut du Matériel</option>
-              </select>
             </div>
           </div><br>
           <div class="form-group row">
             <label class="col-sm-3 col-form-label">Date Panne :</label>
             <div class="col-sm-9">
               <input type="date" name="date_panne" class="form-control" required>
-            </div>
-          </div><br>
-          <div class="form-group row">
-            <label class="col-sm-3 col-form-label">Constat :</label>
-            <div class="col-sm-9">
-              <textarea name="constat" class="form-control" rows="3" placeholder="Constat" required></textarea>
             </div>
           </div><br>
           <div class="modal-footer">

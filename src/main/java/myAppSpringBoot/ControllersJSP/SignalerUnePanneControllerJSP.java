@@ -1,5 +1,7 @@
 package myAppSpringBoot.ControllersJSP;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +21,20 @@ public class SignalerUnePanneControllerJSP {
 
 	@PostMapping(value = "/signalerUnePanne", consumes = "application/x-www-form-urlencoded")
     public void signalerUnePanne(@ModelAttribute PanneModel panne) {
+		panne.setEtat_panne("Non réparée"); // l'etat de la panne par defaut
 		panneRepository.save(panne);
+    }
+	
+	@PostMapping(value = "/reparerUnePanne", consumes = "application/x-www-form-urlencoded")
+    public void reparerUnePanne(@ModelAttribute PanneModel panne) {
+		// Récupérer l'ID de la panne à partir du modèle
+	    int panneId = panne.getId_pan();
+	    Optional<PanneModel> panneExistante = panneRepository.findById(panneId);
+	    
+	   // Si la panne existe déjà, mettez à jour ses attributs
+	    if (panneExistante.isPresent()) {
+		   panneRepository.save(panne);
+	    }
     }
 	
 	/*

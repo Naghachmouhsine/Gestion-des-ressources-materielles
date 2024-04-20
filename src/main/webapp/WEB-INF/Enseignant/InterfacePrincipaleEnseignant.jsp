@@ -26,7 +26,9 @@
 <!-- =============== fin Navigation ================ -->
 
 <!-- ========================= Main ==================== -->
-        <div class="mainCSS">
+            <!-- #DCDCDC , F5F5F5 , FFFAF0 , F5F5DC , FFFAFA, F5FFFA , FAF0E6 , FDF5E6 -->
+       <!--  <div class="mainCSS"> -->
+        <div class="mainCSS" style="background-color: #F5F5F5;">
             <div class="topbarCSS">
                 <div class="toggleCSS">
                     <ion-icon name="menu-outline"></ion-icon>

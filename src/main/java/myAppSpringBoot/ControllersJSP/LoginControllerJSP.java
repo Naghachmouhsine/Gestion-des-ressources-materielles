@@ -114,7 +114,10 @@ public class LoginControllerJSP {
     }
 
     @RequestMapping("/interface-technicien")
-    public String showPagePrincipaleTechnicien() {
+    public String showPagePrincipaleTechnicien(Model model) {
+    	List<PanneModel> listePannes = panneRepository.findAll();
+        model.addAttribute("myListPannes", listePannes);
+        
         return "Technicien/InterfacePrincipaleTechnicien";
     }
     

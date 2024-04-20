@@ -7,6 +7,7 @@
     <h3 class="mb-4" style="color:#008080;"><i class="fas fa-cogs"></i> <span >Liste des Ressources :</span></h3>
     <table class='table table-striped table-bordered'>
         <thead>
+            <th>ID</th>
             <th>Num Inventaire</th>
             <th>Type Ressource</th>
             <th>Etat Reception</th>
@@ -25,6 +26,7 @@
             <!-- Si la liste des ressources n'est pas vide, afficher les ressources -->
             <c:forEach items="${myListRessources}" var="ressource">
                 <tr>
+                    <td>${ressource.idRes}</td>
                     <td>${ressource.numero_inventaire}</td>
                     <td>${ressource.besoin.type}</td>
                     <td>${ressource.etat_recep}</td>
@@ -88,38 +90,51 @@
     <div class="row">
         <div class="col-md-12">
             <h3 class="mb-4"><i class="fas fa-exclamation-triangle mr-2 text-danger"></i> <span class="text-danger">Liste des Pannes des Ressources :</span></h3>
-            <table class="table table-striped table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                     <!-- <th scope="col">Numéro Inventaire (Type Ressource)</th> -->
-                        <th scope="col">Numéro Inventaire</th>
-                        <th scope="col">Technicien</th>
-                        <th scope="col">Fréquence</th>
-                        <th scope="col">Ordre</th>
-                        <th scope="col">Date Panne</th>
-                        <th scope="col">Constat</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Vérifier si la liste des pannes est vide -->
-                    <c:if test="${empty listePannes}">
-                        <tr>
-                            <td colspan="6" class="text-center"><b style="color:#008080;">Aucune Panne Disponible</b></td>
-                        </tr>
-                    </c:if>
-                    <!-- Si la liste des pannes n'est pas vide, afficher les pannes -->
-                    <c:forEach items="${listePannes}" var="panne">
-                        <tr>
-                            <td>${panne.ressource.numero_inventaire} (${panne.ressource.besoin.type})</td>
-                            <td>${panne.technicien.nom} ${panne.technicien.prenom}</td>
-                            <td>${panne.frequence}</td>
-                            <td>${panne.ordre}</td>
-                            <td>${panne.date_panne}</td>
-                            <td>${panne.constat}</td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
+            
+			<table class="table table-striped table-bordered">
+			    <thead class="thead-dark">
+			        <tr>
+			            <th scope="col">#</th>
+			            <th scope="col">Numéro Inventaire</th>
+			            <th scope="col">Type Ressource</th>
+			            <th scope="col">Date Panne</th>
+			            <th scope="col">État Panne</th>
+			        </tr>
+			    </thead>
+			    <tbody>
+			        <!-- Vérifier si la liste des pannes est vide -->
+			        <c:choose>
+			            <c:when test="${empty listePannes}">
+			                <tr>
+			                    <td colspan="5" class="text-center"><b style="color:#008080;">Aucune Panne Disponible</b></td>
+			                </tr>
+			            </c:when>
+			            <c:otherwise>
+			                <!-- Si la liste des pannes n'est pas vide -->
+			                <c:set var="panneDisponible" value="false" />
+			                <c:forEach items="${listePannes}" var="panne">
+			                    <c:if test="${sessionScope.Enseignant != null && sessionScope.Enseignant.cin == panne.ressource.besoin.personnelAdministration.cin}">
+			                        <tr>
+			                            <td>${panne.id_pan}</td>
+			                            <td>${panne.ressource.numero_inventaire}</td>
+			                            <td>${panne.ressource.besoin.type}</td>
+			                            <td>${panne.date_panne}</td>
+			                            <td>${panne.etat_panne}</td>
+			                        </tr>
+			                        <c:set var="panneDisponible" value="true" />
+			                    </c:if>
+			                </c:forEach>
+			                <!-- Vérifier si aucune panne n'est disponible à cet enseignant -->
+			                <c:if test="${not panneDisponible}">
+			                    <tr>
+			                        <td colspan="5" class="text-center"><b style="color:#008080;">Aucune Panne Disponible à cet enseignant</b></td>
+			                    </tr>
+			                </c:if>
+			            </c:otherwise>
+			        </c:choose>
+			    </tbody>
+			</table>
+
         </div>
     </div>
 </div>

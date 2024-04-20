@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +22,8 @@ public class PanneModel {
 	private String frequence;
 	private String ordre;
 	private String constat; // Text
+	// L'attribut "etat_panne" avec la valeur par défaut "Non réparée"
+    private String etat_panne; // Non réparée, En cours, Réparée, Sévère
 	
 	@ManyToOne
     @JoinColumn(name = "cin_tech", referencedColumnName = "cin")
@@ -90,4 +93,22 @@ public class PanneModel {
 		this.ressource = ressource;
 	}
 
+	public String getEtat_panne() {
+		return etat_panne;
+	}
+
+	public void setEtat_panne(String etat_panne) {
+		this.etat_panne = etat_panne;
+	}
+
 }//end PanneModel
+
+
+/*
+ UPDATE Panne SET etat_panne = 'Non réparée' WHERE etat_panne IS NULL OR etat_panne = '';
+ ALTER TABLE Panne ALTER COLUMN etat_panne SET DEFAULT 'Non réparée';
+
+*/
+
+
+
