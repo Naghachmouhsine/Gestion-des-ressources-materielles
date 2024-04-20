@@ -21,21 +21,30 @@
                     </div>
                 </li>
                 
-                <li>
+                <li style="cursor: pointer;">
                     <div id="demanderBesoinButton">
                         <span class="icon">
-                            <ion-icon name="add-circle-outline"></ion-icon>
+                             <ion-icon name="create-outline"></ion-icon> 
                         </span>
-                        <span class="title">Demande </span>
+                        <span class="title">Demande</span>
                     </div>
                 </li>
 
-                <li>
+                <li style="cursor: pointer;">
                     <div id="consulterBesoinButton">
                         <span class="icon">
                             <ion-icon name="list-outline"></ion-icon>
                         </span>
-                        <span class="title">Consultation </span>
+                        <span class="title">Consultation</span>
+                    </div>
+                </li>
+                
+                <li style="cursor: pointer;">
+                    <div id="ajouterBesoinDepartementButton">
+                        <span class="icon">
+                            <ion-icon name="add-circle-outline"></ion-icon>
+                        </span>
+                        <span class="title">Ajout</span>
                     </div>
                 </li>
                 
@@ -48,7 +57,7 @@
                     </div>
                 </li>
 
-                <li>
+                <li style="cursor: pointer;">
                     <div>
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
@@ -78,16 +87,29 @@
             document.getElementById("demandeBesoinsContent").style.display = "block";
             document.getElementById("consultationBesoinsContent").style.display = "none";
             document.getElementById("consultationMessagesChefContent").style.display = "none";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+
         });
 
         consulterBesoinButton.addEventListener("click", function () {
             document.getElementById("consultationBesoinsContent").style.display = "block";
             document.getElementById("demandeBesoinsContent").style.display = "none";
             document.getElementById("consultationMessagesChefContent").style.display = "none";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+
         });
         
         ConsulterMessagesButton.addEventListener("click", function () {
             document.getElementById("consultationMessagesChefContent").style.display = "block";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+        });
+        
+        
+        ajouterBesoinDepartementButton.addEventListener("click",function(){
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "block";
+        	document.getElementById("consultationMessagesChefContent").style.display = "none";
             document.getElementById("consultationBesoinsContent").style.display = "none";
             document.getElementById("demandeBesoinsContent").style.display = "none";
         });

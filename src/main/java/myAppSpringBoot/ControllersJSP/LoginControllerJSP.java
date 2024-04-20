@@ -113,6 +113,7 @@ public class LoginControllerJSP {
         httpSession.setAttribute("listBesoins", besoins);
         httpSession.setAttribute("visibility","False");
         httpSession.setAttribute("responsable", responsable);
+        httpSession.setAttribute("Enseignant", currentChef);
         
         return "ChefDepartement/InterfacePrincipaleChefDepartement";
     }

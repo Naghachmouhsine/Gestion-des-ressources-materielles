@@ -43,6 +43,12 @@
     <div id="consultationMessagesChefContent" style="display: none;">
     <%@ include file="ContenuMessagerieChef.jsp" %>
     </div>
+    
+    <div id="ajouterBesoinDepartementContent" style="display: none;">
+    <%@ include file="ConsulterBesoinDepartement.jsp" %>
+    </div>
+
+
 
 
     
