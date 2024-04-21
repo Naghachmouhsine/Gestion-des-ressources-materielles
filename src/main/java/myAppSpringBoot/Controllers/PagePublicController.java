@@ -116,7 +116,7 @@ public class PagePublicController {
 			   ArrayList<NotificationModel> listNotifs=new ArrayList<>();
 		       List<NotificationModel> listAllNotifs=fournisseurNotifsService.getAllNotifsFournisseur();
 		       for (NotificationModel notificationModel : listAllNotifs) {
-		    	   if(notificationModel.getFournisseur().getId_four() == id_fournisseur) {
+		    	   if(notificationModel.getFournisseur() != null && notificationModel.getFournisseur().getId_four() == id_fournisseur) {
 		    		   System.out.println("Notifs"+notificationModel.getMessage() +" : "+notificationModel.getFournisseur().getId_four());
 		    		   listNotifs.add(notificationModel);
 		    	   }
