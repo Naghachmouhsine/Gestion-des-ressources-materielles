@@ -40,12 +40,12 @@ public class ProjectGenieLogicielSpringBootApplication implements CommandLineRun
             System.err.println("Impossible d'etablir une connexion a la base de donnees : " + e.getMessage());
         }
         
-        
+       /* 
        // Encodez votre mot de passe avec BCryptPasswordEncoder
         String motDePasseClair = "1234";
         String motDePasseEncode = passwordEncoder.encode(motDePasseClair);  
         System.out.println("Mot de passe clair : " + motDePasseClair);
-        System.out.println("Mot de passe encodé : " + motDePasseEncode);
+        System.out.println("Mot de passe encodé : " + motDePasseEncode); */
     }
     
     
