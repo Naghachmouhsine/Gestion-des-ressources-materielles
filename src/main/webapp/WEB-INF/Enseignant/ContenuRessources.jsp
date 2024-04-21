@@ -14,7 +14,7 @@
             <th>Etat Affectation</th>
             <th>Personnel</th>
             <th>Role</th>
-            <!-- <th style="width:13%">Action</th> -->
+            <th style="width:13%">Action</th>
         </thead>
         <tbody>
             <!-- Vérifier si la liste des ressources est vide -->
@@ -96,7 +96,7 @@
 			        <tr>
 			            <th scope="col">#</th>
 			            <th scope="col">Numéro Inventaire</th>
-			            <th scope="col">Type Ressource</th>
+			            <th scope="col">Type</th>
 			            <th scope="col">Date Panne</th>
 			            <th scope="col">État Panne</th>
 			        </tr>
@@ -138,6 +138,6 @@
         </div>
     </div>
 </div>
-
+<br> <br>
 
 

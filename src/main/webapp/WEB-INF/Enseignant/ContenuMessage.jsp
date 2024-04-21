@@ -36,8 +36,8 @@
         }
 
         .toast {
-            width: calc(47% - 0.0px); /* 50% de largeur avec un espacement de 25px */
-            height: 95px;
+            width: 96.5%; /* 50% de largeur avec un espacement de 25px */
+            height: 105px;
             padding: 20px;
             background-color: #ffffff;
             border-radius: 7px;
@@ -47,6 +47,7 @@
             margin-bottom: 10px; /* Espacement verticale entre les toasts */
             margin-right: 25px; /* Espacement horizontale entre les toasts */
         }
+        
         
         .info {
             border-left: 8px solid #2F86EB;
@@ -71,22 +72,22 @@
 
         .container-1 i {
             font-size: 45px;
-            margin-bottom: 10px; margin-left:-10px; /* .... */
+            margin-bottom: 25px; margin-left:-10px; /* .... */
         }
 
         .container-2 p:first-child {
             color: #101020;
             font-weight: 600;
             font-size: 16px;
-            margin-top: -10px; margin-left:-25px;
+            margin-top: -10px; margin-left:-110px;
         }
 
         .container-2 p:last-child {
             font-size: 15px;
             font-weight: 400;
             color: #656565;
-            margin-top: -10px; margin-left:-25px;
-            width: 117%;  /* pour forcer la rupture des mots */
+            margin-top: -10px; margin-left:-110px;
+            width: 125%;  /* pour forcer la rupture des mots */
             
         }
 
@@ -120,16 +121,16 @@
                 <i class="fas fa-${notification.etat==1 ? 'check-square' : 'info-circle'}"></i>
             </div>
             <div class="container-2">
-                <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom}</p>
+                <p>Envoyé par ${notification.user_sour.nom} ${notification.user_sour.prenom}</p>
                 <%-- <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom} (${notification.user_sour.roles})</p> --%>
                 <p>${notification.message}</p>
             </div>
             <button>&times;</button>
         </div>
         <!-- Ajoute une ligne après chaque deux notifications -->
-        <c:if test="${loop.index % 2 == 1 && !loop.last}">
+        <%-- <c:if test="${loop.index % 2 == 1 && !loop.last}">
             <div style="width: 100%; margin-bottom: 20px;"></div>
-        </c:if>
+        </c:if> --%>
 	   </c:if>
 	</c:forEach>
 	

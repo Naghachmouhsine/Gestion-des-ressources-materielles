@@ -17,7 +17,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests() // Autorise les requêtes
-                .antMatchers("/static/**", "/loginForm", "/interface-enseignant", "/interface-technicien").permitAll() // Autorise l'accès à ces URL sans authentification
+               // .antMatchers("/", "/static/**", "/loginForm", "/interface-enseignant", "/interface-technicien").permitAll() // Autorise l'accès à ces URL sans authentification
+                .antMatchers("/**").permitAll()
                 .anyRequest().authenticated() // Toutes les autres requêtes nécessitent une authentification
                 .and()
             .formLogin() // Configuration du formulaire de login
