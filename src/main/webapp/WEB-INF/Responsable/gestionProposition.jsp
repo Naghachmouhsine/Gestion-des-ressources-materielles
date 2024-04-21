@@ -1,3 +1,5 @@
+
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +62,7 @@
 <br />		
      <div class="container ">
      <div class="mb-3">
-    <label for="selectAppelOffre" class="form-label">S�lectionner un appel d'offre :</label>
+    <label for="selectAppelOffre" class="form-label">Sélectionner un appel d'offre :</label>
     <select class="form-select" id="selectAppelOffre">
           <option value="all">All</option>
        <c:forEach items="${listAppel}" var="a">
@@ -91,7 +93,7 @@
                 <td>${pr.date_livraison}</td>
                 <td>${pr.total}</td>		
                 
-                <td><a data-bs-toggle="modal" data-bs-target="#d${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de d�tails</a></td>	                              
+                <td><a data-bs-toggle="modal" data-bs-target="#d${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de détails</a></td>	                              
 							<td>
 							    <div class="form-check form-check-inline">
 							        <input id="${pr.id_prop}" value="${pr.id_prop}" hidden="hidden">
@@ -115,7 +117,7 @@
                 <td>${pr.date_livraison}</td>
                 <td>${pr.total}</td>	
                 
-                <td><a data-bs-toggle="modal" data-bs-target="#d${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de d�tails</a></td>
+                <td><a data-bs-toggle="modal" data-bs-target="#d${pr.id_prop}" style="color: #000; cursor: pointer;text-decoration:underline;">Plus de dï¿½tails</a></td>
 	                    <td>	                            
 							    <div class="form-check form-check-inline">
 									<input id="${pr.id_prop}" value="${pr.id_prop}" hidden="hidden">
@@ -140,7 +142,7 @@
 			<div class="d-flex justify-content-center m-5" > <button id="btnValide" class="btn btn-primary ml-3"  data-bs-toggle="modal" data-bs-target="#confirmationModal">Valider</button></div>
 
      </div>
-    <div id="vide" style="display: none;">Aucune proposition correspond � cet appel d'offre</div>
+    <div id="vide" style="display: none;">Aucune proposition correspond à cet appel d'offre</div>
      
    
      
@@ -157,7 +159,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" >
-        Vous �tes-vous sur de vouloir modifier ?
+        Vous étes-vous sur de vouloir modifier ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -178,7 +180,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body" id="fourn" >
-        Vous �tes-vous sur de vouloir modifier ?
+        Vous étes-vous sur de vouloir modifier ?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
@@ -194,20 +196,55 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="detailsModalLabel">D�tails de la Proposition</h5>
+        <h5 class="modal-title" id="detailsModalLabel">Détails de la Proposition</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Informations du fournisseur -->
         <h6>Informations du Fournisseur:</h6>
-        <ul>
+		<c:choose>
+    <c:when test="${empty pr.fournisseur.gerant || empty pr.fournisseur.adresse || empty pr.fournisseur.lieu}">
+            <ul>
           <li><strong>Nom de la Societe:</strong> ${pr.fournisseur.nomSociete}</li>
-          <li><strong>G�rant:</strong> ${pr.fournisseur.gerant}</li>
-          <li><strong>Adresse:</strong> ${pr.fournisseur.adresse}</li>
-          <li><strong>Lieu:</strong> ${pr.fournisseur.lieu}</li>
-          <li><strong>Site Internet:</strong> <a href="${pr.fournisseur.site_internet}" target="_blank">${pr.fournisseur.site_internet}</a></li>
-        </ul>
-           <div class="d-flex justify-content-center">
+    </ul>
+        <div class="alert alert-info" role="alert">
+            Le fournisseur est nouveau. Veuillez ajouter les informations manquantes :
+        </div>
+      <input value="${pr.fournisseur.id_four}" id="idFour" hidden="hidden">
+          
+            <div class="mb-3">
+                <label for="gerant" class="form-label">Gérant</label>
+                <input type="text" class="form-control" value="${pr.fournisseur.gerant}" id="gerant" name="gerant">
+            </div>
+           
+            <div class="mb-3">
+                <label for="adresse" class="form-label">Adresse</label>
+                <input type="text" class="form-control" value="${pr.fournisseur.adresse}" id="adresse" name="adresse">
+            </div>
+            
+            <div class="mb-3">
+                <label for="lieu" class="form-label">Lieu</label>
+                <input type="text" class="form-control" id="lieu" value=" ${pr.fournisseur.lieu}"  name="lieu" >
+            </div>
+           <div class="mb-3">
+                <label for="lieu" class="form-label">Site internet (optionnel)</label>
+                <input type="text" class="form-control" id="site_internet" value=" ${pr.fournisseur.site_internet}"  name="site_internet" >
+            </div>
+           
+            <button type="submit" class="btn btn-primary" onclick="ajouterInfoFournisseur()" >Ajouter</button>
+        
+        
+    </c:when>
+     <c:otherwise>
+             <ul>
+          <li><strong>Nom de la Societe:</strong> ${pr.fournisseur.nomSociete}</li>
+     
+     		    <li><strong>Gérant:</strong> ${pr.fournisseur.gerant}</li>
+    <li><strong>Adresse:</strong> ${pr.fournisseur.adresse}</li>
+    <li><strong>Lieu:</strong> ${pr.fournisseur.lieu}</li>
+    <li><strong>Site Internet:</strong> <a href="${pr.fournisseur.site_internet}" target="_blank">${pr.fournisseur.site_internet}</a></li>
+     	</ul>	
+     	           <div class="d-flex justify-content-center">
              <p class="mx-5"> list noire </p>
               	   <c:choose>
 	                 <c:when test="${pr.fournisseur.etat eq 0}">			                              
@@ -232,17 +269,20 @@
 					 </c:when>
 	                </c:choose>          
            </div>
-        <hr> <!-- Ligne de s�paration -->
+     </c:otherwise>
+</c:choose>
+
+        <hr> <!-- Ligne de sï¿½paration -->
  
-        <!-- Tableau des d�tails de la proposition -->
-        <h6>D�tails de la Proposition:</h6>
+        <!-- Tableau des dï¿½tails de la proposition -->
+        <h6>Détails de la Proposition:</h6>
         <table class="table table-striped">
           <thead>
             <tr>
               <th>Type</th>
               <th>Marque</th>
               <th>Prix</th>
-              <th>Caract�ristiques</th>
+              <th>Caractéristiques</th>
             </tr>
           </thead>
           <tbody>

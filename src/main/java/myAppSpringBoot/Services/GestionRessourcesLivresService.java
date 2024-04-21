@@ -18,5 +18,8 @@ public class GestionRessourcesLivresService {
 		// TODO Auto-generated method stub
 		return repositoryRessource.findAll();
 	}
+	public void saveNumAventaire(RessourceModel model) {
+		repositoryRessource.save(model);
+	}
 
 }

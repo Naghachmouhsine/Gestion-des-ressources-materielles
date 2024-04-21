@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <html lang="en">
 
 <head>
@@ -50,15 +51,18 @@
         <div>
             <p>CIN: ${sessionScope.Responsable.cin}</p>
             <p>Nom: ${sessionScope.Responsable.nom}</p>
-            <p>Prénom: ${sessionScope.Responsable.prenom}</p>
+            <p>PrÃ©nom: ${sessionScope.Responsable.prenom}</p>
             <p>Date de naissance: ${sessionScope.Responsable.date_naissance}</p>
             <p>Email: ${sessionScope.Responsable.email}</p>
-            <p>Rôles: ${sessionScope.Responsable.roles}</p>
+            <p>RÃ´les: ${sessionScope.Responsable.roles}</p>
         </div>
      </div>
 <!-- ========================= Fin Contenu ==================== -->          
         </div>
 <!-- ========================= Fin Main ==================== -->
-    
+            <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- ======= Bootstrap JS ====== -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>   
 </body>
 </html>

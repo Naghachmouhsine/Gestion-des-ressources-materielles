@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import myAppSpringBoot.Controllers.GestionAppelOffresController;
@@ -15,6 +18,7 @@ import myAppSpringBoot.Models.PropositionModelRespo;
 import myAppSpringBoot.Repositories.GestionPropositionRepository;
 
 @Controller
+
 public class GestionPropositionControllerJSP {
 	@Autowired
 	GestionPropositionController controller;
@@ -30,6 +34,4 @@ public class GestionPropositionControllerJSP {
 		model.addAttribute("listAppel",appelOffresController.getAllAppelOffres());
 		return "Responsable/gestionProposition" ;	
 	}
-
-	//public String
 }

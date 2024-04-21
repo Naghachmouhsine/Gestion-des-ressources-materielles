@@ -107,6 +107,13 @@ public class FournisseurModel {
 	public void setEtat(int etat) {
 		this.etat = etat;
 	}
+
+	@Override
+	public String toString() {
+		return "FournisseurModel [id_four=" + id_four + ", nomSociete=" + nomSociete + ", motDePasse=" + motDePasse
+				+ ", gerant=" + gerant + ", adresse=" + adresse + ", lieu=" + lieu + ", site_internet=" + site_internet
+				+ ", etat=" + etat + "]";
+	}
 	
 
 }//end FournisseurModel

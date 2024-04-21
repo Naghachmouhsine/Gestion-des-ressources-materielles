@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 
 import myAppSpringBoot.Models.BesoinModel;
 import myAppSpringBoot.Models.DetailsPropositionModel;
+import myAppSpringBoot.Models.FournisseurModel;
 import myAppSpringBoot.Models.NotificationModel;
 import myAppSpringBoot.Models.PropositionModel;
 import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Repositories.DetailProposiionRepository;
+import myAppSpringBoot.Repositories.FournisseurRepository;
 import myAppSpringBoot.Repositories.GestionPropositionRepository;
 import myAppSpringBoot.Repositories.NotificationFournisseurRepository;
 import myAppSpringBoot.Repositories.RessourceRepository;
@@ -27,6 +29,8 @@ public class GestionPropositionService {
 	NotificationFournisseurRepository fournisseurRepository;
 	@Autowired
 	RessourceRepository ressourceRepository;
+	@Autowired
+	FournisseurRepository fournisseurRepository2;
 	public List<PropositionModel> getAllProposition() {
 		// TODO Auto-generated method stub
 		return gestionPropositionRepository.findAll();
@@ -72,5 +76,9 @@ public class GestionPropositionService {
 		}
 		fournisseurRepository.save(notif);	
 	}
-
+	public void ajouterInfoFournisseur(FournisseurModel fournisseurModel) {
+		fournisseurRepository2.save(fournisseurModel);
+		
+	}
+	
 }

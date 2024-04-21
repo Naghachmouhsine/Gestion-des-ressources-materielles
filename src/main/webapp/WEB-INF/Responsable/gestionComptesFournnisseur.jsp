@@ -21,6 +21,7 @@
      <script src="/static/js/gestionAppelOffre.js"></script>
      <script src="/static/js/gestionProsition.js"></script>
      <script src="/static/js/gestionRessourceLivres.js"></script>
+     <script src="/static/js/gestionComptesFournnisseur.js"></script>
 </head>
 <style>
      .vide {
@@ -65,53 +66,96 @@
           <table class="table mt-3">
             <thead>
               <tr>
-                <th scope="col">type</th>
-                <th scope="col">marque</th>
-                <th scope="col">prix</th>
-                <th scope="col">caracterstiques</th>
-                 <th scope="col">numero inventaire</th>
+                <th scope="col">nomSociete</th>
+                <th scope="col">gerant</th>
+                <th scope="col">lieu</th>
+                <th scope="col">adresse</th>
+                 <th scope="col">site_internet</th>
+                 <th></th>
+                 <th></th>
               </tr>
             </thead>
             <tbody>
-             <c:forEach items="${listRessource}" var="a">
+             <c:forEach items="${listComptes}" var="a">
              
                   <tr>
-                  		<td>${a.besoin.type}
-                  		<input value="${ a.idRes}" name="idRes" class="idRes" hidden="hidden">
+                  		<td>${a.nomSociete}
+                  		<input value="${a.id_four}" name="idRes" class="idFour" hidden="hidden">
                   		</td>
-                  		<td>${a.marque}</td>
-                  		<td>${a.prix}</td>    
+                  		<td>${a.gerant}</td>
+                  		<td>${a.lieu}</td>    
 			                    <td>	                   				                  	              
-					                <c:choose>
-			                            <c:when test="${a.besoin.type eq 'ordinateur'}">			                              
-			                                CPU: ${a.besoin.cpu} GHz, Disque Dur: ${a.besoin.disque_dur} Go, Ecran: ${a.besoin.ecran} pouces, RAM: ${a.besoin.ram} Go
-			                            </c:when>
-			                            <c:when test="${a.besoin.type == 'imprimante'}">			                                <%-- b est une imprimante --%>
-			                                Résolution: ${a.besoin.resolution} dpi, Vitesse: ${a.besoin.vitesse} ppm
-			                            </c:when>
-		                            </c:choose>
+									${a.adresse }
 		                         </td>   
-		                         
-		                  <td>  <input type="text" name="numero_inventaire" oninput="verfie(this,${a.idRes})" id="num${a.idRes}" class="form-control numInv"  value="${a.numero_inventaire}" >
-		                     <div id="vide${a.idRes}" class="vide" style="display: none;"></div>
-		                     </td>	
+							<td>${a.site_internet}</td>
+							<td><button class="btn btn-primary"  onclick="modfierInfoFournisseur('${a.id_four}','${a.nomSociete}','${a.motDePasse}', '${a.gerant}','${a. adresse}','${a. lieu}', '${a.site_internet}')">Modifier</button></td>
                   </tr>
-                
+                	
              </c:forEach>
              
              
-              <!-- End of React loop -->
+              
             </tbody>
-          </table>
-      
+          </table> 
+               
         </div>
-           <div class="card-footer d-flex justify-content-center">
-            <button class="btn btn-primary" id="submit" onclick="submitModif()">Modifier</button>
-          </div>
+         <div class="card-footer d-flex justify-content-center">
+         <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajouterFournisseurModal">
+  Ajouter un nouveau fournisseur
+</button>
       </div>
     </div>
 		<!-- ========================= Fin Contenu ==================== -->          
         </div>
+       <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="ajouterFournisseurModal" tabindex="-1" aria-labelledby="ajouterFournisseurModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ajouterFournisseurModalLabel">Ajouter un nouveau fournisseur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+  
+        <form method="POST" action="/modiferInfoFournnisseur">
+          <div class="mb-3">
+            <label for="nomSociete" class="form-label">Nom de la société</label>
+            <input type="text" class="form-control" id="nomSociete" name="nomSociete" required>
+          </div>
+                    <div class="mb-3">
+            <label for="motDePasse" class="form-label">Mot Pass</label>
+            <input type="password" class="form-control" id="motDePasse" name="motDePasse" required>
+          </div>
+      <!--     <div class="mb-3">
+            <label for="gerant" class="form-label">Gérant</label>
+            <input type="text" class="form-control" id="gerant" name="gerant" required>
+          </div>
+          <div class="mb-3">
+            <label for="adresse" class="form-label">Adresse</label>
+            <input type="text" class="form-control" id="adresse" name="adresse" required>
+          </div>
+          <div class="mb-3">
+            <label for="lieu" class="form-label">Lieu</label>
+            <input type="text" class="form-control" id="lieu" name="lieu" required>
+          </div>
+          <div class="mb-3">
+            <label for="siteInternet" class="form-label">Site Internet</label>
+            <input type="text" class="form-control" id="siteInternet" name="siteInternet">
+          </div> -->
+           <div class=" d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary">Ajouter</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
        
 <!-- ========================= Fin Main ==================== -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>

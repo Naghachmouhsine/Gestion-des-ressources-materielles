@@ -246,8 +246,39 @@ function modiferEtatFournisseur(nomFournisseur,idProp,idFour){
 							       
 				      }
 				    }); 
-	  });
-        
+	  });       
+}
+function ajouterInfoFournisseur(){
+	$.ajax({
+				      url:"/ajouterInfoFournisseur",
+				      type: 'POST',			     
+				      data: {				      		 
+				      		id_four :$("#idFour").val(),
+				      		adresse :$("#adresse").val(),
+				      		gerant : $("#gerant").val(),
+				      		lieu : $("#lieu").val(),
+				      		site_internet : $("#site_internet").val()   
+				      		 		
+				      },
+				      success: function(data) {					  
+					    Swal.fire({
+					      icon: 'success',
+					      title: 'Succès !',
+					      text: 'Votre modification a été effectuée avec succès.',
+					      confirmButtonText: 'Fermer'
+					    });
+					    
+				      },
+				      error: function(xhr, status, error) {
+				        console.error(error);
+						 Swal.fire({
+						      icon: 'error',
+						      title: 'Erreur !',
+						      text: 'Une erreur est survenue lors de la modification.',
+						      confirmButtonText: 'Fermer'
+						    });						       
+				      }
+				    }); 
 }
 
 

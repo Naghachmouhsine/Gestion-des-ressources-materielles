@@ -24,7 +24,7 @@
                         <span class="icon">
                             <ion-icon name="list-outline"></ion-icon>
                         </span>
-                        <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/gestionAppelOffre">les appels d'offres</a></span>
+                        <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/gestionAppelOffre">appels d'offres</a></span>
                     </div>
                 </li>
 
@@ -36,7 +36,22 @@
                        <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/propositions">Proposition</a></span>
                     </div>
                 </li>
-
+                 <li>
+                    <div>
+                        <span class="icon">
+                             <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                       <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/ressourcesLivre">Ressources Livres</a></span>
+                    </div>
+                </li>
+  <li>
+                    <div>
+                        <span class="icon">
+                             <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                       <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/gestionComptesFournnisseur">Comptes Fournnisseur</a></span>
+                    </div>
+                </li>
                 <li>
                     <div>
                         <span class="icon">

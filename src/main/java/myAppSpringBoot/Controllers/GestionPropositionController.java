@@ -133,8 +133,18 @@ public class GestionPropositionController {
 			String type="e";//type notification 'e' sgnifie que c'est une notification pour liste noire
 			gestionPropositionService.notificationToFournisseur(notif, etat, type);
 			return true;
-
-
 	}
+	@PostMapping("/ajouterInfoFournisseur")
+	public String ajouterInfoFournisseur(@RequestParam int id_four,@RequestParam String site_internet,@RequestParam String adresse,@RequestParam String gerant,@RequestParam String lieu) {
+		FournisseurModel fournisseurModel=fournisseurRepository2.findById(id_four);
+		fournisseurModel.setAdresse(adresse);
+		fournisseurModel.setLieu(lieu);
+		fournisseurModel.setGerant(gerant);
+		fournisseurModel.setSite_internet(site_internet);
+		gestionPropositionService.ajouterInfoFournisseur(fournisseurModel);
+		return "succes";
+	}
+
+	
 	
 }
