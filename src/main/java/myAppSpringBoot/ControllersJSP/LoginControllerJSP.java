@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,8 @@ public class LoginControllerJSP {
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
+	@Autowired
+    private PasswordEncoder passwordEncoder; // Injecter le bean PasswordEncoder
 
     @RequestMapping("/login")
     public String showLoginPage() {
@@ -99,7 +102,22 @@ public class LoginControllerJSP {
     }
     
     @RequestMapping("/interface-chefDepartement")
-    public String showPagePrincipaleChefDepartement() {
+    public String showPagePrincipaleChefDepartement(Model model) {
+    	
+        UserModel currentChef = (UserModel) httpSession.getAttribute("ChefDepartement");
+        UserModel responsable=userController.getUserByRoles("Responsable");
+        List<PersonnelAdministrationModel> listPersonnelsChef= personnelAdministrationController.getPersonnelsDepartmentChef(currentChef.getCin());
+        List<BesoinModel> besoins = besoinController.getAllBesoins();
+        List<NotificationModel> myListNotifications = notificationRepository.findAll();
+
+
+        model.addAttribute("myListNotifications", myListNotifications);
+        httpSession.setAttribute("listPersonnels", listPersonnelsChef);
+        httpSession.setAttribute("listBesoins", besoins);
+        httpSession.setAttribute("visibility","False");
+        httpSession.setAttribute("responsable", responsable);
+        httpSession.setAttribute("Enseignant", currentChef);
+        
         return "ChefDepartement/InterfacePrincipaleChefDepartement";
     }
 
@@ -115,6 +133,13 @@ public class LoginControllerJSP {
 
     @RequestMapping("/interface-technicien")
     public String showPagePrincipaleTechnicien(Model model) {
+    	// Récupérer l'utilisateur actuellement connecté à partir de la session
+        UserModel technicien = (UserModel) httpSession.getAttribute("Technicien");
+        if (technicien == null) {
+            // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+            return "redirect:/login";
+        }
+    	
     	List<PanneModel> listePannes = panneRepository.findAll();
         model.addAttribute("myListPannes", listePannes);
         
@@ -128,7 +153,7 @@ public class LoginControllerJSP {
                         Model model) {
     	// Récupérer l'utilisateur par e-mail
         UserModel existingUser = userController.getUserByEmail(email);
-        if (existingUser != null && existingUser.getPassword().equals(password)) {
+        if (existingUser != null  && passwordEncoder.matches(password, existingUser.getPassword())) {
         	// Stocker l'utilisateur dans la session
             // httpSession.setAttribute("currentUser", existingUser);
         	

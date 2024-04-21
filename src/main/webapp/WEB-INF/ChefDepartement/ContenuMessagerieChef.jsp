@@ -114,7 +114,7 @@
 <body>
 <div class="wrapper">
     <c:forEach items="${myListNotifications}" var="notification" varStatus="loop">
-      <c:if test="${notification.user_dest.cin == sessionScope.Enseignant.cin}"> <!-- Cette condition affiche uniquement les notifications destinées à l'enseignant actuellement authentifié -->
+      <c:if test="${notification.user_dest.cin == sessionScope.ChefDepartement.cin}"> 
         <div class="toast ${notification.etat==1 ? 'success' : 'info'} ${notification.etat==0 ? 'unread' : ''}" style="display: grid;" onclick="markAsRead(this)" data-notification-id="${notification.id_notif}">
             <div class="container-1">
                 <i class="fas fa-${notification.etat==1 ? 'check-square' : 'info-circle'}"></i>
@@ -132,19 +132,6 @@
         </c:if>
 	   </c:if>
 	</c:forEach>
-	
-	<!-- Vérifier si la liste des notifications est vide -->
-    <c:if test="${empty myListNotifications  || not myListNotifications.stream().anyMatch(n -> n.user_dest.cin eq sessionScope.Enseignant.cin) }">
-        <div class="toast info unread" style="display: grid;">
-            <div class="container-1">
-                <i class="fas fa-info-circle"></i>
-            </div>
-            <div class="container-2">
-                <p>Aucune notification disponible</p>
-                <p>Il n'y a actuellement aucune notification envoyée.</p>
-            </div>
-        </div>
-    </c:if>
 
     
      <!-- ajouter de l'espace après vos notifications -->

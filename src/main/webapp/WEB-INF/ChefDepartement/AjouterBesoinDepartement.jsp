@@ -9,21 +9,79 @@
 
 <!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<style>
+    .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            width: 80%;
+            max-width: 600px;
+            padding: 20px;
+            border-radius: 5px;
+        }
 
-<!-- Définition de la fenêtre modale -->
-<div class="modal fade" id="envoyerBesoinModal" tabindex="-1" role="dialog" aria-labelledby="envoyerBesoinModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document" style=" max-width: 800px !important; width: 100% !important; left: 100px;">
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .modal-header h5 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .modal-header .close {
+            cursor: pointer;
+            font-size: 24px;
+            color: #888;
+        }
+
+        .modal-body {
+            margin-bottom: 20px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .modal-footer button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .modal-footer button:hover {
+            background-color: #0056b3;
+}
+</style>
+
+ <div class="modal" id="envoyerBesoinModal">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="envoyerBesoinModalLabel">Enregistrer le besoin</h5>
-         <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 30px;">
-		   <span aria-hidden="true">&times;</span>
+        <div class="modal-header">
+            <h5 class="modal-title" id="envoyerBesoinModalLabel">Enregistrer le besoin</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 30px;">
 		 </button>
-
-      </div>
-      <div class="modal-body">
-        <!-- Contenu du formulaire pour enregistrer le besoin -->
-        <form id="BesoinForm">
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+         <form id="BesoinForm" action="/ajouterBesoinDepar" method="post">
                  <div class="form-group row">
 		            <label class="col-sm-3 col-form-label">Type Besoin :</label>
 		            <div class="col-sm-9">
@@ -34,30 +92,6 @@
 		              </select>
 		            </div>
 		          </div><br>
-		          <%-- <div class="form-group row">
-		            <label class="col-sm-3 col-form-label">Appel d'offre :</label>
-		            <div class="col-sm-9">
-		              <select name="appelOffreForm" class="form-control" required>
-		                <c:forEach items="${myListAppelOffres}" var="appelOffre">
-		                  <option value="${appelOffre.id_app_off}">${appelOffre.nom}</option>
-		                </c:forEach>
-		              </select>
-		            </div>
-		          </div><br> --%>
-					<div class="form-group row">
-					    <label class="col-sm-3 col-form-label">Personnel :</label>
-					    <div class="col-sm-9">
-					        <select name="personnelForm" class="form-control" required readonly style = "background-color: #f8f9fa; color: #495057;  cursor: not-allowed;">
-					            <!-- Inclure les options dynamiquement depuis la base de données -->
-					            <c:forEach items="${myListPersonnels}" var="personnel">
-					                <%-- Vérifier si l'utilisateur connecté est un enseignant et si son CIN correspond au CIN du personnel --%>
-					                <c:if test="${sessionScope.Enseignant != null && sessionScope.Enseignant.cin == personnel.cin}">
-					                    <option value="${personnel.cin}">${personnel.nom} ${personnel.prenom} (${personnel.roles})</option>
-					                </c:if>
-					            </c:forEach>
-					        </select>
-					    </div>
-					</div><br>
 	            
 		            <!-- Champs spécifiques à l'ordinateur -->
 					<div class="form-group row" id="ordinateurFields">
@@ -98,8 +132,8 @@
               </form>
       </div>
     </div>
-  </div>
 </div>
+
 
 <script>
 $(document).ready(function() {
@@ -162,7 +196,7 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             contentType: "application/x-www-form-urlencoded",
-            url: "envoyerBesoin",
+            url: "saveBesoinDepar",
             data: formData,
             success: function(response) {
                 console.log(response);
@@ -189,63 +223,3 @@ $(document).ready(function() {
 });
 </script>
 
-<!-- 
-<script>
-$(document).ready(
-		function() {
-
-			// SUBMIT FORM
-			$("#BesoinForm").submit(function(event) {
-				// Prevent the form from submitting via the browser.
-				event.preventDefault();
-				ajaxPost();
-			});
-
-			function ajaxPost() {
-
-				// PREPARE FORM DATA
-				/* var formData = {
-					type : $("#type").val(),
-					appelOffre : $("#appelOffre").val(),
-					personnelAdministration : $("#personnelAdministration").val()
-				} */
-				// Récupérer les données du formulaire en utilisant serialize()
-			    var formData = $("#BesoinForm").serialize();
-				
-				// Afficher les valeurs dans des alertes
-				//alert(formData.type);
-				//alert(formData.appelOffre);
-				//alert(formData.personnelAdministration);
-
-				// DO POST
-				$.ajax({
-			        type: "POST",
-			        contentType: "application/x-www-form-urlencoded",
-			        url: "save",
-			        //data: JSON.stringify(formData),
-			        data: formData, // Supprimer la conversion JSON ici
-			        // data: $.param(formData),
-			        // dataType: 'json',
-			        success: function(response) {
-			            console.log(response);
-			            // Afficher les données récupérées dans la console ou sur la page
-			           // alert(JSON.stringify(response));
-			            Swal.fire({
-		                    icon: 'success',
-		                    title: 'Succès!',
-		                    text: 'Besoin enregistré avec succès!',
-		                });
-		                // Fermer la modal
-		                $('#envoyerBesoinModal').modal('hide');
-		            },
-			        error: function(e) {
-			            console.log("Erreur: ", e);
-			           // alert("Erreur lors de l'envoi des données au serveur.");
-			        }
-			    });
-
-			}
-
-		})
-</script>
--->

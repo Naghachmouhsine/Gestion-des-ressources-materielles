@@ -31,5 +31,10 @@ public class ImprimanteModel extends BesoinModel {
 		this.vitesse = vitesse;
 	}
 
+	public ImprimanteModel(int resolution, int vitesse) {
+		super();
+		this.resolution = resolution;
+		this.vitesse = vitesse;
+	}
 	
 }//end ImprimanteModel

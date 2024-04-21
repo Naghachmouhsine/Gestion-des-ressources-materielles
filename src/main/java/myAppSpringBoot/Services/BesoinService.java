@@ -1,6 +1,7 @@
 package myAppSpringBoot.Services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,5 +22,10 @@ public class BesoinService implements BesoinServiceInterface {
     @Override
     public List<BesoinModel> getAllBesoins() {
         return besoinRepository.findAll();
+    }
+    
+    @Override
+    public Optional<BesoinModel> getBesoinByid(int id){
+    	return besoinRepository.findById(id);
     }
 }

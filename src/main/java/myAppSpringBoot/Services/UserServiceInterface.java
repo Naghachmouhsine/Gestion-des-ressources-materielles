@@ -13,5 +13,6 @@ public interface UserServiceInterface {
     void deleteUserByCin(String cin);
     
     UserModel getUserByEmail(String email);
+    public UserModel getUserByRole(String roles);
 
 }

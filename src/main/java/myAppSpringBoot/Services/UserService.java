@@ -69,4 +69,9 @@ public class UserService implements UserServiceInterface {
         return userRepository.findUserByEmail(email);
     }
     
+    @Override
+    public UserModel getUserByRole(String roles) {
+    	return userRepository.findUserByRoles(roles);
+    }
+    
 }
