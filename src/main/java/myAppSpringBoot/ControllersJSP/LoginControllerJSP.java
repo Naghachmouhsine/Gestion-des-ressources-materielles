@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,8 @@ public class LoginControllerJSP {
 	
 	@Autowired
     private HttpSession httpSession; // Injection de l'objet HttpSession
+	@Autowired
+    private PasswordEncoder passwordEncoder; // Injecter le bean PasswordEncoder
 
     @RequestMapping("/login")
     public String showLoginPage() {
@@ -150,7 +153,7 @@ public class LoginControllerJSP {
                         Model model) {
     	// Récupérer l'utilisateur par e-mail
         UserModel existingUser = userController.getUserByEmail(email);
-        if (existingUser != null && existingUser.getPassword().equals(password)) {
+        if (existingUser != null  && passwordEncoder.matches(password, existingUser.getPassword())) {
         	// Stocker l'utilisateur dans la session
             // httpSession.setAttribute("currentUser", existingUser);
         	

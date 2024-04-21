@@ -7,8 +7,11 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -17,7 +20,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class ProjectGenieLogicielSpringBootApplication implements CommandLineRunner {
 	
     @Autowired
-    private DataSource dataSource; 
+    private DataSource dataSource;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder; // Injectez l'encodeur de mots de passe
 
 	public static void main(String[] args) { 
 		SpringApplication.run(ProjectGenieLogicielSpringBootApplication.class, args);
@@ -32,7 +38,14 @@ public class ProjectGenieLogicielSpringBootApplication implements CommandLineRun
             connection.close();
         } catch (SQLException e) {
             System.err.println("Impossible d'etablir une connexion a la base de donnees : " + e.getMessage());
-        }     
+        }
+        
+        
+       // Encodez votre mot de passe avec BCryptPasswordEncoder
+        String motDePasseClair = "1234";
+        String motDePasseEncode = passwordEncoder.encode(motDePasseClair);  
+        System.out.println("Mot de passe clair : " + motDePasseClair);
+        System.out.println("Mot de passe encodé : " + motDePasseEncode);
     }
     
     
