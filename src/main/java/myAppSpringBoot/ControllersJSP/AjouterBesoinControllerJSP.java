@@ -43,6 +43,7 @@ public class AjouterBesoinControllerJSP {
 	    if (typeBesoin.equals("ordinateur")) {
 	        OrdinateurModel ordinateur = new OrdinateurModel();
 	        ordinateur.setType(typeBesoin);
+	        ordinateur.setDemander_par("enseignant");
 	       // ordinateur.setAppelOffre(appelOffre);
 	        ordinateur.setPersonnelAdministration(personnelAdministration);
 		    
@@ -56,6 +57,7 @@ public class AjouterBesoinControllerJSP {
 	    } else if (typeBesoin.equals("imprimante")) {
 	        ImprimanteModel imprimante = new ImprimanteModel();
 	        imprimante.setType(typeBesoin);
+	        imprimante.setDemander_par("enseignant");
 	       // imprimante.setAppelOffre(appelOffre);
 	        imprimante.setPersonnelAdministration(personnelAdministration);
 	        
