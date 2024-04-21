@@ -20,6 +20,7 @@ public class BesoinModel {
 	// @GeneratedValue(strategy = GenerationType.AUTO) // Utiliser GenerationType.AUTO pour laisser Hibernate choisir la meilleure stratégie
 	private int id_bes;
 	private String type;
+	private String demander_par; // soit enseignant soit chef_departement
 	
 	@ManyToOne
     @JoinColumn(name = "id_app_off", referencedColumnName = "id_app_off")
@@ -63,6 +64,14 @@ public class BesoinModel {
 
 	public void setPersonnelAdministration(PersonnelAdministrationModel personnelAdministration) {
 		this.personnelAdministration = personnelAdministration;
+	}
+
+	public String getDemander_par() {
+		return demander_par;
+	}
+
+	public void setDemander_par(String demander_par) {
+		this.demander_par = demander_par;
 	}
 
 	@Override
