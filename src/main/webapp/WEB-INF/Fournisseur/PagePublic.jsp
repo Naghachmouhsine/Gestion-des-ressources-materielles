@@ -20,7 +20,7 @@
     <link rel="stylesheet" href="/static/css/CardAppelOffre.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    
+     
     <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
 </head>
@@ -37,8 +37,13 @@
             <ul class="navbar-nav">
                 <c:if test="${not empty sessionScope['Fournisseur']}">
                     <li class="nav-item">
-                        <a class="nav-link" href="">
+                        <a class="nav-link" href="/Compte">
                             <i class="fas fa-user mx-2"></i>   ${sessionScope['Fournisseur'].nomSociete}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/MesPropositions">
+                            | <i class="fa fa-tags mx-2" ></i> Mes propositions
                         </a>
                     </li>
                      <li class="nav-item">
@@ -46,14 +51,19 @@
                             | <i class="fas fa-bell mx-2"> </i>  Notifications
                         </a>
                     </li>
-                  
+                    <li class="nav-item">
+                      <a id="logout-link" class="nav-link" href="/logoutFournisseur">
+                        | <i class="fa fa-sign-out mx-1" aria-hidden="true"></i>
+                         </a>
+                    </li>
+                          
                 </c:if>
                 <c:if test="${empty sessionScope['Fournisseur']}">
                    <li class="nav-item">
                      <a class="nav-link" href="/loginFournisseur">Connexion</a>
                     </li>
                </c:if>
-               
+
             </ul>
         </div>
     </div>
@@ -98,6 +108,11 @@
     <!-- ========================= Main ==================== -->
     <div class="container">
         <div style="background-color: #fff;">
+         <c:if test="${param.propositionExiste!= null && param.propositionExiste eq 'propositionExiste'}">
+          <div class="alert alert-warning">
+          <strong class="mx-3">Attention !</strong>  Une proposition pour cet appel d'offre a déjà été soumise.
+         </div>
+     </c:if>
             <div class="row row_cards">
                 <c:forEach items="${listAppelsOffres}" var="appelOffre" varStatus="loop">
                  
@@ -118,7 +133,7 @@
                                   <!-- tester si la date fin a depasse la date actuelle-->
                                   <c:choose>
                                      <c:when test="${now.after(dateFin)}">
-                                      <a href="/proposition/${appelOffre.id_app_off}" class="btn btn-primary" title="Délai de l'appel d'offres dépassé." style="cursor: not-allowed;" >Ajouter</a>
+                                      <a href="/proposition/${appelOffre.id_app_off}" class="btn btn-primary" title="Délai de l'appel d'offres dépassé." style="cursor: not-allowed;" onclick="return false;">Ajouter</a>
                                      </c:when>
                                     <c:otherwise>
                                        <a href="/proposition/${appelOffre.id_app_off}"  class="btn btn-primary" >Ajouter</a>
@@ -179,7 +194,26 @@
     
     <!-- ======= Bootstrap JS ====== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-     <!-- La fin de class="main-login"  -->
+     <!-- La fin de class="main-login"  --><script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+  <script>
   
+    document.getElementById("logout-link").addEventListener("click", function(event) {
+        event.preventDefault(); // Empêcher le comportement par défaut du lien (la redirection)
+
+        // Afficher la Sweet Alert
+        Swal.fire({
+            title: "Êtes-vous sûr de vouloir vous déconnecter ?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Oui, déconnectez-moi",
+            cancelButtonText: "Annuler",
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si l'utilisateur confirme, rediriger vers l'URL de déconnexion
+            	window.location.href = '/logoutFournisseur';
+            }
+        });
+    });
+</script>
 </body>
 </html>

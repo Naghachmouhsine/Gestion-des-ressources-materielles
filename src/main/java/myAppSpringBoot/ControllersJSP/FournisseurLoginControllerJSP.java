@@ -31,6 +31,14 @@ public class FournisseurLoginControllerJSP {
       
     }
     
+    @RequestMapping("/logoutFournisseur")
+    public String showLogoutPage(HttpSession session) {
+        if (session != null) {
+            session.invalidate(); // Invalider la session existante
+        }
+        return "redirect:/PagePublique"; // Rediriger vers la page de connexion ou toute autre page appropriée
+    }
+    
 
     @PostMapping("/loginFournisseurP")
     public String login(@RequestParam("nomSociete") String nomSociete,

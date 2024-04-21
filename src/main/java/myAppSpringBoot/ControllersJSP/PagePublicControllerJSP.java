@@ -39,12 +39,23 @@ public class PagePublicControllerJSP {
 	public String toPagePublic(Model model) {
 		ArrayList<AppelOffreModelRespo> listAppelsOffres=pagePublicController.getAllAppelOffres_PP();
 		model.addAttribute("listAppelsOffres",listAppelsOffres);
+
 		return "Fournisseur/PagePublic";
+		
+	}
+	@GetMapping("/Compte")
+	public String toPageCompte(HttpSession session) {
+		 FournisseurModel fournisseur =(FournisseurModel) session.getAttribute("Fournisseur"); 
+	       if (fournisseur == null) {
+		      System.out.println("n'est pas authentifier rediger");
+		   return "redirect:/loginFournisseur"; 
+		   }
+		return "Fournisseur/CompteFournisseur";
 		
 	}
 	
 	  @GetMapping("/proposition/{id}")
-	  public String afficherAjouterProposition(@PathVariable("id") String idAppel,HttpSession session,Model model) {
+	  public String afficherAjouterProposition(@PathVariable("id") String idAppel,HttpSession session,Model model, RedirectAttributes redirectAttributes) {
 		   
 		  int idAppelOffre = Integer.parseInt(idAppel);
 		  // recuperer appel offres(Liste besoins)
@@ -61,11 +72,15 @@ public class PagePublicControllerJSP {
 		   FournisseurModel fournisseur =(FournisseurModel) session.getAttribute("Fournisseur"); 
 	       if (fournisseur == null) {
 		      System.out.println("n'est pas authentifier rediger");
-		   return "redirect:/loginFournisseur";  }
+		   return "redirect:/loginFournisseur";
+		   }
 	
-	       // L'utilisateur est authentifié, don
-	        System.out.println("DEjaaaa authentifier ");
-	      //ajouter proposition
+	       //
+	        int PropositionExiste=pagePublicController.VerfierProposition(fournisseur.getId_four(), idAppelOffre);
+	        if(PropositionExiste == 1) {
+	        	  redirectAttributes.addAttribute("propositionExiste", "propositionExiste");
+	        	 return "redirect:/PagePublique";
+	        }
 	  return "Fournisseur/AjouterProposition";
 	  
 	  
@@ -130,6 +145,9 @@ public class PagePublicControllerJSP {
 	  @GetMapping("/notifications")
 	  public String afficherNotifs(HttpSession session,Model model) {
 		  FournisseurModel fournisseur = (FournisseurModel) session.getAttribute("Fournisseur");
+		  if (fournisseur == null) {
+			  return "redirect:/loginFournisseur";
+		  }
 		  int idFour =fournisseur.getId_four();
 		 //la liste des notifs
 		  ArrayList <NotificationModel> listNotifs=pagePublicController.getAllNotifsFournisseur(idFour);
@@ -138,5 +156,21 @@ public class PagePublicControllerJSP {
 	     return "Fournisseur/Notifications";
 	  
 	  
+	  }
+	  //recuperer tous les proposition
+	  @GetMapping("/MesPropositions")
+	  public String afficherPropositions(HttpSession session ,Model model) {
+		  FournisseurModel fournisseur = (FournisseurModel) session.getAttribute("Fournisseur");
+		  if (fournisseur == null) {
+			  return "redirect:/loginFournisseur";
+		  }
+		  int idFour =fournisseur.getId_four();
+		  ArrayList <PropositionModel> listPropositions=pagePublicController.getAllPropositionFournisseur(idFour);
+		  model.addAttribute("listPropositions", listPropositions);
+		  //recuperer laliste detailsProposition
+		  List<DetailsPropositionModel> listDetailsProp=pagePublicController.getAllDetailsProposition();
+		  model.addAttribute("listDetailsProp", listDetailsProp);
+		return "Fournisseur/MesPropositions";
+		  
 	  }
 }

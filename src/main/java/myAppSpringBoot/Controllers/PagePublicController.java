@@ -124,4 +124,38 @@ public class PagePublicController {
 			return listNotifs;
 			
 		}
+		
+		public ArrayList<PropositionModel> getAllPropositionFournisseur(int id_fournisseur){
+			
+			  //récuperer tout les besoins 
+			   ArrayList<PropositionModel> listPropositions=new ArrayList<>();
+		       List<PropositionModel> listAllPropositions= propositionRepository.findAll();
+		       for (PropositionModel propositionModel : listAllPropositions) {
+		    	   if(propositionModel.getFournisseur().getId_four() == id_fournisseur) {
+		    		   listPropositions.add(propositionModel);
+		    	   }
+		       }
+			return listPropositions;
+			
+		}
+		
+		public List<DetailsPropositionModel> getAllDetailsProposition(){
+			
+			  //récuperer tout les besoins 
+			   List<DetailsPropositionModel> listAllDetailsProp=new ArrayList<>();
+		       listAllDetailsProp= detailsPropositionRepository.findAll();
+		      
+			return listAllDetailsProp;
+			
+		}
+		
+		public int VerfierProposition(int id_fournisseur,int id_AppelOffre) {
+			ArrayList<PropositionModel> listProposition =getAllPropositionFournisseur(id_fournisseur);
+			 for (PropositionModel propositionModel : listProposition) {
+		    	   if(propositionModel.getAppelOffre().getId_app_off() == id_AppelOffre) {
+		    		   return 1;
+		    	   }
+		       }
+			 return 0;
+		}
 }
