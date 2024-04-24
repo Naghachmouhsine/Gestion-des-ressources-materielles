@@ -1,5 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
  
@@ -13,6 +13,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <link rel="stylesheet" href="/static/css/style.css">
   <link rel="stylesheet" href="/static/css/styleRespo.css">
+  <style>
+  
+  #btnCreeAppel1 {
+  cursor: not-allowed;
+}
+  
+  </style>
     <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -52,9 +59,21 @@
      <div class="container">
 			<div class="card" style="background-color: #fff;">
       <div class="card-header">
-        <div class="d-flex justify-content-center">
-          <button  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#creeAppel">Creer Appel d'Offre</button>
-        </div>
+<c:choose>
+  <c:when test="${empty listBesoins}">
+    <!-- Afficher le message lorsque la liste est vide -->
+    <div class="d-flex justify-content-center">
+  <button data-bs-toggle="tooltip" title="Aucun besoin à traiter" id="btnCreeAppel1" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#creeAppel">Créer Appel d'Offre</button>
+</div>
+
+  </c:when>
+  <c:otherwise>
+    <!-- Afficher le bouton pour créer l'appel d'offre lorsque la liste n'est pas vide -->
+    <div class="d-flex justify-content-center">
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#creeAppel">Créer Appel d'Offre</button>
+    </div>
+  </c:otherwise>
+</c:choose>
         <div class="card-body">
           <table class="table mt-3">
             <thead>
@@ -74,8 +93,8 @@
                   		<td>${a.date_fin}</td>    
                   		<td>
 
-                  		    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${a.id_app_off}"> 
-		                      Consulter                                    
+                  		    <button type="submit" class="btn " data-bs-toggle="modal" data-bs-target="#${a.id_app_off}"> 
+		                     <ion-icon name="list"></ion-icon>                                 
 		                    </button>     
 		                </td>     	
                   </tr>
@@ -98,7 +117,8 @@
 			              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 			            </div>
 			            <div class="modal-body">
-			              <table class="table">
+        
+					<table class="table">
 			                <thead>
 			                  <tr>
 			                    <th scope="col">Type</th>

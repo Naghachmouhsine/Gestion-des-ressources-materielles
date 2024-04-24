@@ -30,6 +30,12 @@ public class PersonnelAdministrationModel extends UserModel {
 		this.departement = departement;
 	}
 
+	@Override
+	public String toString() {
+		return "PersonnelAdministrationModel [departement=" + departement + ", getCin()=" + getCin() + ", getNom()="
+				+ getNom() + ", getPrenom()=" + getPrenom() + ", getDate_naissance()=" + getDate_naissance() + "]";
+	}
+
 }//end Personnel d'administration
 
 

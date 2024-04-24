@@ -17,6 +17,7 @@ import myAppSpringBoot.Controllers.BesoinController;
 import myAppSpringBoot.Controllers.GestionAppelOffresController;
 import myAppSpringBoot.Models.AppelOffreModel;
 import myAppSpringBoot.Models.AppelOffreModelRespo;
+import myAppSpringBoot.Models.BesoinModel;
 
 
 @Controller
@@ -34,7 +35,11 @@ public class GestionAppelsOffres {
 			lastIdAppelOffre=list.get(list.size()-1).getId_app_off();
 		model.addAttribute("lastIdAppelOffre",lastIdAppelOffre);
 		model.addAttribute("listAppelOffres",list);
-		model.addAttribute("listBesoins",besoinController.getAllBesoins());
+		ArrayList<BesoinModel> arrayList=new ArrayList<>();
+		for (BesoinModel besoinModel : besoinController.getAllBesoins())
+			if(besoinModel.getAppelOffre()==null) //just les besoins n'affect aucun appelOffre
+				arrayList.add(besoinModel);
+		model.addAttribute("listBesoins",arrayList);
 		return "Responsable/gestionAppelOffre";		
 	}
 

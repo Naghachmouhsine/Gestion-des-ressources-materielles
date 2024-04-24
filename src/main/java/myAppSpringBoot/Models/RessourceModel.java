@@ -67,4 +67,10 @@ public class RessourceModel {
 		this.idRes = idRes;
 	}
 
+	@Override
+	public String toString() {
+		return "RessourceModel [idRes=" + idRes + ", numero_inventaire=" + numero_inventaire + ", etat_recep="
+				+ etat_recep + ", etat_affect=" + etat_affect + ", besoin=" + besoin + "]";
+	}
+
 }
