@@ -112,7 +112,7 @@
                         Cette ressource appartient au <b style="color:#008080;">${panne.ressource.besoin.personnelAdministration.departement.nom_depart}</b>.
                         Nous vous prions de bien vouloir intervenir pour résoudre ce problème dans les plus brefs délais.</p>
                 </div>
-                <button>&times;</button>
+                <button><i class="fas fa-eye" style="margin-top:-10px; margin-right:-25px;"></i></button>
             </div>
         </c:if>
     </c:forEach>

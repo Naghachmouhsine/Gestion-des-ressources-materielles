@@ -125,7 +125,7 @@
                 <%-- <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom} (${notification.user_sour.roles})</p> --%>
                 <p>${notification.message}</p>
             </div>
-            <button>&times;</button>
+            <button><i class="fas fa-eye" style="margin-top:-10px; margin-right:-25px;"></i></button>
         </div>
         <!-- Ajoute une ligne après chaque deux notifications -->
         <%-- <c:if test="${loop.index % 2 == 1 && !loop.last}">

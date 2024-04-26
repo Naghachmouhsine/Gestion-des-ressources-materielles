@@ -53,8 +53,8 @@
             </div>  <!-- La fin de class="left-side"  -->
 
             <div class="right-side">
-                <div class="welcomeimg img-class">
-                    <img src="/static/images/logo2.png" id="img-id" alt="" class="w-100" />
+                <div class="welcomeimg img-class" style="width: 115%; height: 100%; margin-bottom: 15%;">
+                    <img src="/static/images/logo4.png" id="img-id" alt="" class="w-100" />
                 </div> 
             </div>   <!-- La fin de class="right-side"  -->
         </div> <!-- La fin de class="login-contain container"  -->
