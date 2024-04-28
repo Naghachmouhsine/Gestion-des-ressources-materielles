@@ -13,9 +13,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste des besoins</title>
-
-<link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css">
 <style>
+
+#besoinsTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#besoinsTable th,
+#besoinsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+#besoinsTable th {
+    background-color: #f2f2f2;
+    color: #333;
+}
+
+#besoinsTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+#besoinsTable tr:hover {
+    background-color: #f2f2f2;
+}
     .action-icons i {
         margin-right: 15px;
         cursor: pointer;
