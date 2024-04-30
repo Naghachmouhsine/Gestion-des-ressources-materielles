@@ -15,30 +15,32 @@
 <title>Liste des besoins</title>
 <style>
 
-#besoinsTable {
-    width: 100%;
-    border-collapse: collapse;
-}
+    #besoinsTable {
+         width: 90%;
+         border-collapse: collapse;
+         margin-left: 23px;
+    }
 
-#besoinsTable th,
-#besoinsTable td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-}
+    #besoinsTable th,
+    #besoinsTable td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
 
-#besoinsTable th {
-    background-color: #f2f2f2;
-    color: #333;
-}
+    #besoinsTable th {
+        background-color: #f2f2f2;
+        color: #333;
+    }
 
-#besoinsTable tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
+    #besoinsTable tr:nth-child(even) {
+         background-color: #f9f9f9;
+    }
 
-#besoinsTable tr:hover {
-    background-color: #f2f2f2;
-}
+    #besoinsTable tr:hover {
+         background-color: #f2f2f2;
+    }
+    
     .action-icons i {
         margin-right: 15px;
         cursor: pointer;
@@ -119,7 +121,7 @@
         #validateForm {
         float: right; /* Alignement à droite */
         margin-top: 20px; /* Marge en haut pour l'espacement */
-    }
+   }
     
         #validateForm button {
         background-color: #4CAF50; /* Couleur de fond */
@@ -129,6 +131,7 @@
         border-radius: 5px; /* Coins arrondis */
         cursor: pointer; /* Curseur pointer */
         transition: background-color 0.3s; /* Transition en douceur */
+        margin-right:80px;
     }
 
     #validateForm button:hover {
@@ -186,9 +189,7 @@
     List<BesoinModel> listBesoins = (List<BesoinModel>) session.getAttribute("listBesoins");
     PersonnelAdministrationModel chefDepartement = (PersonnelAdministrationModel) session.getAttribute("ChefDepartement");
     %>
-    
-    <div style="display:none">
-    </div>
+
     <table id="besoinsTable" class="display">
         <thead>
             <tr>
