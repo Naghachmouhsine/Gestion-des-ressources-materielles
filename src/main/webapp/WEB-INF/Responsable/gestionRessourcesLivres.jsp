@@ -61,10 +61,10 @@
 			
       <div class="card-header">
         <div class="card-body"> -->
-    <div style="max-height: 400px; overflow-y: auto;"  class="m-1">
-         <div class="mb-3">
+    <div style="max-height: 400px; overflow-y: auto;  class="m-1">
+         <div class="mb-3" style="position: sticky; top: 0;">
     <label for="selectAppelOffre1" class="form-label">Sélectionner un appel d'offre :</label>
-    <select class="form-select" id="selectAppelOffre1">
+    <select class="form-select" id="selectAppelOffre1" >
           <option value="all">All</option>
        <c:forEach items="${listAppel}" var="a">
           <option value="${a.id_app_off}">${a.nom}</option>

@@ -1,5 +1,7 @@
 package myAppSpringBoot.Models;
 
+import java.sql.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +19,7 @@ public class DetailsPropositionModel {
 	private int id_det_prop;
 	private String marque;
 	private float prix;
+	private Date date_garenti;
 	
 	@ManyToOne
     @JoinColumn(name = "id_bes", referencedColumnName = "id_bes")
@@ -78,6 +81,16 @@ public class DetailsPropositionModel {
 
 	public void setProposition(PropositionModel proposition) {
 		this.proposition = proposition;
+	}
+
+
+	public Date getDate_garenti() {
+		return date_garenti;
+	}
+
+
+	public void setDate_garenti(Date date_garenti) {
+		this.date_garenti = date_garenti;
 	}
 	
 

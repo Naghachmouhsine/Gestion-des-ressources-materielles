@@ -43,7 +43,7 @@ public class GestionRessourcesLivresController {
 	   List<RessourceModel> listRessourceModels=gestionRessourcesLivresService.getAllRessources();
 	   ArrayList<RessourceModelRespo> list=new ArrayList<>();
 	   for (DetailsPropositionModel d : listDetails) {
-		   if(d.getProposition().getEtat().equals("accepter")) {
+		   if(d.getProposition().getEtat()!=null && d.getProposition().getEtat().equals("accepter")) {
 			   for (RessourceModel r : listRessourceModels) {
 				   if(d.getBesoin().getId_bes()==r.getBesoin().getId_bes()) {
 					   RessourceModelRespo modelRespo=new RessourceModelRespo(d.getMarque(),d.getPrix());
