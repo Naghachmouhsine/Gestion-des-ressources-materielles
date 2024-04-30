@@ -113,7 +113,6 @@
 					    </div> <br/> <br>
 					</div>
 			        
-			        <!-- Champs spécifiques à l'imprimante -->
 			        <div class="form-group row" id="imprimanteFields" style="display: none;">
 					    <label class="col-sm-3 col-form-label">Resolution :</label>
 					    <div class="col-sm-3">
@@ -123,8 +122,17 @@
 					    <div class="col-sm-3">
 					        <input type="number" class="form-control" name="vitesse" placeholder="Vitesse" required>
 					    </div> <br/> <br>
-					</div>					
-				      <div class="modal-footer">
+					</div>				
+					
+					<div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="role" id="enseignantRadio" value="enseignant" style="margin-top:20px">
+                            <label class="form-check-label" for="enseignantRadio" style="margin-top:20px">Enseignant</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="role" id="chefDepartementRadio" value="chef_departement" style="margin-top:20px">
+                            <label class="form-check-label" for="chefDepartementRadio" style="margin-top:20px">Chef de département</label>
+                    </div>	
+				    <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
 				        <!-- <button type="submit" class="btn btn-primary" >Enregistrer</button> -->
 				        <button type="button" class="btn btn-primary" id="submitFormBtn">Enregistrer</button>
@@ -173,12 +181,10 @@ $(document).ready(function() {
             });
         }
 
-        // Vérifier si tous les champs requis du formulaire principal sont remplis
         if (!$('#BesoinForm')[0].checkValidity()) {
             formValid = false;
         }
 
-        // Si le formulaire est valide, procéder à l'envoi des données
         if (formValid) {
             ajaxPost();
         } else {
@@ -206,16 +212,12 @@ $(document).ready(function() {
                     title: 'Succès!',
                     text: 'Besoin enregistré avec succès!',
                 }).then((result) => {
-                	// Rediriger l'utilisateur vers la page interface-enseignant après la fermeture de l'alerte
-                       // window.location.href = 'http://localhost:4040/interface-enseignant';
-                    // Recharger la page après la fermeture de l'alerte
                        window.location.reload();
                 });
                 $('#envoyerBesoinModal').modal('hide');
             },
             error: function(e) {
                 console.log("Erreur: ", e);
-               // alert("Erreur lors de l'envoi des données au serveur.");
             }
         });
     }

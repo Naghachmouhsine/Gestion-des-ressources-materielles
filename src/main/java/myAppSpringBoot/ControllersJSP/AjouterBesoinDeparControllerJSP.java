@@ -34,7 +34,8 @@ public class AjouterBesoinDeparControllerJSP {
 	
 	@PostMapping(value = "/saveBesoinDepar", consumes = "application/x-www-form-urlencoded")
     public String traiterRequete(@RequestParam Map<String, String> formData) {     
-		String typeBesoin = formData.get("typeForm"); // name="typeForm"
+		String typeBesoin = formData.get("typeForm"); 
+		String role = formData.get("role");
 	    UserModel chefDepartement = (UserModel) session.getAttribute("ChefDepartement");
 
 		PersonnelAdministrationModel personnelAdministration = new PersonnelAdministrationModel(); 
@@ -50,6 +51,7 @@ public class AjouterBesoinDeparControllerJSP {
 	        ordinateur.setDisque_dur(Integer.parseInt(formData.get("disqueDur")));
 	        ordinateur.setEcran(Integer.parseInt(formData.get("ecran")));
 	        ordinateur.setRam(Integer.parseInt(formData.get("ram")));
+	        ordinateur.setDemander_par(role);
 	        
 	        ordinateurRepository.save(ordinateur);
 	    } else if (typeBesoin.equals("imprimante")) {
@@ -59,6 +61,7 @@ public class AjouterBesoinDeparControllerJSP {
 	        
 	        imprimante.setResolution(Integer.parseInt(formData.get("resolution")));
 	        imprimante.setVitesse(Integer.parseInt(formData.get("vitesse")));
+	        imprimante.setDemander_par(role);
 	        
 	        imprimanteRepository.save(imprimante);
 	    } 
