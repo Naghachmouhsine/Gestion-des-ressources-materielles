@@ -22,7 +22,7 @@
                     
                    
                         <div class="text-center">
-                            <h4>Espace fournisseur ...! 🌐 🚀 🌟</h4>
+                            <h4>Espace fournisseur ...! 🌐 🌟</h4>
                         </div>
                   
                 </div>
@@ -38,15 +38,15 @@
                     <button onclick="RetourPageFournisseur();" type="button" id="sub-butt" class="btn btn-danger" style="background: #DC143C"> Retour </button>
                 </form> <br/>
                 
-            </div>  <!-- La fin de class="left-side"  -->
+            </div>  
 
             <div class="right-side">
                 <div class="welcomeimg img-class">
                     <img src="/static/images/logo2.png" id="img-id" alt="" class="w-100" />
                 </div> 
-            </div>   <!-- La fin de class="right-side"  -->
-        </div> <!-- La fin de class="login-contain container"  -->
-    </div>  <!-- La fin de class="main-login"  -->
+            </div>  
+        </div> 
+    </div>  
 
     <script>
         function RetourPageFournisseur() {
@@ -59,7 +59,7 @@
     </script>
    
     
-    <!-- La fin de class="main-login"  -->
+   
   
 </body>
 </html>

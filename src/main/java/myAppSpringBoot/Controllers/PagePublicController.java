@@ -41,7 +41,7 @@ public class PagePublicController {
 	   private FournisseurNotifsService fournisseurNotifsService;
 	   
 	   
-	   @GetMapping("/Pag")
+
 	   public ArrayList<AppelOffreModelRespo> getAllAppelOffres_PP(){
 		   
 		   //System.out.println();
@@ -112,7 +112,7 @@ public class PagePublicController {
 	    //recuperer notifs 
 		public ArrayList<NotificationModel> getAllNotifsFournisseur(int id_fournisseur){
 			
-			  //récuperer tout les besoins 
+			 
 			   ArrayList<NotificationModel> listNotifs=new ArrayList<>();
 		       List<NotificationModel> listAllNotifs=fournisseurNotifsService.getAllNotifsFournisseur();
 		       for (NotificationModel notificationModel : listAllNotifs) {
@@ -127,7 +127,7 @@ public class PagePublicController {
 		
 		public ArrayList<PropositionModel> getAllPropositionFournisseur(int id_fournisseur){
 			
-			  //récuperer tout les besoins 
+			  
 			   ArrayList<PropositionModel> listPropositions=new ArrayList<>();
 		       List<PropositionModel> listAllPropositions= propositionRepository.findAll();
 		       for (PropositionModel propositionModel : listAllPropositions) {
@@ -141,7 +141,7 @@ public class PagePublicController {
 		
 		public List<DetailsPropositionModel> getAllDetailsProposition(){
 			
-			  //récuperer tout les besoins 
+			 
 			   List<DetailsPropositionModel> listAllDetailsProp=new ArrayList<>();
 		       listAllDetailsProp= detailsPropositionRepository.findAll();
 		      

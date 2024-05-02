@@ -118,7 +118,7 @@
   <script>
   
     document.getElementById("logout-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Empêcher le comportement par défaut du lien (la redirection)
+        event.preventDefault(); 
 
         // Afficher la Sweet Alert
         Swal.fire({

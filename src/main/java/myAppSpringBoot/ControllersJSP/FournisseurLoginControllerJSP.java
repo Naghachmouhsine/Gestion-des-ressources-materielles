@@ -36,7 +36,7 @@ public class FournisseurLoginControllerJSP {
         if (session != null) {
             session.invalidate(); // Invalider la session existante
         }
-        return "redirect:/PagePublique"; // Rediriger vers la page de connexion ou toute autre page appropriée
+        return "redirect:/PagePublique"; // Rediriger vers la page publique
     }
     
 
@@ -52,10 +52,10 @@ public class FournisseurLoginControllerJSP {
         		httpSession.setAttribute("Fournisseur", fournisseur);
         		 String idAppel = (String) session.getAttribute("idAppel");
         		 if(idAppel != null) {
-        			 System.out.println(" ICI  idAppel "+idAppel);
+        			
         			 return "redirect:/proposition/" + idAppel;
         		 }else {
-        			 System.out.println("idAppel does not exist in session");
+        			
         			 return "redirect:/PagePublique"; 
         		 }
         		 

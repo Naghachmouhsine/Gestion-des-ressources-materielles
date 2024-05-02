@@ -2,6 +2,7 @@ package myAppSpringBoot.ControllersJSP;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -71,7 +72,7 @@ public class PagePublicControllerJSP {
 	      //verfier si il est authentifier
 		   FournisseurModel fournisseur =(FournisseurModel) session.getAttribute("Fournisseur"); 
 	       if (fournisseur == null) {
-		      System.out.println("n'est pas authentifier rediger");
+		     
 		   return "redirect:/loginFournisseur";
 		   }
 	
@@ -121,9 +122,20 @@ public class PagePublicControllerJSP {
 		  	        String marque = formData.get("marque_"+besoinId); // name="typeForm"
 		  	        System.out.println("marque "+marque);
 		  	        
+		  	        String dateGarantie=formData.get("Dgarantie_"+besoinId);
+		  	      SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
+		  		java.util.Date dateParse = null;
+		  		try {
+		  			dateParse = dateFormat.parse(dateGarantie);
+		  		} catch (ParseException e) {
+		  			// TODO Auto-generated catch block
+		  			e.printStackTrace();
+		  		}
+		  		Date dateDebut=new Date(dateParse.getTime());
 		  	        //stocker detailsPropositionModel
 		  	        DetailsPropositionModel detailPropositionModel =new DetailsPropositionModel(marque,prix,besoin,proposition);
-		  	    	//Ajouter a la liste 
+		  	      detailPropositionModel.setDate_garenti(dateDebut);
+		  	        //Ajouter a la liste 
 		  	       // detailsPropositionList.add(detailPropositionModel);
 		  	        DetailsProposition =pagePublicController.saveDetailsProposition(detailPropositionModel);
 		  	    }

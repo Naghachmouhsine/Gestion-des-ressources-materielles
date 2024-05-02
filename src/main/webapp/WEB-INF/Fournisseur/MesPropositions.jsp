@@ -104,7 +104,7 @@
 					    </c:otherwise>
 					</c:choose>
 					 </td>
-                  		<td>${proposition.total} DH</td> 
+                  		<td> <b> ${proposition.total} DH </b></td> 
                   		<td>
 
                   		    <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#${proposition.id_prop}"> 
@@ -144,7 +144,7 @@
 							    <c:if test="${DetailsProp.proposition.id_prop eq proposition.id_prop}">
 							        <tr>
 							            <td>${DetailsProp.besoin.type}</td>
-							            <td>${DetailsProp.prix} DH</td>
+							            <td> <b>${DetailsProp.prix} DH </b></td>
 							            <td>${DetailsProp.marque}</td>
 							        </tr>
 							    </c:if>
@@ -171,7 +171,7 @@
   <script>
   
     document.getElementById("logout-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Empêcher le comportement par défaut du lien (la redirection)
+        event.preventDefault(); 
 
         // Afficher la Sweet Alert
         Swal.fire({

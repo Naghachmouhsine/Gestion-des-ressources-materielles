@@ -104,7 +104,7 @@
          <!-- Titre appel offre nom -->
          <h5 class="titlePage">  ${appelOffre.nom}</h5>
          <div class="row bgBlue">
-          <div class="col-md-10 mx-auto bgBlue">
+          <div class="col-md-12 mx-auto bgBlue">
             <form action="/AjouterProposition" method="post">
             
                 <table class="table ">
@@ -114,6 +114,7 @@
                             <th>Détails</th>
                             <th>Prix</th>
                             <th>Marque</th>
+                            <th>Date garantie</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -143,6 +144,11 @@
                                     <!-- Champ de formulaire pour la marque -->
                                     <input type="text" name="marque_${b.id_bes}" id="marque_${b.id_bes}" class="form-control" placeholder="Marque" required>
                                     <div class="invalid-feedback">Veuillez entrer la marque.</div>
+                                </td>
+                                 <td>
+                                    <!-- Champ de formulaire pour la marque -->
+                                    <input type="date" name="Dgarantie_${b.id_bes}" id="Dgarantie_${b.id_bes}" class="form-control" placeholder="date" required>
+                                    <div class="invalid-feedback">Veuillez entrer la date.</div>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -206,7 +212,7 @@
         let total = 0;
         // Bouclez à travers chaque champ de prix et ajoutez la valeur à total
         prixInputs.forEach(input => {
-            // Assurez-vous que la valeur est un nombre valide avant de l'ajouter
+            
             if (!isNaN(parseFloat(input.value))) {
                 total += parseFloat(input.value);
             }
@@ -217,7 +223,7 @@
         totalInput.value = total.toFixed(2);
     }
 
-    // Ajoutez un écouteur d'événements à chaque champ de prix pour recalculer le total à chaque changement
+    
     prixInputs.forEach(input => {
         input.addEventListener('input', calculerTotal);
     });
@@ -237,11 +243,11 @@ function showSweetAlert() {
   
 }
 </script>    
-  <!-- La fin de class="main-login"  --><script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script>
   
     document.getElementById("logout-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Empêcher le comportement par défaut du lien (la redirection)
+        event.preventDefault(); 
 
         // Afficher la Sweet Alert
         Swal.fire({

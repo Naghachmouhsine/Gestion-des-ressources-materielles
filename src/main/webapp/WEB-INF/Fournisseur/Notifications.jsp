@@ -178,14 +178,15 @@
     <c:otherwise>
    <div class="wrapper">
      <c:forEach items="${listNotifs}" var="notification" varStatus="loop">
-         <div class="toast ${notification.etat==1 ? 'success' : 'info'} ${notification.etat==0 ? 'unread' : ''}" style="display: grid;HEIGHT: 128px" onclick="markAsRead(this)" data-notification-id="${notification.id_notif}">
+         <div class="toast ${notification.etat==1 ? 'success' : 'info'} ${notification.etat==0 ? 'unread' : ''}" style="display: grid;min-height: 128px ;height:auto" onclick="markAsRead(this)" data-notification-id="${notification.id_notif}">
             <div class="container-1">
                 <i class="fas fa-${notification.etat==1 ? 'check-square' : 'info-circle'}"></i>
             </div>
             <div class="container-2">
                 <p>Envoyé par  ${notification.user_sour.nom} ${notification.user_sour.prenom}</p>
-                <%-- <p>Send By ${notification.user_sour.nom} ${notification.user_sour.prenom} (${notification.user_sour.roles})</p> --%>
-                <p class="mt-3">${notification.message}</p>
+            <div >
+                <p class="mt-3 " >${notification.message}</p>
+            </div>
             </div>
             <button style="font-size: 17px;"><i class="fa-solid fa-eye"></i></button>
         </div>
@@ -214,7 +215,7 @@
         var notificationId = element.getAttribute("data-notification-id");
        // var notificationId = element.dataset.data-notification-id;
         
-        // Effectuer une requête AJAX pour mettre à jour l'état de la notification dans la base de données
+       
         var xhr = new XMLHttpRequest();
         xhr.open("PUT", "updateEtatNotificationById", true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -242,7 +243,7 @@
   <script>
   
     document.getElementById("logout-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Empêcher le comportement par défaut du lien (la redirection)
+        event.preventDefault(); 
 
         // Afficher la Sweet Alert
         Swal.fire({
