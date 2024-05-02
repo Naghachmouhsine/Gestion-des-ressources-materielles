@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Messagerie</title>
+    <title>Demande des Besoins Éducatifs</title>
     <style>
 
         .container {
@@ -53,7 +53,7 @@
 <body>
     <br><br><br>
    <div class="container">
-    <h2>Messagerie</h2>
+    <h2>Demande des Besoins Éducatifs</h2>
     <form id="messageForm" action="/envoyer-message" method="post">
         <textarea id="message-input" name="message" class="message-input" placeholder="Entrez votre message ici"></textarea>
         <button type="submit" class="inform-button">Informer</button>

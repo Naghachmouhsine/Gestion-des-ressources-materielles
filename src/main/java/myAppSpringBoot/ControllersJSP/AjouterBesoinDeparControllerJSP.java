@@ -66,7 +66,7 @@ public class AjouterBesoinDeparControllerJSP {
 	        imprimanteRepository.save(imprimante);
 	    } 
 
-	    return "Success"; // Réponse envoyée au client
+	    return "Success"; 
 	}
 		
 }

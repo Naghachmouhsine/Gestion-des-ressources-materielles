@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
-<body>
 
 <div class="containerCSS">
         <div class="navigationCSS">
@@ -44,21 +43,21 @@
                         <span class="icon">
                             <ion-icon name="add-circle-outline"></ion-icon>
                         </span>
-                        <span class="title">Ajout</span>
+                        <span class="title">Nouveau Besoin</span>
                     </div>
                 </li>
                 
                 <li style="cursor: pointer;">
-                    <div id="ConsulterMessagesButton">
+                    <div id="ConsulterRessourcesButton">
                         <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
+                            <ion-icon name="alert-circle-outline"></ion-icon>
                         </span>
-                        <span class="title">Messages</span>
+                        <span class="title">Nouvelle Panne</span>
                     </div>
                 </li>
 
                 <li style="cursor: pointer;">
-                    <div>
+                    <div id="signOut">
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
@@ -79,39 +78,70 @@
     
    <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // S�lectionne les boutons de la sidebar
         var demanderBesoinButton = document.getElementById("demanderBesoinButton");
         var consulterBesoinButton = document.getElementById("consulterBesoinButton");
+        var consulterRessourcesButton=document.getElementById("ConsulterRessourcesButton");
 
         demanderBesoinButton.addEventListener("click", function () {
             document.getElementById("demandeBesoinsContent").style.display = "block";
             document.getElementById("consultationBesoinsContent").style.display = "none";
-            document.getElementById("consultationMessagesChefContent").style.display = "none";
         	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+        	document.getElementById("consultationRessourcesContent").style.display="none";
 
         });
 
         consulterBesoinButton.addEventListener("click", function () {
             document.getElementById("consultationBesoinsContent").style.display = "block";
             document.getElementById("demandeBesoinsContent").style.display = "none";
-            document.getElementById("consultationMessagesChefContent").style.display = "none";
         	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
-
-        });
-        
-        ConsulterMessagesButton.addEventListener("click", function () {
-            document.getElementById("consultationMessagesChefContent").style.display = "block";
-            document.getElementById("consultationBesoinsContent").style.display = "none";
-        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
-            document.getElementById("demandeBesoinsContent").style.display = "none";
+        	document.getElementById("consultationRessourcesContent").style.display="none";
         });
         
         
         ajouterBesoinDepartementButton.addEventListener("click",function(){
         	document.getElementById("ajouterBesoinDepartementContent").style.display = "block";
-        	document.getElementById("consultationMessagesChefContent").style.display = "none";
             document.getElementById("consultationBesoinsContent").style.display = "none";
             document.getElementById("demandeBesoinsContent").style.display = "none";
+        	document.getElementById("consultationRessourcesContent").style.display="none";
+        });
+        
+        consulterRessourcesButton.addEventListener("click",function(){
+        	document.getElementById("consultationRessourcesContent").style.display="block";
+        	document.getElementById("ajouterBesoinDepartementContent").style.display = "none";
+            document.getElementById("consultationBesoinsContent").style.display = "none";
+            document.getElementById("demandeBesoinsContent").style.display = "none";
+        });
+    });
+    
+    document.getElementById('signOut').addEventListener('click', function() {
+        Swal.fire({
+            text: 'Voulez-vous vraiment quitter votre espace?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#007bff',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Oui, quitter',
+            cancelButtonText: 'Annuler'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch('/logout', {
+                    method: 'POST' 
+                })
+                .then(response => {
+                    Swal.fire({
+                        title: 'Au revoir!',
+                        icon: 'success',
+                        timer: 1500, 
+                        timerProgressBar: true 
+                    });
+                    setTimeout(() => {
+                        window.location.replace('/login');
+                    }, 1500); 
+                })
+                .catch(error => {
+                    console.error('Erreur lors de la déconnexion :', error);
+                });
+            }
         });
     });
     

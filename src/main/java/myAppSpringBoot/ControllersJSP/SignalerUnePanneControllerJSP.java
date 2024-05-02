@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import myAppSpringBoot.Models.PanneModel;
+import myAppSpringBoot.Models.RessourceModel;
 import myAppSpringBoot.Models.UserModel;
 import myAppSpringBoot.Repositories.PanneRepository;
 
@@ -26,6 +29,27 @@ public class SignalerUnePanneControllerJSP {
 		panne.setEtat_panne("Non réparée"); // l'etat de la panne par defaut
 		panneRepository.save(panne);
     }
+	
+	 @PostMapping("/signalerPanneChef")
+	    public void signalerPanne(@RequestParam("ressourceId") String ressourceId,
+	                                @RequestParam("selectedDate") String selectedDate) {
+		 
+		 PanneModel panne=new PanneModel();
+	     RessourceModel ressource=new RessourceModel();
+	     ressource.setIdRes(Integer.parseInt(ressourceId));
+	     panne.setRessource(ressource);
+	     
+	     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+	   	 try {
+	            java.util.Date utilDate = formatter.parse(selectedDate);
+	            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	            panne.setDate_panne(sqlDate);
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	        }	  
+	   	 
+	   	 panneRepository.save(panne);
+	    }
 	
 	@PostMapping(value = "/reparerUnePanne", consumes = "application/x-www-form-urlencoded")
     public void reparerUnePanne(@ModelAttribute PanneModel panne, @RequestParam("cin_technicien") String CIN_Tech) {
