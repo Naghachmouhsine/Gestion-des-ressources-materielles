@@ -176,7 +176,7 @@ PersonnelAdministrationModel chef = (PersonnelAdministrationModel) session.getAt
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
-    <h2>Sélectionner la date de panne</h2>
+    <h4>Sélectionner la date de panne</h4>
     <input type="date" id="datePicker">
     <br>
     <button id="confirmButton">Confirmer</button>
@@ -185,48 +185,70 @@ PersonnelAdministrationModel chef = (PersonnelAdministrationModel) session.getAt
 
 <script>
 $(document).ready(function(){
-	  var modal = $("#modal");
-	  var closeBtn = $(".close");
+    var modal = $("#modal");
+    var closeBtn = $(".close");
 
-	  $(".report-icon").click(function() {
-	    var ressourceId = $(this).siblings('#ressourceId').val();
-	    modal.css("display", "block");
-	    $("#confirmButton").attr("data-ressource-id", ressourceId);
-	  });
+    $(".report-icon").click(function() {
+        var ressourceId = $(this).siblings('#ressourceId').val();
+        modal.css("display", "block");
+        $("#confirmButton").attr("data-ressource-id", ressourceId);
+    });
 
-	  closeBtn.click(function() {
-	    modal.css("display", "none");
-	  });
+    closeBtn.click(function() {
+        modal.css("display", "none");
+    });
 
-	  $("#confirmButton").click(function() {
-	    var selectedDate = $("#datePicker").val();
-	    var ressourceId = $(this).attr("data-ressource-id");
+    $("#confirmButton").click(function() {
+        var selectedDate = $("#datePicker").val();
+        var ressourceId = $(this).attr("data-ressource-id");
 
-	    $.ajax({
-	      type: "POST",
-	      url: "/signalerPanneChef",
-	      data: { ressourceId: ressourceId, selectedDate: selectedDate },
-	      success: function(response) {
-	    	    modal.css("display", "none");
-	    	    Swal.fire({
-	    	        icon: 'success',
-	    	        title: 'Succès !',
-	    	        text: 'Panne déclarée avec succès !',
-	    	        timer: 1000, 
-	    	        timerProgressBar: true
-	    	    });
-	      },
-	      error: function(xhr, status, error) {
-	          Swal.fire({
-	              icon: 'error',
-	              title: 'Erreur !',
-	              text: 'Erreur lors de l\'envoi des données : ' + error
-	          });
-	      }
-	    });
-	  });
-	});
+        if (!selectedDate) {
+        	modal.css("display", "none");
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur !',
+                text: 'Veuillez sélectionner une date de panne.'
+            });
+            return;
+        }
 
+        var selectedDateObj = new Date(selectedDate);
+        var today = new Date();
+
+        if (selectedDateObj >= today) {
+        	modal.css("display", "none");
+            Swal.fire({
+                icon: 'error',
+                title: 'Erreur !',
+                text: 'La date de panne doit être antérieure à la date d\'aujourd\'hui.'
+            });
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/signalerPanneChef",
+            data: { ressourceId: ressourceId, selectedDate: selectedDate },
+            success: function(response) {
+                modal.css("display", "none");
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Succès !',
+                    text: 'Panne déclarée avec succès !',
+                    timer: 1000, 
+                    timerProgressBar: true
+                });
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur !',
+                    text: 'Erreur lors de l\'envoi des données : ' + error
+                });
+            }
+        });
+    });
+});
 </script>  
 </body>
 </html>

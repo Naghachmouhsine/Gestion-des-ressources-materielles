@@ -20,8 +20,8 @@
                     border-radius: 10px;
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
                     padding: 20px;
-                    display: flex; /* Ajout de cette ligne */
-                    flex-direction: column; /* Ajout de cette ligne */
+                    display: flex;
+                    flex-direction: column; 
                      } 
 
         .message-input {
@@ -42,7 +42,8 @@
                     padding: 10px 20px;
                     cursor: pointer;
                     font-size: 16px;
-                    align-self: flex-end; /* Ajout de cette ligne */
+                    align-self: flex-end;
+                    margin-left: 855px;
                     }
 
         .inform-button:hover {
@@ -58,8 +59,21 @@
         <textarea id="message-input" name="message" class="message-input" placeholder="Entrez votre message ici"></textarea>
         <button type="submit" class="inform-button">Informer</button>
     </form>
-   </div>
-    
+   </div>   
+    <script>
+        document.getElementById("messageForm").onsubmit = function() {
+            var message = document.getElementById("message-input").value.trim(); 
+            if (message === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erreur !',
+                    text: 'Veuillez remplir le champ de message.',
+                    showConfirmButton: false,
+                    timer:1000
+                });
+                return false;
+            }
+        };
+    </script>
 </body>
 </html>
-

@@ -1,13 +1,5 @@
-<!-- jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<!-- Bootstrap CSS -->
-<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
-
-<!-- Bootstrap JS -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- SweetAlert -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <style>
     .modal {
@@ -71,14 +63,11 @@
             background-color: #0056b3;
 }
 </style>
-
  <div class="modal" id="envoyerBesoinModal">
     <div class="modal-content">
         <div class="modal-header">
             <h5 class="modal-title" id="envoyerBesoinModalLabel">Enregistrer le besoin</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 30px;">
-		 </button>
-            <span class="close">&times;</span>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="background: none; border: none; font-size: 30px;">&times;</button>
         </div>
         <div class="modal-body">
          <form id="BesoinForm" action="/ajouterBesoinDepar" method="post">
@@ -93,34 +82,33 @@
 		            </div>
 		          </div><br>
 	            
-		            <!-- Champs spécifiques à l'ordinateur -->
 					<div class="form-group row" id="ordinateurFields">
 					    <label class="col-sm-3 col-form-label">CPU :</label>
 					    <div class="col-sm-3">
-					        <input type="number" class="form-control" name="cpu" placeholder="CPU" required>
+					        <input type="number" class="form-control" name="cpu" min="0" placeholder="CPU" required>
 					    </div>
 					    <label class="col-sm-3 col-form-label">Disque Dur :</label>
 					    <div class="col-sm-3">
-					        <input type="number" class="form-control" name="disqueDur" placeholder="Disque Dur" required>
+					        <input type="number" class="form-control" name="disqueDur"  min="0" placeholder="Disque Dur" required>
 					    </div> <br/> <br/>
 					    <label class="col-sm-3 col-form-label">Écran :</label>
 					    <div class="col-sm-3">
-					        <input type="number" class="form-control" name="ecran" placeholder="Écran" required>
+					        <input type="number" class="form-control" name="ecran" min="0" placeholder="Écran" required>
 					    </div>
 					    <label class="col-sm-3 col-form-label">RAM :</label>
 					    <div class="col-sm-3">
-					        <input type="number" class="form-control" name="ram" placeholder="RAM" required>
+					        <input type="number" class="form-control" name="ram" min="0" placeholder="RAM" required>
 					    </div> <br/> <br>
 					</div>
 			        
 			        <div class="form-group row" id="imprimanteFields" style="display: none;">
 					    <label class="col-sm-3 col-form-label">Resolution :</label>
 					    <div class="col-sm-3">
-					        <input type="number" class="form-control" name="resolution" placeholder="Resolution" required>
+					        <input type="number" class="form-control" name="resolution" min="0" placeholder="Resolution" required>
 					    </div>
 					    <label class="col-sm-3 col-form-label">Vitesse :</label>
 					    <div class="col-sm-3">
-					        <input type="number" class="form-control" name="vitesse" placeholder="Vitesse" required>
+					        <input type="number" class="form-control" name="vitesse" min="0" placeholder="Vitesse" required>
 					    </div> <br/> <br>
 					</div>				
 					
@@ -133,67 +121,77 @@
                             <label class="form-check-label" for="chefDepartementRadio" style="margin-top:20px">Chef de département</label>
                     </div>	
 				    <div class="modal-footer">
-				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				        <!-- <button type="submit" class="btn btn-primary" >Enregistrer</button> -->
 				        <button type="button" class="btn btn-primary" id="submitFormBtn">Enregistrer</button>
 				      </div>
               </form>
       </div>
     </div>
 </div>
-
-
 <script>
 $(document).ready(function() {
+	var modal = $("#modal");
+	var closeBtn = $(".close");
+	
     $('#typeForm').change(function() {
         var selectedType = $(this).val();
         if (selectedType === 'ordinateur') {
             $('#ordinateurFields').show();
-           // $('#imprimanteFields').hide();
-            $('#imprimanteFields').hide().find('input').val('0'); // Masquer les champs d'imprimante et assigner une valeur par défaut
+            $('#imprimanteFields').hide().find('input').val('0'); 
         } else if (selectedType === 'imprimante') {
             $('#imprimanteFields').show();
-           // $('#ordinateurFields').hide();
-            $('#ordinateurFields').hide().find('input').val('0'); // Masquer les champs d'ordinateur et assigner une valeur par défaut       
+            $('#ordinateurFields').hide().find('input').val('0');      
         }
     });
 
+    closeBtn.click(function() {
+	    modal.css("display", "none");
+	  });
+    
     $('#submitFormBtn').click(function() {
-        // Vérifier le type de besoin sélectionné
         var selectedType = $('#typeForm').val();
         var formValid = true;
+        var roleSelected = false; 
+        var errorMessage = ''; 
+
+        if (!selectedType) {
+            formValid = false;
+            errorMessage += 'Veuillez sélectionner un type de besoin (ordinateur ou imprimante).\n';
+        }
 
         if (selectedType === 'ordinateur') {
-            // Vérifier si tous les champs requis pour l'ordinateur sont remplis
             $('#ordinateurFields :input[required]').each(function() {
                 if ($(this).val() === '') {
                     formValid = false;
-                    return false; // Sortir de la boucle each si un champ est vide
+                    errorMessage += 'Veuillez remplir tous les champs requis.\n';
+                    return false;
                 }
             });
         } else if (selectedType === 'imprimante') {
-            // Vérifier si tous les champs requis pour l'imprimante sont remplis
             $('#imprimanteFields :input[required]').each(function() {
                 if ($(this).val() === '') {
                     formValid = false;
-                    return false; // Sortir de la boucle each si un champ est vide
+                    errorMessage += 'Veuillez remplir tous les champs requis.\n';
+                    return false;
                 }
             });
         }
 
-        if (!$('#BesoinForm')[0].checkValidity()) {
-            formValid = false;
+        if (!$('#enseignantRadio').prop('checked') && !$('#chefDepartementRadio').prop('checked')) {
+            roleSelected = false;
+            errorMessage += 'Veuillez sélectionner un rôle.\n';
+        } else {
+            roleSelected = true;
         }
 
-        if (formValid) {
-            ajaxPost();
-        } else {
-            // Afficher un message d'erreur avec SweetAlert si des champs sont vides
+        if (!formValid || !roleSelected) {
+            $('#envoyerBesoinModal').modal('hide');
             Swal.fire({
                 icon: 'error',
                 title: 'Erreur!',
-                text: 'Veuillez remplir tous les champs requis.',
+                text: errorMessage,
             });
+        } else {
+            ajaxPost();
         }
     });
 
@@ -206,7 +204,6 @@ $(document).ready(function() {
             data: formData,
             success: function(response) {
                 console.log(response);
-               // alert(JSON.stringify(response));
                 Swal.fire({
                     icon: 'success',
                     title: 'Succès!',
@@ -221,7 +218,5 @@ $(document).ready(function() {
             }
         });
     }
-
 });
 </script>
-

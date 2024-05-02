@@ -5,7 +5,6 @@
 <%@ page import="myAppSpringBoot.Models.DepartementModel" %>
 <%@ page import="myAppSpringBoot.Models.ImprimanteModel" %>
 <%@ page import="myAppSpringBoot.Models.OrdinateurModel" %>
-
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
 <!DOCTYPE html>
@@ -16,29 +15,32 @@
 <style>
 
     #besoinsTable {
-         width: 90%;
-         border-collapse: collapse;
-         margin-left: 23px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    border-radius: 10px; 
+    overflow: hidden; 
     }
 
     #besoinsTable th,
     #besoinsTable td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
+    border: 2px solid #000;
+    padding: 12px;
+    text-align: left;
     }
 
     #besoinsTable th {
-        background-color: #f2f2f2;
-        color: #333;
+    background-color: #f2f2f2;
+    color: #333;
+    font-weight: bold;
     }
 
     #besoinsTable tr:nth-child(even) {
-         background-color: #f9f9f9;
+    background-color: #f9f9f9;
     }
 
     #besoinsTable tr:hover {
-         background-color: #f2f2f2;
+    background-color: #f2f2f2;
     }
     
     .action-icons i {
@@ -47,15 +49,15 @@
     }
 
     .edit-icon {
-        font-size: 30px; /* Taille de l'icône agrandie */
-        color: green; /* Couleur verte */
-        margin-left: 30px; /* Marge à gauche */
+        font-size: 30px;
+        color: green; 
+        margin-left: 30px;
     }
     
     .delete-icon {
-        font-size: 30px; /* Taille de l'icône agrandie */
-        color: red; /* Couleur verte */
-        margin-left: 30px; /* Marge à gauche */
+        font-size: 30px; 
+        color: red;
+        margin-left: 30px;
     }
     .modal {
             display: none;
@@ -76,13 +78,14 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            margin-bottom: 10px;
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
         }
 
         .modal-header h5 {
@@ -119,28 +122,29 @@
         }
         
         #validateForm {
-        float: right; /* Alignement à droite */
-        margin-top: 20px; /* Marge en haut pour l'espacement */
-   }
+        float: right; 
+        margin-top: 20px; 
+        }
     
         #validateForm button {
-        background-color: #4CAF50; /* Couleur de fond */
-        color: white; /* Couleur du texte */
-        padding: 10px 20px; /* Espacement intérieur */
-        border: none; /* Suppression de la bordure */
-        border-radius: 5px; /* Coins arrondis */
-        cursor: pointer; /* Curseur pointer */
-        transition: background-color 0.3s; /* Transition en douceur */
+        background-color: #4CAF50; 
+        color: white; 
+        padding: 10px 20px; 
+        border: none; 
+        border-radius: 5px; 
+        cursor: pointer; 
+        transition: background-color 0.3s; 
         margin-right:80px;
-    }
+        margin-bottom: 20px;
+        }
 
-    #validateForm button:hover {
-        background-color: #45a049; /* Couleur de fond au survol */
-    }
+        #validateForm button:hover {
+        background-color: #45a049; 
+        }
 
-    #validateForm button i {
-        margin-right: 5px; /* Espacement à droite de l'icône */
-    }
+        #validateForm button i {
+        margin-right: 5px;
+        }
 </style>
 </head>
 <body>
@@ -197,7 +201,6 @@
                 <th>Prénom</th>
                 <th>Type</th>
                 <th>Caractéristiques</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -217,13 +220,11 @@
                                 if (besoin.getType().equals("ordinateur")) {
                                     OrdinateurModel ordinateur = (OrdinateurModel) besoin;
                             %>
-                                    <!-- Afficher les attributs spécifiques à un ordinateur -->
                                     CPU: <%= ordinateur.getCpu() %>, Disque dur: <%= ordinateur.getDisque_dur() %>, Écran: <%= ordinateur.getEcran() %>, RAM: <%= ordinateur.getRam() %>
                             <% 
                                 } else if (besoin.getType().equals("imprimante")) {
                                     ImprimanteModel imprimante = (ImprimanteModel) besoin;
                             %>
-                                    <!-- Afficher les attributs spécifiques à une imprimante -->
                                     Résolution: <%= imprimante.getResolution() %>, Vitesse: <%= imprimante.getVitesse() %>
                             <% 
                                 }
@@ -248,8 +249,7 @@
         <i class="fas fa-check-circle"></i> Valider Besoins
     </button>
     </form>
-
-    
+    <br> 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
     
@@ -261,11 +261,20 @@
         });
         
         function confirmDelete(id) {
-            if (confirm("Êtes-vous sûr de vouloir supprimer le besoin avec l'identifiant ?")) {
-                document.getElementById("actionForm").action = "/supprimerBesoin?id=" + id;
-                document.getElementById("actionForm").submit();
-                
-            }
+            Swal.fire({
+                title: 'Êtes-vous sûr de vouloir supprimer ce besoin ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Oui, supprimer'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si l'utilisateur confirme, effectuez la suppression
+                    document.getElementById("actionForm").action = "/supprimerBesoin?id=" + id;
+                    document.getElementById("actionForm").submit();
+                }
+            });
         }
        
         function showModal() {
@@ -286,9 +295,10 @@
                 success: function(response) {
                     if (response) {
                         try {
-                            var details = JSON.parse(JSON.stringify(response)); // Convertir la réponse JSON en objet JavaScript
+                            var details = JSON.parse(JSON.stringify(response)); 
                             var typeInput = document.getElementById("typeInput");
-                            typeInput.value = details.type; // Mettre à jour la valeur de l'input avec le type du besoin
+                            typeInput.value = details.type; 
+                            typeInput.readOnly = true
                             document.getElementById("besoinId").value=id;
                             
                             if (details.type === "ordinateur") {
@@ -351,11 +361,7 @@
                     
                 });
             }
-        });  
-        
-       
-
-
+        });    
         </script>
 </body>
 </html>
