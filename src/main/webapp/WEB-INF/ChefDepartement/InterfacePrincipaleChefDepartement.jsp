@@ -1,6 +1,4 @@
-<!-- Importer la librairie JSTL -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,16 +8,12 @@
     <title>La principale du chef</title>
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-    <!-- ======= Bootstrap ====== -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-   <!-- Add Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <!-- Inclure le fichier JavaScript -->
     <script src="/static/js/main.js"></script>
 </head>
 <body>
-    <!-- Inclure la barre de navigation -->
     <jsp:include page="SideBarChefDepartement.jsp" />
     <div class="mainCSS">
             <div class="topbarCSS">
@@ -49,28 +43,19 @@
     <div id="ajouterBesoinDepartementContent" style="display: none;">
     <%@ include file="ConsulterBesoinDepartement.jsp" %>
     </div>
-
-
-
-
-    
+ 
     <script>
-    // Afficher l'alerte Swal lorsque la page se charge
     document.addEventListener("DOMContentLoaded", function () {
-        // V�rifier s'il y a un message de succ�s dans les attributs flash
         var successMessage = "<c:out value='${successMessage}'/>";
         if (successMessage) {
-            // Afficher l'alerte Swal
             Swal.fire({
                 icon: 'success',
                 title: successMessage,
                 showConfirmButton: false,
-                timer: 1500
-                
+                timer: 1500      
             });
         }
     });
-    </script>
-    
+    </script>   
 </body>
 </html>

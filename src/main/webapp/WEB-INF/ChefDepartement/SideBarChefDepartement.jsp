@@ -1,13 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <!-- ======= Styles ====== -->
     <link rel="stylesheet" href="/static/css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
 <div class="containerCSS">
         <div class="navigationCSS">
             <ul>
@@ -61,7 +58,7 @@
                         <span class="icon">
                             <ion-icon name="log-out-outline"></ion-icon>
                         </span>
-                        <span class="title">Sign Out</span>
+                        <span class="title">Log Out</span>
                     </div>
                 </li>
                 
@@ -69,9 +66,6 @@
             </ul>
         </div>
     </div>
-    <!-- Fin Navigation -->
-
-    <!-- Script ionicons -->
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
     
@@ -143,11 +137,7 @@
                 });
             }
         });
-    });
-    
-   
-</script>
-   
-    
+    });    
+</script>    
 </body>
 </html>

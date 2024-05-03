@@ -8,7 +8,6 @@
 <%@ page import="myAppSpringBoot.Models.PanneModel" %>
 <%@ page import="myAppSpringBoot.Models.RessourceModel" %>
 <%@ page import="myAppSpringBoot.Controllers.PanneController" %>
-<jsp:useBean id="panneController" class="myAppSpringBoot.Controllers.PanneController" />
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
@@ -51,37 +50,35 @@
         cursor: pointer;
     }
     .report-icon {
-    font-size: 24px; /* Taille de l'icône */
-    color: #FF5733; /* Couleur de l'icône */
-    margin-right: 10px; /* Marge à droite pour l'espacement */
+    font-size: 24px; 
+    color: #FF5733; 
+    margin-right: 10px; 
     padding-left:13px;
 }
 
 .modal {
-  display: none; /* Par défaut, la modal est cachée */
-  position: fixed; /* Positionnement fixe */
-  z-index: 9999; /* Empilement au-dessus des autres éléments */
+  display: none; 
+  position: fixed; 
+  z-index: 9999; 
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto; /* Ajouter un défilement si nécessaire */
-  background-color: rgba(0,0,0,0.5); /* Fond semi-transparent */
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5); 
 }
 
 /* Contenu de la modal */
 .modal-content {
-  background-color: #fefefe; /* Fond blanc */
-  margin: 15% auto; /* Centrer verticalement */
+  background-color: #fefefe;
+  margin: 15% auto; 
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Largeur de la modal */
-  max-width: 600px; /* Largeur maximale de la modal */
+  width: 80%; 
+  max-width: 600px; 
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Ombre */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
-
-/* Style du bouton de fermeture */
 .close {
   color: #aaa;
   float: right;
@@ -96,7 +93,6 @@
   cursor: pointer;
 }
 
-/* Style du bouton de confirmation */
 #confirmButton {
   background-color: #007bff;
   color: white;
@@ -110,28 +106,12 @@
   background-color: #0056b3;
 }
 
-/* Style de l'élément de sélection de date */
 #datePicker {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   box-sizing: border-box;
 }
-
-.etat-panne {
-    /* Style de base pour l'élément d'état de la panne */
-    display: inline-block;
-    padding: 5px;
-    border-radius: 5px;
-}
-
-.bonne-etat {
-    background-color: green; /* Couleur de fond verte */
-    color: white; /* Texte en blanc */
-    padding: 5px 10px; /* Espacement intérieur */
-    border-radius: 5px; /* Coins arrondis */
-}
-
 </style>
 </head>
 <body>
@@ -247,8 +227,8 @@ $(document).ready(function(){
 
     $("#confirmButton").click(function() {
         var selectedDate = $("#datePicker").val();
-        var ressourceId = $(this).attr("data-ressource-id");
-
+        var ressourceId = $("#ressourceId").val();
+        alert(ressourceId)
         if (!selectedDate) {
         	modal.css("display", "none");
             Swal.fire({
