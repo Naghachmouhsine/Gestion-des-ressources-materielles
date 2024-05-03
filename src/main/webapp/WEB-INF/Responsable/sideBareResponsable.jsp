@@ -44,6 +44,14 @@
                        <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/ressourcesLivre">Ressources</a></span>
                     </div>
                 </li>
+                  <li>
+                    <div>
+                        <span class="icon">
+                             <ion-icon name="list-outline"></ion-icon>
+                        </span>
+                       <span class="title"><a style="text-decoration: none; color: inherit; cursor: pointer;"  href="/gestionRessourceEnPanne">Pannes sévère</a></span>
+                    </div>
+                </li>
   <li>
                     <div>
                         <span class="icon">

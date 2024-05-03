@@ -53,6 +53,7 @@ public class GestionRessourcesLivresController {
 					   modelRespo.setEtat_affect(r.getEtat_affect());
 					   modelRespo.setEtat_recep(r.getEtat_recep());
 					   modelRespo.setFournisseurModel(d.getProposition().getFournisseur());
+					   modelRespo.setDate_garenti(d.getDate_garenti());
 					   list.add(modelRespo);
 				   }
 			 }
