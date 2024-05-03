@@ -7,6 +7,7 @@
         <thead>
             <th>Type</th>
             <th>Caractéristiques</th>
+            <th>Demandé en tant que</th>
         </thead>
         <tbody> 
             <c:forEach items="${listBesoins}" var="besoin">
@@ -23,6 +24,7 @@
                                 </c:when>
                             </c:choose>
                         </td>
+                        <td>${besoin.demander_par}</td> 
                     </tr>  
                 </c:if>
             </c:forEach>

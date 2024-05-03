@@ -5,7 +5,10 @@
 <%@ page import="myAppSpringBoot.Models.DepartementModel" %>
 <%@ page import="myAppSpringBoot.Models.ImprimanteModel" %>
 <%@ page import="myAppSpringBoot.Models.OrdinateurModel" %>
+<%@ page import="myAppSpringBoot.Models.PanneModel" %>
 <%@ page import="myAppSpringBoot.Models.RessourceModel" %>
+<%@ page import="myAppSpringBoot.Controllers.PanneController" %>
+<jsp:useBean id="panneController" class="myAppSpringBoot.Controllers.PanneController" />
 
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="javax.servlet.http.HttpSession" %>
@@ -114,6 +117,21 @@
   margin-top: 10px;
   box-sizing: border-box;
 }
+
+.etat-panne {
+    /* Style de base pour l'élément d'état de la panne */
+    display: inline-block;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.bonne-etat {
+    background-color: green; /* Couleur de fond verte */
+    color: white; /* Texte en blanc */
+    padding: 5px 10px; /* Espacement intérieur */
+    border-radius: 5px; /* Coins arrondis */
+}
+
 </style>
 </head>
 <body>
@@ -137,7 +155,7 @@ PersonnelAdministrationModel chef = (PersonnelAdministrationModel) session.getAt
     <% 
     if (listRessources != null && chef != null) {
         for (RessourceModel ressource : listRessources) {
-        	if(ressource.getBesoin().getPersonnelAdministration().getCin().equals(chef.getCin())){    
+            if (ressource.getBesoin().getPersonnelAdministration().getCin().equals(chef.getCin())) {
     %>
     <tr>
         <td><%= ressource.getNumero_inventaire() %></td>
@@ -159,7 +177,6 @@ PersonnelAdministrationModel chef = (PersonnelAdministrationModel) session.getAt
         </td>
         <td><%= ressource.getEtat_recep() %></td>
         <td><%= ressource.getEtat_affect() %></td>
-        
         <td class="action-icons"> 
             <input type="hidden" name="ressourceId" id="ressourceId" value="<%= ressource.getIdRes() %>">
             <i class="fas fa-wrench report-icon" title="Signaler Panne" ></i> 
@@ -168,7 +185,7 @@ PersonnelAdministrationModel chef = (PersonnelAdministrationModel) session.getAt
     <% 
             }
         }
-        }
+    }
     %>
 </tbody>
 </table>
@@ -176,6 +193,7 @@ PersonnelAdministrationModel chef = (PersonnelAdministrationModel) session.getAt
 <div id="modal" class="modal">
   <div class="modal-content">
     <span class="close">&times;</span>
+    <br>
     <h4>Sélectionner la date de panne</h4>
     <input type="date" id="datePicker">
     <br>
@@ -190,8 +208,37 @@ $(document).ready(function(){
 
     $(".report-icon").click(function() {
         var ressourceId = $(this).siblings('#ressourceId').val();
-        modal.css("display", "block");
-        $("#confirmButton").attr("data-ressource-id", ressourceId);
+        $.ajax({
+            type: "GET",
+            url: "/backend/pannes?id=" + ressourceId,
+            success: function(data) {
+            	 if (data) {
+                     var jsonString = JSON.stringify(data);
+                     if (data.etat_panne && data.etat_panne === "Non réparée") {
+                    	 Swal.fire({
+                    	        icon: 'info',
+                    	        title: 'En cours de réparation',
+                    	        text: 'La ressource est actuellement en panne et en cours de réparation. Veuillez patienter.',
+                    	    });
+                     }
+                     else if (data.etat_panne && data.etat_panne === "Sévère") {
+                    	    Swal.fire({
+                    	        icon: 'error',
+                    	        title: 'Panne sévère signalée',
+                    	        text: 'Une panne sévère a été signalée sur cette ressource. Le responsable des ressources a été contacté pour trouver une solution.',
+                    	    });
+                    	}
+                     else{
+                    	 modal.css("display", "block");
+                     }
+                     
+                 } else {
+                 	modal.css("display", "block");
+                 }
+            },
+            error: function(xhr, status, error) {
+            }
+        });
     });
 
     closeBtn.click(function() {

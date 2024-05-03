@@ -49,13 +49,13 @@
     }
 
     .edit-icon {
-        font-size: 30px;
+        font-size: 20px;
         color: green; 
         margin-left: 30px;
     }
     
     .delete-icon {
-        font-size: 30px; 
+        font-size: 20px; 
         color: red;
         margin-left: 30px;
     }
@@ -201,6 +201,7 @@
                 <th>Prénom</th>
                 <th>Type</th>
                 <th>Caractéristiques</th>
+                 <th>Demandé en tant que</th>
             </tr>
         </thead>
         <tbody>
@@ -230,6 +231,7 @@
                                 }
                              %>
                             </td>
+                            <td><%= besoin.getDemander_par() %></td>
                             <td class="action-icons"> 
                               <form id="actionForm" action="/gererBesoin" method="POST">
                                 <input type="hidden" name="besoinId" id="besoinId" value="<%= besoin.getId_bes() %>">

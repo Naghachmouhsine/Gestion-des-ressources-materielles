@@ -38,6 +38,7 @@ public class SignalerUnePanneControllerJSP {
 	     RessourceModel ressource=new RessourceModel();
 	     ressource.setIdRes(Integer.parseInt(ressourceId));
 	     panne.setRessource(ressource);
+	     panne.setEtat_panne("Non réparée");
 	     
 	     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 	   	 try {
