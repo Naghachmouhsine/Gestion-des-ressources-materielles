@@ -14,8 +14,9 @@
 	<name>Project_Genie_Logiciel_SpringBoot</name>
 	<description>API project for Spring Boot</description>
 	<properties>
-		<java.version>19.0.2</java.version>
+		<java.version>11</java.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
         <groupId>org.springframework.boot</groupId>

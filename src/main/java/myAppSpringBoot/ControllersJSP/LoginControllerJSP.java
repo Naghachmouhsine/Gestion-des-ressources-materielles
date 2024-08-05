@@ -151,6 +151,8 @@ public class LoginControllerJSP {
                         @RequestParam("passwordForm") String password, 
                         Model model) {
     	// Récupérer l'utilisateur par e-mail
+        String hashedPassword = passwordEncoder.encode(password);
+        System.out.println("pass : " +hashedPassword);
         UserModel existingUser = userController.getUserByEmail(email);
         if (existingUser != null  && passwordEncoder.matches(password, existingUser.getPassword())) {
         	// Stocker l'utilisateur dans la session
